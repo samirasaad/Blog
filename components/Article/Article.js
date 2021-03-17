@@ -27,13 +27,13 @@ const Article = ({
       <div className={`p-3 mt-4 mb-5 ${ArticleStyles.content}`}>
         <div className="d-flex justify-content-between">
           <h3 className={`px-3`}>{title && title}</h3>
-          <div className={`d-flex justify-content-end`}>
-            <div
+          <div>
+            <span
               className={`py-2 px-4 ${ArticleStyles.category}`}
               style={{ backgroundColor: colorValue }}
             >
               {categoryName}
-            </div>
+            </span>
           </div>
         </div>
         <div id="content" className={`p-4 `}></div>
