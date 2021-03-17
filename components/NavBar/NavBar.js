@@ -1,0 +1,64 @@
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+// import logo from '/assets/images/logo.jpg';
+import Image from "next/image";
+import NavBarStyles from "./NavBar.module.scss";
+
+const NavBar = () => {
+  const router = useRouter();
+  const [isAuth, setIsAuth] = useState(false);
+  useEffect(() => {
+    setIsAuth(window.localStorage.getItem("userInfo"));
+  }, []);
+
+  return (
+    <div
+      className={`d-flex justify-content-between align-items-center mb-5 ${NavBarStyles.nav}`}
+    >
+      <div className="position-relative">
+        <Link href="/">
+          <a>
+            <Image src={`/assets/images/logo.jpg`} height="100" width="100" />
+         
+        <h4
+          className={` font-weight-bold position-absolute bold-font ${NavBarStyles.brand}`}
+        >
+          Blog
+        </h4>
+        </a>
+        </Link>
+      </div>
+      <div
+        className={` d-flex justify-content-between align-items-center ${NavBarStyles.items}`}
+      >
+        <Link href="/">
+          <a className="mx-3">All</a>
+        </Link>
+        {isAuth && (
+          <>
+            <Link href="/addArticle">
+              <a className="mx-3">
+                <img
+                  src="/assets/images/plus.svg"
+                  alt="add"
+                  className={`${NavBarStyles.add}`}
+                />
+              </a>
+            </Link>
+            <Link href="/profile">
+              <a className="mx-3">profile</a>
+            </Link>
+          </>
+        )}
+        {!isAuth && (
+          <Link href="/Login">
+            <a className="mx-3">Log In</a>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default NavBar;

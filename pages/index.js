@@ -1,65 +1,129 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import { db } from "./../firebase";
+import { ARTICLES, FAVORITES } from "./../utils/constants";
+import styles from "../styles/Home.module.css";
 
-export default function Home() {
+const Home = () => {
+  const [userID, setUserID] = useState(null);
+  const [articlesList, setArticlesList] = useState([]);
+
+  useEffect(() => {
+    getAllArticles();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      let id =
+        localStorage.getItem("userInfo") &&
+        JSON.parse(localStorage.getItem("userInfo")).uid;
+      setUserID(id);
+    }
+  }, []);
+
+  const getAllArticles = async () => {
+    db.collection(ARTICLES).onSnapshot(
+      (querySnapshot) => {
+        let articles = querySnapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        setArticlesList(articles);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  const addToFavourites = async (articleObj, articleID, favouritBY) => {
+    // add to favorites
+    if (!favouritBY.includes(userID)) {
+      await db
+        .collection(ARTICLES)
+        .doc(articleObj.id)
+        .update({
+          favouritBY: [...favouritBY, userID],
+        })
+        .then(() => {
+          // setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // update favourites collection [my favourites]
+      await db
+        .collection(FAVORITES)
+        .doc(articleObj.id + "-" + userID)
+        .set({
+          ...articleObj,
+          favouritBY: userID,
+        })
+        .then(() => {
+          // setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // remove favorites
+      // remove fav. by from article obj
+      console.log("remove");
+      await db
+        .collection(ARTICLES)
+        .doc(articleObj.id)
+        .update({
+          favouritBY: favouritBY.filter((item) => item !== userID),
+        })
+        .then(() => {
+          // setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // remove doc favourites collection [my favourites]
+      await db
+        .collection(FAVORITES)
+        .doc(articleObj.id + "-" + userID)
+        .delete()
+        .then(() => {
+          // setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <section className={`container-fluid section-min-height`}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <h1 className={styles.title}>HomePage</h1>
+        {articlesList.length > 0 &&
+          articlesList.map((article) => (
+            <div className="" key={article.id}>
+              {article.content}
+              {userID !== article.authorID && (
+                <span
+                  onClick={() =>
+                    addToFavourites(article, article.id, article.favouritBY)
+                  }
+                >
+                  {article.favouritBY.includes(userID) ? (
+                    <span>remmove from favourites</span>
+                  ) : (
+                    <span>add to favourites</span>
+                  )}
+                </span>
+              )}
+            </div>
+          ))}
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+    </section>
+  );
+};
+export default Home;

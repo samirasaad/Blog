@@ -1,0 +1,80 @@
+@import "./../scss/variables";
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
+// FONTS
+.bold-font {
+  font-family: AkayaKanadaka-Bold;
+}
+.medium-font {
+  font-family: AkayaKanadaka-Medium;
+}
+// .bold-english-font {
+//   font-family: Almarai-Bold;
+// }
+// .medium-english-font {
+//   font-family: AkayaKanadaka-Medium;
+// }
+
+// TEXT-EDITOR
+.tox-tinymce {
+  border-radius: 9px !important;
+}
+.tox-notifications-container {
+  div[role="alert"] {
+    display: none !important;
+    opacity: 0 !important;
+  }
+}
+.tox.tox-tinymce {
+  min-height: 200px;
+  max-height: 500px;
+  .tox-statusbar {
+    .tox-statusbar__branding {
+      display: none !important;
+    }
+  }
+}
+.tox-dialog__body-content {
+  .tox-form {
+    .tox-form__group:nth-child(3) {
+      display: none !important;
+    }
+  }
+}
+// COLOR PICKER
+input[id^="rc-editable-input"] {
+  display: none !important;
+}
+// GENERAL STYLES
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+button {
+  background-color: transparent;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+input:focus {
+  outline: none;
+}
+// .tox .tox-button--icon,
+// .tox .tox-button.tox-button--icon,
+// .tox .tox-button.tox-button--secondary.tox-button--icon {
+//   display: none;
+// }
+
+// GENERAL CLASSES
+.section-min-height {
+  min-height: 73vh;
+}

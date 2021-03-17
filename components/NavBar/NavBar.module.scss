@@ -1,0 +1,25 @@
+@import "./../../styles/scss/variables";
+.nav {
+  box-shadow: 3px 4px 9px 1px #eaeaea;
+}
+.items {
+  a {
+    color: $primaryColor;
+  }
+}
+.add {
+  height: 2em;
+}
+.brand {
+  top: 1.6em;
+  left: 3.2em;
+  color: $primaryColor;
+}
+@media screen and (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+  }
+  .items {
+    width: 50%;
+  }
+}

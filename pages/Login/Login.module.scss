@@ -1,0 +1,34 @@
+@import "./../../styles/scss/variables";
+.wrapper {
+  .content {
+    .btns {
+      img {
+        height: 1.9em;
+      }
+      .github,
+      .google {
+        color: white;
+        border-radius: 10px;
+      }
+      .github {
+        background-color: #24292e;
+        &:hover {
+          background-color: #555;
+        }
+      }
+      .google {
+        background-color: #ef675d;
+        &:hover {
+          background-color: #ec7b73;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 678px) {
+  .wrapper {
+    .content {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@each $fontFamily in $EnglishFontFamilies {
+  @each $fontExtention in $fontExtentions {
+    @font-face {
+      font-family: #{$fontFamily};
+      src: url("./../../public/assets/fonts/englishFonts/#{$fontFamily}.#{$fontExtention}");
+    }
+    .#{$fontFamily} {
+      font-family: #{$fontFamily};
+    }
+  }
+}
+
+@each $fontFamily in $ArabicFontFamilies {
+  @each $fontExtention in $fontExtentions {
+    @font-face {
+      font-family: #{$fontFamily};
+      src: url("./../../public/assets/fonts/arabicFonts/#{$fontFamily}.#{$fontExtention}");
+    }
+    .#{$fontFamily} {
+      font-family: #{$fontFamily};
+    }
+  }
+}

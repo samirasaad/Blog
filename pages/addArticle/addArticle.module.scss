@@ -1,0 +1,12 @@
+.preview,
+.save {
+  img {
+    height: 1.7em;
+  }
+}
+.disabled_btn {
+  filter: opacity(0.2);
+}
+.enabled_btn {
+  filter: opacity(1);
+}

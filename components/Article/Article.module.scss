@@ -1,0 +1,19 @@
+.wrapper {
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+  .edit {
+    img {
+      height: 1.6em;
+    }
+  }
+  .content {
+    box-shadow: 0px 2px 9px 1px #eaeaea;
+    border-radius: 10px;
+    text-align: justify;
+    .category {
+      border-radius: 10px;
+    }
+  }
+}
