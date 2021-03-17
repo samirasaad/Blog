@@ -1,15 +1,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-// import logo from '/assets/images/logo.jpg';
 import Image from "next/image";
 import NavBarStyles from "./NavBar.module.scss";
 
 const NavBar = () => {
   const router = useRouter();
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState({});
+
   useEffect(() => {
     setIsAuth(window.localStorage.getItem("userInfo"));
+    setUser(JSON.parse(window.localStorage.getItem("userInfo")));
   }, []);
 
   return (
@@ -20,13 +22,13 @@ const NavBar = () => {
         <Link href="/">
           <a>
             <Image src={`/assets/images/logo.jpg`} height="100" width="100" />
-         
-        <h4
-          className={` font-weight-bold position-absolute bold-font ${NavBarStyles.brand}`}
-        >
-          Blog
-        </h4>
-        </a>
+
+            <h4
+              className={` font-weight-bold position-absolute bold-font ${NavBarStyles.brand}`}
+            >
+              Blog
+            </h4>
+          </a>
         </Link>
       </div>
       <div
@@ -47,7 +49,16 @@ const NavBar = () => {
               </a>
             </Link>
             <Link href="/profile">
-              <a className="mx-3">profile</a>
+              <a className="mx-3">
+                <img
+                  src={
+                    user.photoURL
+                      ? user.photoURL
+                      : "/assets/images/placeholder.jpg"
+                  }
+                  className="profile-img-medium"
+                />
+              </a>
             </Link>
           </>
         )}

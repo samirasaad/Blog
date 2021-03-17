@@ -1,3 +1,4 @@
+@import "./../../styles/scss/variables";
 .preview,
 .save {
   img {
@@ -9,4 +10,7 @@
 }
 .enabled_btn {
   filter: opacity(1);
+}
+.title {
+  color: $primaryColor;
 }

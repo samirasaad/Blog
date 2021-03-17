@@ -1,24 +1,22 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { db } from "./../firebase";
 import { ARTICLES, FAVORITES } from "./../utils/constants";
+import AllArticles from "../components/AllArticles/AllArticles";
 import styles from "../styles/Home.module.css";
 
 const Home = () => {
-  const [userID, setUserID] = useState(null);
+  const router = useRouter();
   const [articlesList, setArticlesList] = useState([]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    getAllArticles();
+    setUser(JSON.parse(window.localStorage.getItem("userInfo")));
   }, []);
 
   useEffect(() => {
-    if (typeof window !== undefined) {
-      let id =
-        localStorage.getItem("userInfo") &&
-        JSON.parse(localStorage.getItem("userInfo")).uid;
-      setUserID(id);
-    }
+    getAllArticles();
   }, []);
 
   const getAllArticles = async () => {
@@ -35,93 +33,84 @@ const Home = () => {
     );
   };
 
-  const addToFavourites = async (articleObj, articleID, favouritBY) => {
-    // add to favorites
-    if (!favouritBY.includes(userID)) {
-      await db
-        .collection(ARTICLES)
-        .doc(articleObj.id)
-        .update({
-          favouritBY: [...favouritBY, userID],
-        })
-        .then(() => {
-          // setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      // update favourites collection [my favourites]
-      await db
-        .collection(FAVORITES)
-        .doc(articleObj.id + "-" + userID)
-        .set({
-          ...articleObj,
-          favouritBY: userID,
-        })
-        .then(() => {
-          // setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  const addToFavourites = async (articleObj, favouritBY) => {
+    if (user) {
+      // add to favorites
+      if (!favouritBY.includes(user.uid)) {
+        await db
+          .collection(ARTICLES)
+          .doc(articleObj.id)
+          .update({
+            favouritBY: [...favouritBY, user.uid],
+          })
+          .then(() => {
+            // setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        // update favourites collection [my favourites]
+        await db
+          .collection(FAVORITES)
+          .doc(articleObj.id + "-" + user.uid)
+          .set({
+            ...articleObj,
+            favouritBY: user.uid,
+          })
+          .then(() => {
+            // setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        // remove favorites
+        // remove fav. by from article obj
+        console.log("remove");
+        await db
+          .collection(ARTICLES)
+          .doc(articleObj.id)
+          .update({
+            favouritBY: favouritBY.filter((item) => item !== user.uid),
+          })
+          .then(() => {
+            // setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        // remove doc favourites collection [my favourites]
+        await db
+          .collection(FAVORITES)
+          .doc(articleObj.id + "-" + user.uid)
+          .delete()
+          .then(() => {
+            // setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else {
-      // remove favorites
-      // remove fav. by from article obj
-      console.log("remove");
-      await db
-        .collection(ARTICLES)
-        .doc(articleObj.id)
-        .update({
-          favouritBY: favouritBY.filter((item) => item !== userID),
-        })
-        .then(() => {
-          // setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      // remove doc favourites collection [my favourites]
-      await db
-        .collection(FAVORITES)
-        .doc(articleObj.id + "-" + userID)
-        .delete()
-        .then(() => {
-          // setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      router.push("/Login");
     }
   };
 
   return (
     <section className={`container-fluid section-min-height`}>
       <Head>
-        <title>Create Next App</title>
+        <title>All Articles</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
-        <h1 className={styles.title}>HomePage</h1>
-        {articlesList.length > 0 &&
-          articlesList.map((article) => (
-            <div className="" key={article.id}>
-              {article.content}
-              {userID !== article.authorID && (
-                <span
-                  onClick={() =>
-                    addToFavourites(article, article.id, article.favouritBY)
-                  }
-                >
-                  {article.favouritBY.includes(userID) ? (
-                    <span>remmove from favourites</span>
-                  ) : (
-                    <span>add to favourites</span>
-                  )}
-                </span>
-              )}
-            </div>
-          ))}
+        <h1 className={` font-weight-bold mx-md-4 mx-0 ${styles.title}`}>All Articles</h1>
+        {articlesList && articlesList.length > 0 && (
+          <AllArticles
+            articlesList={articlesList}
+            addToFavourites={addToFavourites}
+            user={user}
+          />
+        )}
       </main>
     </section>
   );

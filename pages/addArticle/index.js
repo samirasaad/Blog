@@ -11,7 +11,7 @@ import addArticleStyles from "./addArticle.module.scss";
 
 const AddArticle = () => {
   const router = useRouter();
-  const [userID, setUserID] = useState(null);
+  const [user, setUser] = useState({});
   const [isPreview, setIsPreview] = useState(false);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -21,10 +21,9 @@ const AddArticle = () => {
   useEffect(() => {
     // check we on browser not server
     if (typeof window !== undefined) {
-      let id =
-        localStorage.getItem("userInfo") &&
-        JSON.parse(localStorage.getItem("userInfo")).uid;
-      setUserID(id);
+      if (localStorage.getItem("userInfo")) {
+        setUser(JSON.parse(localStorage.getItem("userInfo")));
+      }
     }
   }, []);
 
@@ -48,31 +47,35 @@ const AddArticle = () => {
 
   const handleCategoryChange = (e) => {
     console.log(e.target.value);
-    setCategoryName(e.target.value.substring(0, 2));
+    setCategoryName(e.target.value.substring(0, 15));
     // setCategoryName(e.target.value);
   };
   const handleTitleChange = (e) => {
     console.log(e.target.value);
-    setTitle(e.target.value.substring(0, 2));
+    setTitle(e.target.value.substring(0, 255));
     // setTitle(e.target.value);
   };
 
   const handleSubmit = async (e) => {
+    console.log(user);
     e.preventDefault();
     let timestamp = Math.ceil(new Date().getTime() / 1000).toString();
     let articleObj = {
       content,
-      authorID: userID,
+      authorID: user.uid,
       timestamp,
       favouritBY: [],
-      id: userID + "-" + timestamp,
+      id: user.uid + "-" + timestamp,
       color: colorValue,
       categoryName,
+      title,
+      authorName: user.displayName,
+      authorPhoto: user.photoURL || "",
     };
     // add to firestore
     await db
       .collection(ARTICLES)
-      .doc(userID + "-" + timestamp)
+      .doc(user.uid + "-" + timestamp)
       .set(articleObj)
       .then(() => {
         setContent("");
@@ -87,6 +90,9 @@ const AddArticle = () => {
 
   return (
     <section className="container section-min-height">
+      <h1 className={`mt-4 font-weight-bold ${addArticleStyles.title}`}>
+        Article Details
+      </h1>
       {!isPreview ? (
         <form onSubmit={handleSubmit}>
           <div className="d-flex justify-content-end mb-3">
@@ -113,16 +119,17 @@ const AddArticle = () => {
             />
           </div>
           <div className="">
-            <h3 className="mt-4">Article Title</h3>
+            <h3 className="mt-4">Article title</h3>
             <InputField
               handleChange={handleTitleChange}
               placeholder="title"
-              className={`p-2 w-100 mb-5`}
+              className={`p-2 w-100 `}
               // inputValue={title}
               autoFocus={true}
               type="text"
             />
           </div>
+          <h3 className="mt-4">Article Content </h3>
           <TextEditor
             className="mb-4"
             handleEditorChange={handleEditorChange}

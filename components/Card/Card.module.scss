@@ -1,0 +1,21 @@
+.wrapper {
+  box-shadow: 0px 2px 9px 1px #eaeaea;
+  border-radius: 19px;
+  h4 {
+    width: 100%;
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .category {
+    border-radius: 2em;
+    color: white;
+  }
+  .fav {
+    height: 1.5em;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

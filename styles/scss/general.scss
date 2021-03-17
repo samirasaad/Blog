@@ -78,3 +78,17 @@ input:focus {
 .section-min-height {
   min-height: 73vh;
 }
+.profile-img-large,
+.profile-img-medium {
+  border-radius: 50%;
+  box-shadow: 0px 1px 5px 3px #dcdcdc;
+}
+.profile-img-medium {
+  height: 50px;
+  width: 50px;
+}
+
+.profile-img-large {
+  height: 80px;
+  width: 80px;
+}
