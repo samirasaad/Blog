@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import withAuth from "../../routeGuard/privateRoute";
+// import withAuth from "../../routeGuard/privateRoute";
+import withPrivateRoute from "../../routeGuard/PrivateRoute";
 import { db } from "./../../firebase";
 import { ARTICLES, FAVORITES } from "./../../utils/constants";
 
@@ -82,4 +83,11 @@ const Profile = () => {
   );
 };
 
-export default withAuth(Profile);
+// export default withAuth(Profile);
+export default withPrivateRoute(Profile);
+
+
+Profile.getInitialProps = async props => {
+  console.info('##### Congratulations! You are authorized! ######', props);
+  return {};
+};

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { db } from "../../firebase";
 import { signInFirestore } from "./../../firebase/authMethods";
 import { USERS } from "./../../utils/constants";
-import withNoAuth from "../../routeGuard/publicRoute";
+import withPublicRoute from "../../routeGuard/PublicRoute";
 import Lottie from "react-lottie";
 import LoginLottie from "./../../public/assets/lotties/loginLottie.json";
 import Btn from "./../../components/controls/Btn/Btn";
@@ -148,4 +148,4 @@ const Login = () => {
   );
 };
 
-export default withNoAuth(Login);
+export default withPublicRoute(Login);
