@@ -8,7 +8,13 @@ const MyArticles = ({ user, myArticlesList, deleteArticle }) => {
         {myArticlesList &&
           myArticlesList.length > 0 &&
           myArticlesList.map((article) => (
-            <Card key={article.id} article={article} user={user} />
+            <Card
+              key={article.id}
+              article={article}
+              user={user}
+              canDelete={true}
+              deleteArticle={deleteArticle}
+            />
           ))}
       </div>
     );

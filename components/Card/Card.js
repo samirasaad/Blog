@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import CardStyle from "./Card.module.scss";
 import { addToFavourites } from "./../../utils/helpers";
 
-const Card = ({ article, user }) => {
+const Card = ({ article, user, canDelete, deleteArticle }) => {
   useEffect(() => {
     let contentElem = document.getElementById(article.id);
     if (article.content && contentElem) {
@@ -13,7 +13,16 @@ const Card = ({ article, user }) => {
   return (
     <div className={`col-xl-3 col-lg-4 col-md-6 my-3 p-3 `} key={article.id}>
       <div className={`p-3 ${CardStyle.wrapper}`}>
-        <h4 id={article.id}></h4>
+        <div className="position-relative">
+          {canDelete && (
+            <img
+              src="/assets/images/delete.svg"
+              className={`position-absolute  ${CardStyle.delete}`}
+              onClick={() => deleteArticle(article.id)}
+            />
+          )}
+          <h4 className={`${canDelete && "pt-4"}`} id={article.id}></h4>
+        </div>
         <div className="d-flex justify-content-center flex-column align-items-center my-4 pt-4">
           <img
             src={

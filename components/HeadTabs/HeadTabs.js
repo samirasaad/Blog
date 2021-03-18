@@ -3,13 +3,7 @@ import "react-tabs/style/react-tabs.css";
 import MyArticles from "../MyArticles/MyArticles";
 import MyFavorites from "../MyFavorites/MyFavorites";
 
-const HeadTabs = ({
-  user,
-  myArticlesList,
-  myFavoritesList,
-  deleteArticle,
-  addToFavourites,
-}) => (
+const HeadTabs = ({ user, myArticlesList, myFavoritesList, deleteArticle }) => (
   <Tabs>
     <TabList>
       <Tab>My Articles </Tab>

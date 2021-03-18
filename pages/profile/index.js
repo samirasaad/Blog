@@ -58,6 +58,7 @@ const Profile = () => {
   };
 
   const deleteArticle = async (articleID) => {
+    // remove from articles list
     await db
       .collection(ARTICLES)
       .doc(articleID)
@@ -67,6 +68,37 @@ const Profile = () => {
       })
       .catch((err) => {
         console.log(err);
+      });
+    // remove from favorites list
+    // await db
+    //   .collection(FAVORITES)
+    //   .where("id", "==", articleID)
+    //   .delete()
+    //   .then(() => {
+    //     // setLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    await db
+      .collection(FAVORITES)
+      .where("id", "==", articleID)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref
+            .delete()
+            .then(() => {
+              console.log("Document successfully deleted!");
+            })
+            .catch(function (error) {
+              console.error("Error removing document: ", error);
+            });
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
       });
   };
 

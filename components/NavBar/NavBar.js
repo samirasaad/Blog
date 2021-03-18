@@ -47,7 +47,7 @@ const NavBar = () => {
           <div className="d-flex justify-content-center">
             <FloatingSearchBar />
           </div>
-          <div>
+          <div className='d-flex align-items-center'>
             <Link href="/">
               <a className={` mx-3 ${NavBarStyles.item}`}>All</a>
             </Link>
