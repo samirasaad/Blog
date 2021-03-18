@@ -8,7 +8,7 @@ const TextEditor = ({
   handleEditorChange,
   value,
 }) => {
-  return Editor ? (
+  return (
     <Editor
       init={{
         setup: function (ed) {
@@ -75,23 +75,13 @@ const TextEditor = ({
 
           input.click();
         },
-
-        // function(callback, value, meta) {
-        //   // Provide image and alt text for the image dialog
-        //   if (meta.filetype == 'image') {
-        //     console.log(value)
-        //     console.log(meta)
-        //     callback(value, {alt: 'wallpaper'});
-        //   }
-        // }
       }}
       initialValue={initialValue}
       onEditorChange={handleEditorChange}
       id={id}
-      value={value}
+      value={initialValue}
+      // value={value}
     />
-  ) : (
-    <span>loading....</span>
   );
 };
 

@@ -17,6 +17,12 @@ const AddArticle = () => {
   const [title, setTitle] = useState("");
   const [colorValue, setColorValue] = useState("#f47373");
   const [categoryName, setCategoryName] = useState("");
+  const [article, setArticle] = useState({
+    content: "",
+    title: "",
+    colorValue: "",
+    categoryName: "",
+  });
 
   useEffect(() => {
     // check we on browser not server
@@ -24,60 +30,59 @@ const AddArticle = () => {
       if (localStorage.getItem("userInfo")) {
         setUser(JSON.parse(localStorage.getItem("userInfo")));
       }
-
-      if (localStorage.getItem("article")) {
-        setContent(JSON.parse(localStorage.getItem("article")).content);
-        setTitle(JSON.parse(localStorage.getItem("article")).title);
-        setColorValue(JSON.parse(localStorage.getItem("article")).colorValue);
-        setCategoryName(
-          JSON.parse(localStorage.getItem("article")).categoryName
-        );
-      }
     }
   }, []);
 
+  useEffect(() => {
+    if (localStorage.getItem("article")) {
+      console.log("changed", router);
+      setArticle({
+        content: JSON.parse(localStorage.getItem("article")).content,
+        title: JSON.parse(localStorage.getItem("article")).title,
+        colorValue: JSON.parse(localStorage.getItem("article")).colorValue,
+        categoryName: JSON.parse(localStorage.getItem("article")).categoryName,
+      });
+    }
+  }, [router.pathname]);
+
   const handleEditorChange = (content, editor) => {
-    setContent(content);
+    setArticle({ ...article, content });
   };
 
   const handlePreview = () => {
     let articleObj = {
-      title,
-      content,
-      colorValue,
-      categoryName,
+      title: article.title,
+      content: article.content,
+      colorValue: article.colorValue,
+      categoryName: article.categoryName,
     };
     localStorage.setItem("article", JSON.stringify(articleObj));
     router.push("/preview");
   };
 
   const handleColorChange = (e) => {
-    setColorValue(e.hex);
+    setArticle({ ...article, colorValue: e.hex });
   };
 
   const handleCategoryChange = (e) => {
-    console.log(e.target.value);
-    setCategoryName(e.target.value.substring(0, 15));
-    // setCategoryName(e.target.value);
+    setArticle({ ...article, categoryName: e.target.value.substring(0, 15) });
   };
   const handleTitleChange = (e) => {
-    console.log(e.target.value);
-    setTitle(e.target.value.substring(0, 60));
-    // setTitle(e.target.value);
+    setArticle({ ...article, title: e.target.value.substring(0, 60) });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let timestamp = Math.ceil(new Date().getTime() / 1000).toString();
     let articleObj = {
-      content,
+      content: article.content,
       authorID: user.uid,
       timestamp,
       favouritBY: [],
       id: user.uid + "-" + timestamp,
-      color: colorValue,
-      categoryName,
-      title,
+      color: article.colorValue,
+      categoryName: article.categoryName,
+      title: article.title,
       authorName: user.displayName,
       authorPhoto: user.photoURL || "",
     };
@@ -107,23 +112,29 @@ const AddArticle = () => {
         <div className="d-flex justify-content-end mb-3">
           <Btn
             className={`${
-              !content || !categoryName || !colorValue || !title
+              !article.content ||
+              !article.categoryName ||
+              !article.colorValue ||
+              !article.title
                 ? addArticleStyles.disabled_btn
                 : addArticleStyles.enabled_btn
             } ${addArticleStyles.preview}`}
             type="button"
             handleClick={handlePreview}
-            disabled={!content}
+            disabled={!article.content}
             content={<img src="/assets/images/eye.svg" alt="preview" />}
           />
           <Btn
             className={`${
-              !content || !categoryName || !colorValue || !title
+              !article.content ||
+              !article.categoryName ||
+              !article.colorValue ||
+              !article.title
                 ? addArticleStyles.disabled_btn
                 : addArticleStyles.enabled_btn
             } ${addArticleStyles.save}`}
             type="submit"
-            disabled={!content}
+            disabled={!article.content}
             content={<img src="/assets/images/save.svg" alt="save" />}
           />
         </div>
@@ -133,7 +144,7 @@ const AddArticle = () => {
             handleChange={handleTitleChange}
             placeholder="title"
             className={`p-2 w-100 `}
-            // inputValue={title}
+            inputValue={article.title}
             autoFocus={true}
             type="text"
           />
@@ -143,8 +154,8 @@ const AddArticle = () => {
           className="mb-4"
           handleEditorChange={handleEditorChange}
           id="text-editor"
-          initialValue={content}
-          value={content}
+          // initialValue={content}
+          initialValue={article.content}
         />
         <h3 className="mt-4">Article Category</h3>
         <div>
@@ -155,7 +166,7 @@ const AddArticle = () => {
                 handleChange={handleCategoryChange}
                 placeholder="Category name"
                 className={`p-2`}
-                // inputValue={categoryName}
+                inputValue={article.categoryName}
                 type="text"
               />
             </div>
@@ -163,7 +174,7 @@ const AddArticle = () => {
           <div className="mt-4">
             <label>Category Color [Label]: </label>
             <Picker
-              colorValue={colorValue}
+              colorValue={article.colorValue}
               handleColorChange={handleColorChange}
             />
           </div>
@@ -175,7 +186,7 @@ const AddArticle = () => {
 
 export default withPrivateRoute(AddArticle);
 
-AddArticle.getInitialProps = async props => {
-  console.info('##### AddArticle', props);
-  return {};
-};
+// AddArticle.getInitialProps = async (props) => {
+//   console.info("##### AddArticle", props);
+//   return {};
+// };
