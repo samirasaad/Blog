@@ -44,7 +44,8 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
           {(user &&
             user.uid &&
             article.favouritBY.filter((obj) => obj.id === user.uid).length ===
-              0) ||
+              0 &&
+            article.authorID !== user.uid) ||
           !user ? (
             <div
               className="d-flex flex-column align-items-center"
@@ -59,25 +60,24 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
                 {article.favouritBY.length}
               </p>
             </div>
+          ) : user &&
+            article.favouritBY.filter((obj) => obj.id === user.uid).length >
+              0 ? (
+            <div
+              className="d-flex flex-column align-items-center"
+              onClick={() => addToFavourites(user, article, article.favouritBY)}
+            >
+              <img
+                src="/assets/images/favourites.svg"
+                alt="unfavorite"
+                className={CardStyle.fav}
+              />
+              <p className="mb-0 text-muted small font-weight-bold">
+                {article.favouritBY.length}
+              </p>
+            </div>
           ) : (
-            user &&
-            article.favouritBY.filter((obj) => obj.id === user.uid) && (
-              <div
-                className="d-flex flex-column align-items-center"
-                onClick={() =>
-                  addToFavourites(user, article, article.favouritBY)
-                }
-              >
-                <img
-                  src="/assets/images/favourites.svg"
-                  alt="unfavorite"
-                  className={CardStyle.fav}
-                />
-                <p className="mb-0 text-muted small font-weight-bold">
-                  {article.favouritBY.length}
-                </p>
-              </div>
-            )
+            user && article.authorID === user.uid && <></>
           )}
         </div>
       </div>

@@ -20,7 +20,7 @@ const AddArticle = () => {
   const [article, setArticle] = useState({
     content: "",
     title: "",
-    colorValue: "",
+    colorValue: "#f47373",
     categoryName: "",
   });
 
@@ -92,10 +92,12 @@ const AddArticle = () => {
       .doc(user.uid + "-" + timestamp)
       .set(articleObj)
       .then(() => {
-        setContent("");
-        setCategoryName("");
-        setTitle("");
-        setColorValue("#f47373");
+        setArticle({
+          content: "",
+          title: "",
+          colorValue: "#f47373",
+          categoryName: "",
+        });
         localStorage.removeItem("article");
       })
       .catch((err) => {
