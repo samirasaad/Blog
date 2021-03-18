@@ -1,25 +1,31 @@
 @import "./../../styles/scss/variables";
 .nav {
   box-shadow: 3px 4px 9px 1px #eaeaea;
+  .logo {
+    border-radius: 50%;
+    border-left: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+  }
   .items {
     a {
       color: $primaryColor;
     }
   }
-  .add {
-    height: 2em;
+  .add,
+  .logout {
+    height: 2.1em;
+  }
+  .logout {
+    transform: rotateY(180deg);
   }
   .brand {
-    top: 1.6em;
-    left: 3.2em;
+    top: 2.2em;
+    left: 4.1em;
     color: $primaryColor;
   }
 }
 @media screen and (max-width: 768px) {
   .nav {
     flex-direction: column;
-  }
-  .items {
-    width: 50%;
   }
 }

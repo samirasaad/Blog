@@ -71,7 +71,7 @@ const Profile = () => {
       {myArticlesList.length > 0 ? (
         myArticlesList.map((article) => (
           <div>
-            {article.content}{" "}
+            {article.content}
             <span onClick={() => deleteArticle(article.id)}>delete</span>
           </div>
         ))

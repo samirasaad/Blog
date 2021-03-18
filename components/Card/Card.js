@@ -10,7 +10,7 @@ const Card = ({ article, user, addToFavourites }) => {
   }, [article, user]);
 
   return (
-    <div className={`col-lg-3 col-md-6 my-3 p-3 `} key={article.id}>
+    <div className={`col-xl-3 col-lg-4 col-md-6 my-3 p-3 `} key={article.id}>
       <div className={`p-3 ${CardStyle.wrapper}`}>
         <h4 id={article.id}></h4>
         <div className="d-flex justify-content-center flex-column align-items-center my-4 pt-4">

@@ -9,6 +9,7 @@ const AllArticles = ({ articlesList, user, addToFavourites }) => {
           articlesList.length > 0 &&
           articlesList.map((article) => (
             <Card
+              key={article.id}
               article={article}
               user={user}
               addToFavourites={addToFavourites}
