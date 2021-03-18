@@ -88,6 +88,6 @@ export default withPrivateRoute(Profile);
 
 
 Profile.getInitialProps = async props => {
-  console.info('##### Congratulations! You are authorized! ######', props);
+  console.info('##### profile', props);
   return {};
 };

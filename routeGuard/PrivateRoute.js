@@ -4,7 +4,7 @@ import { isAuth } from "../utils/helpers";
 
 const PrivateRoute = (WrappedComponent) => {
   const checkUserAuthentication = () => {
-    return { auth: null };
+    return { auth: true };
   };
 
   const login = "/Login";

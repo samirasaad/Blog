@@ -7,6 +7,7 @@ import Preview from "../../components/Preview/Preview";
 import Picker from "../../components/ColorPicker/ColorPicker";
 import Btn from "../../components/controls/Btn/Btn";
 import InputField from "../../components/controls/InputField/InputField";
+import withPrivateRoute from "../../routeGuard/PrivateRoute";
 import addArticleStyles from "./addArticle.module.scss";
 
 const AddArticle = () => {
@@ -172,4 +173,9 @@ const AddArticle = () => {
   );
 };
 
-export default AddArticle;
+export default withPrivateRoute(AddArticle);
+
+AddArticle.getInitialProps = async props => {
+  console.info('##### AddArticle', props);
+  return {};
+};
