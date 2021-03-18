@@ -59,36 +59,36 @@ const Profile = () => {
 
   const deleteArticle = async (articleID) => {
     // remove from articles list
-    // await db
-    //   .collection(ARTICLES)
-    //   .doc(articleID)
-    //   .delete()
-    //   .then(() => {
-    //     // setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // // remove from favorites list
-    // await db
-    //   .collection(FAVORITES)
-    //   .where("id", "==", articleID)
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //       doc.ref
-    //         .delete()
-    //         .then(() => {
-    //           console.log("Document successfully deleted!");
-    //         })
-    //         .catch(function (error) {
-    //           console.error("Error removing document: ", error);
-    //         });
-    //     });
-    //   })
-    //   .catch(function (error) {
-    //     console.log("Error getting documents: ", error);
-    //   });
+    await db
+      .collection(ARTICLES)
+      .doc(articleID)
+      .delete()
+      .then(() => {
+        // setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // remove from favorites list
+    await db
+      .collection(FAVORITES)
+      .where("id", "==", articleID)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref
+            .delete()
+            .then(() => {
+              console.log("Document successfully deleted!");
+            })
+            .catch(function (error) {
+              console.error("Error removing document: ", error);
+            });
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
   };
 
   return (
@@ -98,20 +98,7 @@ const Profile = () => {
         myArticlesList={myArticlesList}
         myFavoritesList={myFavoritesList}
         deleteArticle={deleteArticle}
-        // addToFavourites={addToFavourites}
       />
-      {/* <p onClick={getMyArticles}>my articles</p>
-      <p onClick={getMyFavourites}>my favorites</p>
-      {myArticlesList.length > 0 ? (
-        myArticlesList.map((article) => (
-          <div>
-            {article.content}
-            <span onClick={() => deleteArticle(article.id)}>delete</span>
-          </div>
-        ))
-      ) : (
-        <span>u have no articles yet add?</span>
-      )} */}
     </section>
   );
 };

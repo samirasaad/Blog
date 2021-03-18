@@ -19,11 +19,11 @@ const ConfirmatiomDialog = ({
       buttons: [
         {
           label: confirmText,
-          onClick: () => handleConfirm,
+          onClick: handleConfirm,
         },
         {
           label: cancelText,
-          onClick: () => handleCancel,
+          onClick: handleCancel,
         },
       ],
     });

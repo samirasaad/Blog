@@ -9,7 +9,6 @@ export const logout = () => {
 };
 
 export const addToFavourites = async (user, articleObj, favouritBY) => {
-  console.log(favouritBY);
   if (user) {
     // add to favorites
     if (!favouritBY.find((obj) => obj.id === user.uid)) {

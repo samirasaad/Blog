@@ -3,8 +3,8 @@
   box-shadow: 3px 4px 9px 1px #eaeaea;
   .logo {
     border-radius: 50%;
-    border-left: 1px solid #eaeaea;
-    border-bottom: 1px solid #eaeaea;
+    border-left: 1px solid #bef6ff;
+    border-bottom: 1px solid #6fccdd;
   }
   .items {
     a {
@@ -14,12 +14,14 @@
       font-size: 1.2em;
     }
   }
-  .add,
-  .logout {
+  .add {
     height: 2.1em;
   }
   .logout {
-    transform: rotateY(180deg);
+    img {
+      height: 2.1em;
+      transform: rotateY(180deg);
+    }
   }
   .brand {
     top: 2.2em;

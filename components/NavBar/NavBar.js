@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Btn from "./../../components/controls/Btn/Btn";
+import {useRouter} from 'next/router';
 import { logout } from "./../../utils/helpers";
 import NavBarStyles from "./NavBar.module.scss";
 import FloatingSearchBar from "../FloatingSearchBar/FloatingSearchBar";
+import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
 
 const NavBar = () => {
+  const router = useRouter();
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
 
@@ -16,6 +18,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     logout();
+    router.push('/Login')
   };
 
   return (
@@ -74,14 +77,15 @@ const NavBar = () => {
                     />
                   </a>
                 </Link>
-                <Btn
-                  handleClick={handleLogout}
-                  content={
-                    <img
-                      src="/assets/images/logout.png"
-                      alt="logout"
-                      className={NavBarStyles.logout}
-                    />
+
+                <ConfirmatiomDialog
+                  className={` ${NavBarStyles.logout}`}
+                  dialogTitle="Are You Sure You Want To Logout ?"
+                  cancelText="No"
+                  confirmText="Log out"
+                  handleConfirm={handleLogout}
+                  clickableItem={
+                    <img src="/assets/images/logout.png" alt="logout" />
                   }
                 />
               </>

@@ -11,10 +11,6 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
     }
   }, [article, user]);
 
-  const handleCancel = () => {
-    console.log("cancel ");
-  };
-
   return (
     <div className={`col-xl-3 col-lg-4 col-md-6 my-3 p-3 `} key={article.id}>
       <div className={`p-3 ${CardStyle.wrapper}`}>
@@ -40,7 +36,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
             }
             className="profile-img-large"
           />
-          <p className="my-3">{` By: ${article.authorName}`}</p>
+          <h5 className="my-3">{` By: ${article.authorName}`}</h5>
         </div>
         <div className="d-flex justify-content-between align-items-baseline">
           <div
