@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import withAuth from "../../routeGuard/privateRoute";
+import HeadTabs from "../../components/HeadTabs/HeadTabs";
 import withPrivateRoute from "../../routeGuard/PrivateRoute";
 import { db } from "./../../firebase";
 import { ARTICLES, FAVORITES } from "./../../utils/constants";
 
 const Profile = () => {
-  const [userID, setUserID] = useState(null);
-  const [myArticlesList, setMayArticlesList] = useState([]);
+  const [user, setUser] = useState(null);
+  const [myArticlesList, setMyArticlesList] = useState([]);
   const [myFavoritesList, setMyFavoritesList] = useState([]);
 
   useEffect(() => {
@@ -14,20 +14,26 @@ const Profile = () => {
       let id =
         localStorage.getItem("userInfo") &&
         JSON.parse(localStorage.getItem("userInfo")).uid;
-      setUserID(id);
+      setUser(JSON.parse(localStorage.getItem("userInfo")));
     }
   }, []);
 
+  useEffect(() => {
+    if (user && user.uid) {
+      getMyArticles();
+      getMyFavourites();
+    }
+  }, [user]);
+
   const getMyArticles = () => {
     db.collection(ARTICLES)
-      .where("authorID", "==", userID)
+      .where("authorID", "==", user.uid)
       .onSnapshot(
         (querySnapshot) => {
           let articles = querySnapshot.docs.map((doc) => {
             return doc.data();
           });
-          console.log(articles);
-          setMayArticlesList(articles);
+          setMyArticlesList(articles);
         },
         (error) => {
           console.log(error);
@@ -37,13 +43,12 @@ const Profile = () => {
 
   const getMyFavourites = () => {
     db.collection(FAVORITES)
-      .where("favouritBY", "==", userID)
+      .where("favouritBY", "array-contains", { id: user.uid })
       .onSnapshot(
         (querySnapshot) => {
           let favorites = querySnapshot.docs.map((doc) => {
             return doc.data();
           });
-          console.log(favorites);
           setMyFavoritesList(favorites);
         },
         (error) => {
@@ -66,8 +71,15 @@ const Profile = () => {
   };
 
   return (
-    <section className='container section-min-height'>
-      <p onClick={getMyArticles}>my articles</p>
+    <section className="container section-min-height">
+      <HeadTabs
+        user={user}
+        myArticlesList={myArticlesList}
+        myFavoritesList={myFavoritesList}
+        deleteArticle={deleteArticle}
+        // addToFavourites={addToFavourites}
+      />
+      {/* <p onClick={getMyArticles}>my articles</p>
       <p onClick={getMyFavourites}>my favorites</p>
       {myArticlesList.length > 0 ? (
         myArticlesList.map((article) => (
@@ -78,7 +90,7 @@ const Profile = () => {
         ))
       ) : (
         <span>u have no articles yet add?</span>
-      )}
+      )} */}
     </section>
   );
 };
@@ -86,8 +98,7 @@ const Profile = () => {
 // export default withAuth(Profile);
 export default withPrivateRoute(Profile);
 
-
-Profile.getInitialProps = async props => {
-  console.info('##### profile', props);
+Profile.getInitialProps = async (props) => {
+  console.info("##### profile", props);
   return {};
 };

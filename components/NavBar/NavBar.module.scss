@@ -10,6 +10,9 @@
     a {
       color: $primaryColor;
     }
+    .item {
+      font-size: 1.2em;
+    }
   }
   .add,
   .logout {
@@ -27,5 +30,8 @@
 @media screen and (max-width: 768px) {
   .nav {
     flex-direction: column;
+  }
+  .wrapper {
+    flex-direction: column-reverse;
   }
 }

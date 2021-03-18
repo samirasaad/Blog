@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import CardStyle from "./Card.module.scss";
+import { addToFavourites } from "./../../utils/helpers";
 
-const Card = ({ article, user, addToFavourites }) => {
+const Card = ({ article, user }) => {
   useEffect(() => {
     let contentElem = document.getElementById(article.id);
     if (article.content && contentElem) {
@@ -31,11 +32,14 @@ const Card = ({ article, user, addToFavourites }) => {
           >
             <span>{article.categoryName}</span>
           </div>
-          {(user && user.uid && !article.favouritBY.includes(user.uid)) ||
+          {(user &&
+            user.uid &&
+            article.favouritBY.filter((obj) => obj.id === user.uid).length ===
+              0) ||
           !user ? (
             <div
               className="d-flex flex-column align-items-center"
-              onClick={() => addToFavourites(article, article.favouritBY)}
+              onClick={() => addToFavourites(user, article, article.favouritBY)}
             >
               <img
                 src="/assets/images/unfavorite.svg"
@@ -48,10 +52,12 @@ const Card = ({ article, user, addToFavourites }) => {
             </div>
           ) : (
             user &&
-            article.favouritBY.includes(user.uid) && (
+            article.favouritBY.filter((obj) => obj.id === user.uid) && (
               <div
                 className="d-flex flex-column align-items-center"
-                onClick={() => addToFavourites(article, article.favouritBY)}
+                onClick={() =>
+                  addToFavourites(user, article, article.favouritBY)
+                }
               >
                 <img
                   src="/assets/images/favourites.svg"
@@ -64,20 +70,6 @@ const Card = ({ article, user, addToFavourites }) => {
               </div>
             )
           )}
-          {/* {user && user.uid && user.uid !== article.authorID && (
-          <p
-            // className="favorite"
-            onClick={() =>
-              addToFavourites(article, article.id, article.favouritBY)
-            }
-          >
-            {article.favouritBY.includes(user.uid) ? (
-              <span>remmove from favourites</span>
-            ) : (
-              <span>add to favourites</span>
-            )}
-          </p>
-        )} */}
         </div>
       </div>
     </div>

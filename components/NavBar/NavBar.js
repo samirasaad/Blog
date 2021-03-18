@@ -3,6 +3,7 @@ import Link from "next/link";
 import Btn from "./../../components/controls/Btn/Btn";
 import { logout } from "./../../utils/helpers";
 import NavBarStyles from "./NavBar.module.scss";
+import FloatingSearchBar from "../FloatingSearchBar/FloatingSearchBar";
 
 const NavBar = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -40,50 +41,57 @@ const NavBar = () => {
         </Link>
       </div>
       <div
-        className={` d-flex justify-content-between align-items-center ${NavBarStyles.items}`}
+        className={`d-flex justify-content-between align-items-center mb-2 ${NavBarStyles.items}`}
       >
-        <Link href="/">
-          <a className="mx-3">All</a>
-        </Link>
-        {isAuth ? (
-          <>
-            <Link href="/addArticle">
-              <a className="mx-3">
-                <img
-                  src="/assets/images/plus.svg"
-                  alt="add"
-                  className={`${NavBarStyles.add}`}
-                />
-              </a>
+        <div className={`d-flex ${NavBarStyles.wrapper}`}>
+          <div className="d-flex justify-content-center">
+            <FloatingSearchBar />
+          </div>
+          <div>
+            <Link href="/">
+              <a className={` mx-3 ${NavBarStyles.item}`}>All</a>
             </Link>
-            <Link href="/profile">
-              <a className="mx-3">
-                <img
-                  src={
-                    user.photoURL
-                      ? user.photoURL
-                      : "/assets/images/placeholder.jpg"
+            {isAuth ? (
+              <>
+                <Link href="/addArticle">
+                  <a className="mx-3">
+                    <img
+                      src="/assets/images/plus.svg"
+                      alt="add"
+                      className={`${NavBarStyles.add}`}
+                    />
+                  </a>
+                </Link>
+                <Link href="/profile">
+                  <a className="mx-3">
+                    <img
+                      src={
+                        user.photoURL
+                          ? user.photoURL
+                          : "/assets/images/placeholder.jpg"
+                      }
+                      className="profile-img-medium"
+                    />
+                  </a>
+                </Link>
+                <Btn
+                  handleClick={handleLogout}
+                  content={
+                    <img
+                      src="/assets/images/logout.png"
+                      alt="logout"
+                      className={NavBarStyles.logout}
+                    />
                   }
-                  className="profile-img-medium"
                 />
-              </a>
-            </Link>
-            <Btn
-              handleClick={handleLogout}
-              content={
-                <img
-                  src="/assets/images/logout.png"
-                  alt="logout"
-                  className={NavBarStyles.logout}
-                />
-              }
-            />
-          </>
-        ) : (
-          <Link href="/Login">
-            <a className="mx-3">Log In</a>
-          </Link>
-        )}
+              </>
+            ) : (
+              <Link href="/Login">
+                <a className="mx-3">Log In</a>
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

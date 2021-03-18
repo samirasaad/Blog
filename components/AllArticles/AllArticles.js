@@ -12,7 +12,7 @@ const AllArticles = ({ articlesList, user, addToFavourites }) => {
               key={article.id}
               article={article}
               user={user}
-              addToFavourites={addToFavourites}
+              // addToFavourites={addToFavourites}
             />
           ))}
       </div>
