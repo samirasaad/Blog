@@ -11,11 +11,16 @@ const TextEditor = ({
   return Editor ? (
     <Editor
       init={{
+        setup: function (ed) {
+          ed.on("init", function () {
+            this.getDoc().body.style.fontSize = "16";
+            this.getDoc().body.style.fontFamily = "AkayaKanadaka-Regular";
+          });
+        },
         content_style:
-          "img {height:auto; max-width: 100%; } ;body { font-family:AkayaKanadaka-Regular,sans-serif; font-size:16px }",
+          "img {height:auto; max-width: 100%; } ;body { font-family:AkayaKanadaka-Regular; font-size:16px }",
         theme_advanced_resizing: true,
         theme_advanced_resize_horizontal: false,
-        // directionality: { direction },localstorage.getU(lang)
         menubar: false,
         statusbar: true,
         placeholder: placeholder,

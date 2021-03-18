@@ -70,17 +70,6 @@ const Profile = () => {
         console.log(err);
       });
     // remove from favorites list
-    // await db
-    //   .collection(FAVORITES)
-    //   .where("id", "==", articleID)
-    //   .delete()
-    //   .then(() => {
-    //     // setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
     await db
       .collection(FAVORITES)
       .where("id", "==", articleID)

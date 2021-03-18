@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import DontHaveArticles from "../DontHaveArticles/DontHaveArticles";
 import Card from "./../Card/Card";
 
 const MyArticles = ({ user, myArticlesList, deleteArticle }) => {
@@ -19,7 +21,23 @@ const MyArticles = ({ user, myArticlesList, deleteArticle }) => {
       </div>
     );
   };
-  return myArticlesList && myArticlesList.length > 0 && renderArticles();
+
+  const dontHAveArticleConetnt = () => (
+    <>
+      <p>You have no articles yet</p>
+      <Link href="/addArticle">
+        <a className="mx-3">
+          <img src="/assets/images/plus.svg" alt="add" />
+        </a>
+      </Link>
+    </>
+  );
+
+  return myArticlesList && myArticlesList.length > 0 ? (
+    renderArticles()
+  ) : (
+    <DontHaveArticles content={dontHAveArticleConetnt()} />
+  );
 };
 
 export default MyArticles;

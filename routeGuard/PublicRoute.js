@@ -4,7 +4,7 @@ import { isAuth } from "../utils/helpers";
 
 const PublicRoute = (WrappedComponent) => {
   const checkUserAuthentication = () => {
-    return { auth: true };
+    return { auth: null };
   };
 
   const home = "/";
