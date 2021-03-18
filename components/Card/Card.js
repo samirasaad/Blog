@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import CardStyle from "./Card.module.scss";
 import { addToFavourites } from "./../../utils/helpers";
+import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
+import CardStyle from "./Card.module.scss";
 
 const Card = ({ article, user, canDelete, deleteArticle }) => {
   useEffect(() => {
@@ -10,15 +11,22 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
     }
   }, [article, user]);
 
+  const handleCancel = () => {
+    console.log("cancel ");
+  };
+
   return (
     <div className={`col-xl-3 col-lg-4 col-md-6 my-3 p-3 `} key={article.id}>
       <div className={`p-3 ${CardStyle.wrapper}`}>
         <div className="position-relative">
           {canDelete && (
-            <img
-              src="/assets/images/delete.svg"
+            <ConfirmatiomDialog
               className={`position-absolute  ${CardStyle.delete}`}
-              onClick={() => deleteArticle(article.id)}
+              dialogTitle="Are You Sure You Want To Delete This Article ?"
+              cancelText="No"
+              confirmText="Delete"
+              handleConfirm={() => deleteArticle(article.id)}
+              clickableItem={<img src="/assets/images/delete.svg" />}
             />
           )}
           <h4 className={`${canDelete && "pt-4"}`} id={article.id}></h4>
@@ -56,7 +64,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
                 alt="favorite"
                 className={CardStyle.fav}
               />
-              <p className="mb-0 text-muted small font-weight-bold">
+              <p className="mb-0 small font-weight-bold">
                 {article.favouritBY.length}
               </p>
             </div>
@@ -72,12 +80,24 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
                 alt="unfavorite"
                 className={CardStyle.fav}
               />
-              <p className="mb-0 text-muted small font-weight-bold">
+              <p className="mb-0 small font-weight-bold">
                 {article.favouritBY.length}
               </p>
             </div>
           ) : (
-            user && article.authorID === user.uid && <></>
+            user &&
+            article.authorID === user.uid && (
+              <div className="d-flex flex-column align-items-center">
+                <img
+                  src="/assets/images/unfavorite.svg"
+                  alt="unfavorite"
+                  className={CardStyle.disabledfav}
+                />
+                <p className="mb-0 small font-weight-bold">
+                  {article.favouritBY.length}
+                </p>
+              </div>
+            )
           )}
         </div>
       </div>

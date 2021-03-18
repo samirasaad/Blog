@@ -16,6 +16,7 @@
     "react": "17.0.1",
     "react-color": "^2.19.3",
     "react-color-picker": "^4.0.2",
+    "react-confirm-alert": "^2.7.0",
     "react-dom": "17.0.1",
     "react-lottie": "^1.2.3",
     "react-tabs": "^3.2.1",
