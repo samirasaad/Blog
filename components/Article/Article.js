@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import FloatingShareMenu from "../FloatingShareMenu/FloatingShareMenu";
 import ArticleStyles from "./Article.module.scss";
 
-const Article = ({ articleInfo }) => {
+const Article = ({ articleInfo,id }) => {
   useEffect(() => {
     let contentElem = document.querySelector("#content");
     if (articleInfo && articleInfo.content && contentElem) {
