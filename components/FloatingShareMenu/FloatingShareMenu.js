@@ -15,27 +15,27 @@ import FloatingShareMenuStyles from "./FloatingShareMenu.module.scss";
 const FloatingShareMenu = ({ url }) => {
   return (
     <div className={`${FloatingShareMenuStyles.floating_share_menu}`}>
-      <p >
+      <p>
         <FacebookShareButton
           children={<FacebookIcon size={32} round={`true`} />}
           url={url}
         />
       </p>
-      <p >
+      <p>
         <LinkedinShareButton
           children={<LinkedinIcon size={32} round={`true`} />}
           url={url}
         />
       </p>
 
-      <p >
+      <p>
         <TwitterShareButton
           children={<TwitterIcon size={32} round={`true`} />}
           url={url}
         />
       </p>
 
-      <p >
+      <p>
         <WhatsappShareButton
           children={<WhatsappIcon size={32} round={`true`} />}
           url={url}

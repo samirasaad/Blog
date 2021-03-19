@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Article from "../../components/Article/Article";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
 import { db } from "../../firebase";
-import { ARTICLES } from "../../utils/constants";
+import { ARTICLES, BASE_HREF } from "../../utils/constants";
 
-const articleDetails = ({ id, pathname }) => {
-  console.log(id);
-  console.log(pathname);
+const articleDetails = ({ id }) => {
+  const router = useRouter();
   const [articleID, setArticleID] = useState(null);
   const [articleInfo, setArticleInfo] = useState({});
-
+  
   useEffect(() => {
     id && setArticleID(id);
   }, [id]);
@@ -41,7 +41,13 @@ const articleDetails = ({ id, pathname }) => {
           }}
         />
       )}
-      {articleInfo && <Article articleInfo={articleInfo} />}
+      {articleInfo && (
+        <Article
+          articleInfo={articleInfo}
+          articleFullURL={`${BASE_HREF}${router.asPath}`}
+          isDetails={true}
+        />
+      )}
     </section>
   );
 };
@@ -50,9 +56,7 @@ export default articleDetails;
 
 articleDetails.getInitialProps = async (ctx) => {
   const id = ctx.query.id;
-  const pathname = ctx.pathname;
   return {
     id,
-    pathname,
   };
 };

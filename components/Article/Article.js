@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import FloatingShareMenu from "../FloatingShareMenu/FloatingShareMenu";
 import ArticleStyles from "./Article.module.scss";
 
-const Article = ({ articleInfo,id }) => {
+const Article = ({ articleInfo, articleFullURL, isDetails }) => {
   useEffect(() => {
     let contentElem = document.querySelector("#content");
     if (articleInfo && articleInfo.content && contentElem) {
@@ -12,7 +12,7 @@ const Article = ({ articleInfo,id }) => {
 
   return (
     <section className={`container ${ArticleStyles.wrapper}`}>
-      <FloatingShareMenu />
+      {isDetails && <FloatingShareMenu url={articleFullURL} />}
       <div className={`${ArticleStyles.floated_section}`}>
         <div className="d-flex justify-content-end">
           <p className="text-muted mb-0 mx-4">
