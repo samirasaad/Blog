@@ -19,6 +19,7 @@
     "react-confirm-alert": "^2.7.0",
     "react-dom": "17.0.1",
     "react-lottie": "^1.2.3",
+    "react-share": "^4.4.0",
     "react-tabs": "^3.2.1",
     "sass": "^1.32.8",
     "tinymce": "^5.7.1"

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import FloatingShareMenu from "../FloatingShareMenu/FloatingShareMenu";
 import ArticleStyles from "./Article.module.scss";
 
 const Article = ({ articleInfo }) => {
@@ -11,6 +12,7 @@ const Article = ({ articleInfo }) => {
 
   return (
     <section className={`container ${ArticleStyles.wrapper}`}>
+      <FloatingShareMenu />
       <div className={`${ArticleStyles.floated_section}`}>
         <div className="d-flex justify-content-end">
           <p className="text-muted mb-0 mx-4">

@@ -86,7 +86,7 @@ const NavBar = () => {
                   confirmText="Log out"
                   handleConfirm={handleLogout}
                   clickableItem={
-                    <img src="/assets/images/logout.png" alt="logout" />
+                    <img src="/assets/images/logout.png" alt="logout" className='mx-1'/>
                   }
                 />
               </>
