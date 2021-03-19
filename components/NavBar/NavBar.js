@@ -18,6 +18,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     logout();
+    // search for redirection from not next js component
     router.push('/Login')
   };
 
@@ -73,7 +74,7 @@ const NavBar = () => {
                           ? user.photoURL
                           : "/assets/images/placeholder.jpg"
                       }
-                      className="profile-img-medium"
+                      className="profile-img-small"
                     />
                   </a>
                 </Link>

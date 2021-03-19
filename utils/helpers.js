@@ -1,5 +1,6 @@
 import { db } from "./../firebase";
 import { ARTICLES, FAVORITES } from "./../utils/constants";
+import {useRouter} from 'next/router';
 
 export const isAuth = () => {
   return localStorage.getItem("userInfo") ? true : false;
@@ -9,6 +10,8 @@ export const logout = () => {
 };
 
 export const addToFavourites = async (user, articleObj, favouritBY) => {
+  const router = useRouter();
+
   if (user) {
     // add to favorites
     if (!favouritBY.find((obj) => obj.id === user.uid)) {
@@ -67,6 +70,7 @@ export const addToFavourites = async (user, articleObj, favouritBY) => {
         });
     }
   } else {
-    router.push("/Login");
+    // search for redirection from not next js component
+    // router.push("/Login");
   }
 };

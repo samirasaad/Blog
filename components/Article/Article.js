@@ -1,42 +1,42 @@
 import { useEffect } from "react";
-import Btn from "../controls/Btn/Btn";
-import { useRouter } from "next/router";
 import ArticleStyles from "./Article.module.scss";
 
-const Article = ({
-  articleInfo: { content, title, colorValue, categoryName },
-}) => {
-  const router = useRouter();
-
+const Article = ({ articleInfo }) => {
   useEffect(() => {
     let contentElem = document.querySelector("#content");
-    if (content && contentElem) {
-      contentElem.innerHTML = content;
+    if (articleInfo && articleInfo.content && contentElem) {
+      contentElem.innerHTML = articleInfo.content && articleInfo.content;
     }
   });
 
   return (
-    <section className={ArticleStyles.wrapper}>
-      <div className="d-flex justify-content-end ">
-        <Btn
-          className={ArticleStyles.edit}
-          handleClick={() => router.push("/addArticle")}
-          content={<img src="/assets/images/edit.svg" alt="edit" />}
-        />
-      </div>
-      <div className={`p-3 mt-4 mb-5 ${ArticleStyles.content}`}>
-        <div className="d-flex justify-content-between">
-          <h3 className={`px-3`}>{title && title}</h3>
-          <div>
-            <span
-              className={`py-2 px-4 ${ArticleStyles.category}`}
-              style={{ backgroundColor: colorValue }}
-            >
-              {categoryName}
-            </span>
-          </div>
+    <section className={`container ${ArticleStyles.wrapper}`}>
+      <div className={`${ArticleStyles.floated_section}`}>
+        <div className="d-flex justify-content-end">
+          <p className="text-muted mb-0 mx-4">
+            {articleInfo.favouritBY && articleInfo.favouritBY.length}
+          </p>
         </div>
-        <div id="content" className={`p-4 `}></div>
+        <div className={`p-3 mb-5 ${ArticleStyles.content}`}>
+          <div className="d-flex justify-content-between">
+            <h3 className={`px-3`}>{articleInfo.title && articleInfo.title}</h3>
+            <div>
+              <span
+                className={`py-2 px-4 font-weight-bold ${ArticleStyles.category}`}
+                style={{
+                  backgroundColor: articleInfo.colorValue
+                    ? articleInfo.colorValue
+                    : articleInfo.color,
+                }}
+              >
+                {articleInfo.categoryName && articleInfo.categoryName}
+              </span>
+            </div>
+          </div>
+          {articleInfo && articleInfo.content && (
+            <div id="content" className={`p-4`}></div>
+          )}
+        </div>
       </div>
     </section>
   );

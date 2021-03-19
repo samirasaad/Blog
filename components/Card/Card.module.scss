@@ -1,18 +1,15 @@
 .wrapper {
   box-shadow: 0px 2px 9px 1px #eaeaea;
   border-radius: 19px;
-  h4 {
+  h5 {
     width: 100%;
     word-break: break-word;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
   p {
     color: #b0adad;
-  }
-  h5 {
   }
   .category {
     border-radius: 2em;
@@ -38,5 +35,14 @@
     img {
       height: 1.4em;
     }
+  }
+}
+.details {
+  box-shadow: 0px -1px 1px 1px #eaeaea;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #65d5fc;
+    color: white;
   }
 }

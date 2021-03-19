@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Link from "next/link";
 import { addToFavourites } from "./../../utils/helpers";
 import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
 import CardStyle from "./Card.module.scss";
@@ -25,18 +26,18 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
               clickableItem={<img src="/assets/images/delete.svg" />}
             />
           )}
-          <h4 className={`${canDelete && "pt-4"}`} id={article.id}></h4>
+          <h5 className={`${canDelete && "pt-4"}`} id={article.id}></h5>
         </div>
-        <div className="d-flex justify-content-center flex-column align-items-center my-4 pt-4">
+        <div className="d-flex justify-content-center flex-column align-items-center pt-4">
           <img
             src={
               article.authorPhoto
                 ? article.authorPhoto
                 : "/assets/images/placeholder.jpg"
             }
-            className="profile-img-large"
+            className="profile-img-medium"
           />
-          <h5 className="my-3">{` By: ${article.authorName}`}</h5>
+          <h6 className="my-3">{` By: ${article.authorName}`}</h6>
         </div>
         <div className="d-flex justify-content-between align-items-baseline">
           <div
@@ -97,6 +98,11 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
           )}
         </div>
       </div>
+      <Link href="/details/[id]" as={`/details/${article.id}`}>
+        <div className={`text-center ${CardStyle.details}`}>
+          <a>Read More</a>
+        </div>
+      </Link>
     </div>
   );
 };

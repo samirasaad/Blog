@@ -1,19 +1,19 @@
 .wrapper {
-  img {
-    height: auto;
-    max-width: 100%;
-  }
-  .edit {
-    img {
-      height: 1.6em;
-    }
-  }
-  .content {
+  .floated_section {
+    margin-top: -2em;
+    background-color: white;
     box-shadow: 0px 2px 9px 1px #eaeaea;
     border-radius: 10px;
     text-align: justify;
-    .category {
-      border-radius: 10px;
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+    .content {
+      .category {
+        border-radius: 10px;
+        color: white;
+      }
     }
   }
 }

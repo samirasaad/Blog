@@ -116,17 +116,23 @@ h3 {
 .section-min-height {
   min-height: 72vh;
 }
+.profile-img-small,
 .profile-img-large,
 .profile-img-medium {
   border-radius: 50%;
   box-shadow: 0px 1px 5px 3px #dcdcdc;
 }
-.profile-img-medium {
+
+.profile-img-small {
   height: 50px;
   width: 50px;
 }
-
-.profile-img-large {
+.profile-img-medium {
   height: 80px;
   width: 80px;
+}
+
+.profile-img-large {
+  height: 100px;
+  width: 100px;
 }
