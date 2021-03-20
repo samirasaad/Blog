@@ -1,6 +1,13 @@
 import inputStyle from "./InputField.module.scss";
 
-const InputField = ({ inputValue, autoFocus, className, placeholder, handleChange, type }) => {
+const InputField = ({
+  inputValue,
+  autoFocus,
+  className,
+  placeholder,
+  handleChange,
+  type,
+}) => {
   return (
     <input
       value={inputValue}

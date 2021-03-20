@@ -35,7 +35,6 @@ const AddArticle = () => {
 
   useEffect(() => {
     if (localStorage.getItem("article")) {
-      console.log("changed", router);
       setArticle({
         content: JSON.parse(localStorage.getItem("article")).content,
         title: JSON.parse(localStorage.getItem("article")).title,
@@ -83,7 +82,7 @@ const AddArticle = () => {
       color: article.colorValue,
       categoryName: article.categoryName,
       title: article.title,
-      authorName: user.displayName,
+      authorName: user.displayName.toLowerCase(),
       authorPhoto: user.photoURL || "",
     };
     // add to firestore

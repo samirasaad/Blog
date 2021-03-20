@@ -47,7 +47,7 @@ const Login = () => {
       .doc(user.uid)
       .set({
         id: user.uid,
-        userName: user.displayName,
+        userName: user.displayName.toLowerCase(),
         photoUrl: user.photoURL,
         userEmail: user.email,
       })

@@ -1,33 +1,20 @@
-import { useState } from "react";
+import InputField from './../controls/InputField/InputField';
 import FloatingSearchBarStyles from "./FloatingSearchBar.module.scss";
 
-function FloatingSearchBar() {
-  const [searchValue, setSearchValue] = useState("");
-
-  const onSearchValue = () => {
-    console.log("submiited");
-    // History.push(`/contributers/search/${searchValue ? searchValue : " "}`);
-  };
-
-  const onSearchChange = (e) => {
-    setSearchValue(e.target.value);
-  };
+function FloatingSearchBar({handleSearchChange, handleSubmitSearch, searchValue}) {
 
   return (
     <form
       role="search"
       className={`${FloatingSearchBarStyles.search_form} mx-2`}
-      onSubmit={(event) => {
-        event.preventDefault();
-        onSearchValue();
-      }}
+      onSubmit={handleSubmitSearch}
     >
-      <input
+      <InputField
         type="text"
         className={`${FloatingSearchBarStyles.search_text}`}
-        placeholder="Author name or Category name"
-        onChange={onSearchChange}
-        value={searchValue}
+        placeholder="Search with Author name"
+        handleChange={handleSearchChange}
+        inputValue={searchValue}
       />
     </form>
   );
