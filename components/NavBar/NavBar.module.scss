@@ -28,6 +28,9 @@
     left: 4.1em;
     color: $primaryColor;
   }
+  .name {
+    color: $primaryColor;
+  }
 }
 @media screen and (max-width: 768px) {
   .nav {
