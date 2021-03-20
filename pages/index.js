@@ -5,6 +5,7 @@ import { db } from "./../firebase";
 import { ARTICLES, FAVORITES } from "./../utils/constants";
 import AllArticles from "../components/AllArticles/AllArticles";
 import styles from "../styles/Home.module.css";
+import DynamicHeader from "../components/DynamicHeader/DynamicHeader";
 
 const Home = () => {
   const router = useRouter();
@@ -40,6 +41,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <DynamicHeader />
         <h1 className={` font-weight-bold mx-md-4 mx-0 ${styles.title}`}>
           All Articles
         </h1>
