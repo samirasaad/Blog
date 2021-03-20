@@ -42,7 +42,7 @@ const Home = () => {
       </Head>
       <main className={styles.main}>
         <DynamicHeader />
-        <h1 className={` font-weight-bold mx-md-4 mx-0 ${styles.title}`}>
+        <h1 className={`mt-5 font-weight-bold mx-md-4 mx-0 ${styles.title}`}>
           All Articles
         </h1>
         {articlesList && articlesList.length > 0 && (

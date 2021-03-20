@@ -7,15 +7,15 @@ const DynamicHeader = () => {
   );
 
   return (
-    <section className=" row align-items-center m-auto">
-      <div className="col-lg-7 px-0 ">
+    <section className=" row align-items-center">
+      <div className="col-lg-8 px-0 ">
         <img
           src="/assets/images/headers.jpg"
           alt="header"
-          style={{ width: "100%" }}
+          style={{ width: "100%", borderRadius:'10em' }}
         />
       </div>
-      <div className="col-lg-5 px-3 my-3">
+      <div className="col-lg-4 px-3 my-3">
         <h1>
           <q>{`${headerInfo[randomIndex].text}`}</q>
         </h1>
