@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { isAuthReceive } from "./../../store/actions/auth";
 import { logout } from "./../../utils/helpers";
 import NavBarStyles from "./NavBar.module.scss";
 import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
@@ -8,9 +10,13 @@ import { db } from "../../firebase";
 import { ARTICLES } from "../../utils/constants";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
+  const isAuthnticatedUser = useSelector(
+    ({ isAuthnticatedUser }) => isAuthnticatedUser
+  );
 
   useEffect(() => {
     setIsAuth(window.localStorage.getItem("userInfo"));
@@ -19,6 +25,9 @@ const NavBar = () => {
 
   const handleLogout = () => {
     logout();
+    dispatch(isAuthReceive(null));
+    setIsAuth(false);
+    setUser({});
     // search for redirection from not next js component
     router.push("/Login");
   };
@@ -51,18 +60,12 @@ const NavBar = () => {
         <div
           className={`d-flex align-items-center mt-2 ${NavBarStyles.wrapper}`}
         >
-          <div className="d-flex justify-content-center">
-            {/* <FloatingSearchBar
-              handleSearchChange={handleSearchChange}
-              handleSubmitSearch={handleSubmitSearch}
-              searchValue={searchValue}
-            /> */}
-          </div>
+          <div className="d-flex justify-content-center"></div>
           <div className="d-flex align-items-center">
             <Link href="/">
               <a className={` mx-3 ${NavBarStyles.item}`}>All</a>
             </Link>
-            {isAuth ? (
+            {isAuth || isAuthnticatedUser.user ? (
               <>
                 <Link href="/addArticle">
                   <a className="mx-3">
@@ -78,15 +81,22 @@ const NavBar = () => {
                     <a className="mx-3">
                       <img
                         src={
-                          user.photoURL
+                          user && user.photoURL
                             ? user.photoURL
+                            : isAuthnticatedUser.user &&
+                              isAuthnticatedUser.user.photoURL
+                            ? isAuthnticatedUser.user.photoURL
                             : "/assets/images/placeholder.jpg"
                         }
                         className="profile-img-small"
                       />
                     </a>
                   </Link>
-                  <span className={NavBarStyles.name}>{user.displayName}</span>
+                  <span className={NavBarStyles.name}>
+                    {(user && user.displayName) ||
+                      (isAuthnticatedUser.user &&
+                        isAuthnticatedUser.user.displayName)}
+                  </span>
                 </div>
                 <ConfirmatiomDialog
                   className={` ${NavBarStyles.logout}`}

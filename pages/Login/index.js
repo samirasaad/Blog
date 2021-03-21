@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
+import { isAuthReceive } from "../../store/actions/auth";
 import { signInFirestore } from "./../../firebase/authMethods";
 import { USERS } from "./../../utils/constants";
 import withPublicRoute from "../../routeGuard/PublicRoute";
@@ -10,9 +12,19 @@ import Btn from "./../../components/controls/Btn/Btn";
 import LoginStyles from "./Login.module.scss";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [isUserExist, setIsUserExist] = useState(false);
   const [user, setUser] = useState(null);
+
+  const defaultLottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: LoginLottie,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   useEffect(() => {
     if (isUserExist) {
@@ -53,6 +65,7 @@ const Login = () => {
       })
       .then((res) => {
         localStorage.setItem("userInfo", JSON.stringify(user));
+        dispatch(isAuthReceive(user));
         router.push("/");
         // getCurrentUserInfo(user.uid);
         // setLoading(false);
@@ -100,19 +113,10 @@ const Login = () => {
     }
   };
 
-  const defaultLottieOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: LoginLottie,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   return (
     <section className={`section-min-height container ${LoginStyles.wrapper}`}>
       <div
-        className={`d-flex justify-content-center align-items-center ${LoginStyles.content}`}
+        className={`d-flex justify-content-center align-items-center mt-4 ${LoginStyles.content}`}
       >
         <div>
           <Lottie options={defaultLottieOptions} />
