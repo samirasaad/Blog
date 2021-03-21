@@ -92,7 +92,7 @@ const Profile = () => {
   };
 
   return (
-    <section className="container section-min-height">
+    <section className="container section-min-height mt-5">
       <HeadTabs
         user={user}
         myArticlesList={myArticlesList}

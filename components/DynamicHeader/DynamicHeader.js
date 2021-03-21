@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { headerInfo } from "../../utils/dataSource";
+import DynamicHeaderStyles from "./DynamicHeader.module.scss";
 
 const DynamicHeader = () => {
   const [randomIndex, setRandomIndex] = useState(
@@ -8,14 +9,8 @@ const DynamicHeader = () => {
 
   return (
     <section className=" row align-items-center">
-      <div className="col-lg-8 px-0 ">
-        <img
-          src="/assets/images/headers.jpg"
-          alt="header"
-          style={{ width: "100%", borderRadius:'10em' }}
-        />
-      </div>
-      <div className="col-lg-4 px-3 my-3">
+      <div className={`col-lg-12 px-0 ${DynamicHeaderStyles.background}`}></div>
+      <div className="col-lg-12 px-3 my-3 text-center">
         <h1>
           <q>{`${headerInfo[randomIndex].text}`}</q>
         </h1>

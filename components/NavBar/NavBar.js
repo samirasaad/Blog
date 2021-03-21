@@ -25,7 +25,7 @@ const NavBar = () => {
 
   return (
     <div
-      className={`d-flex justify-content-between align-items-center mb-5 ${NavBarStyles.nav}`}
+      className={`d-flex justify-content-between align-items-center ${NavBarStyles.nav}`}
     >
       <div className="position-relative">
         <Link href="/">
@@ -48,7 +48,9 @@ const NavBar = () => {
       <div
         className={`d-flex justify-content-between align-items-center mb-2 ${NavBarStyles.items}`}
       >
-        <div className={`d-flex align-items-center mt-2 ${NavBarStyles.wrapper}`}>
+        <div
+          className={`d-flex align-items-center mt-2 ${NavBarStyles.wrapper}`}
+        >
           <div className="d-flex justify-content-center">
             {/* <FloatingSearchBar
               handleSearchChange={handleSearchChange}
@@ -73,16 +75,16 @@ const NavBar = () => {
                 </Link>
                 <div className="d-flex flex-column">
                   <Link href="/profile">
-                      <a className="mx-3">
-                        <img
-                          src={
-                            user.photoURL
-                              ? user.photoURL
-                              : "/assets/images/placeholder.jpg"
-                          }
-                          className="profile-img-small"
-                        />
-                      </a>
+                    <a className="mx-3">
+                      <img
+                        src={
+                          user.photoURL
+                            ? user.photoURL
+                            : "/assets/images/placeholder.jpg"
+                        }
+                        className="profile-img-small"
+                      />
+                    </a>
                   </Link>
                   <span className={NavBarStyles.name}>{user.displayName}</span>
                 </div>

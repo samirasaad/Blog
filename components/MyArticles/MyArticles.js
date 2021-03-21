@@ -22,7 +22,7 @@ const MyArticles = ({ user, myArticlesList, deleteArticle }) => {
     );
   };
 
-  const dontHAveArticleConetnt = () => (
+  const dontHaveArticlesConetnt = () => (
     <>
       <p>You have no articles yet</p>
       <Link href="/addArticle">
@@ -36,7 +36,7 @@ const MyArticles = ({ user, myArticlesList, deleteArticle }) => {
   return myArticlesList && myArticlesList.length > 0 ? (
     renderArticles()
   ) : (
-    <DontHaveArticles content={dontHAveArticleConetnt()} />
+    <DontHaveArticles content={dontHaveArticlesConetnt()} />
   );
 };
 

@@ -13,21 +13,21 @@ const Home = () => {
   const [user, setUser] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [notFoundDataErr, setNoFoundDataErr] = useState(false);
-  
+
   useEffect(() => {
     setUser(JSON.parse(window.localStorage.getItem("userInfo")));
   }, []);
-  
+
   useEffect(() => {
     getArticlesFirestore();
   }, []);
-  
+
   useEffect(() => {
     delayedHandleChange();
   }, [searchValue]);
-  
+
   const delayedHandleChange = debounce(() => getFilteredAtricles(), 2000);
-  
+
   const getArticlesFirestore = async () => {
     db.collection(ARTICLES).onSnapshot(
       (querySnapshot) => {
