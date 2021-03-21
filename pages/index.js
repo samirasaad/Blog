@@ -1,26 +1,34 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { db } from "./../firebase";
-import { ARTICLES, FAVORITES } from "./../utils/constants";
+import { ARTICLES } from "./../utils/constants";
 import AllArticles from "../components/AllArticles/AllArticles";
-import styles from "../styles/Home.module.css";
 import DynamicHeader from "../components/DynamicHeader/DynamicHeader";
+import FloatingSearchBar from "../components/FloatingSearchBar/FloatingSearchBar";
+import debounce from "lodash.debounce";
+import styles from "../styles/Home.module.css";
 
 const Home = () => {
-  const router = useRouter();
   const [articlesList, setArticlesList] = useState([]);
   const [user, setUser] = useState({});
-
+  const [searchValue, setSearchValue] = useState("");
+  const [notFoundDataErr, setNoFoundDataErr] = useState(false);
+  
   useEffect(() => {
     setUser(JSON.parse(window.localStorage.getItem("userInfo")));
   }, []);
-
+  
   useEffect(() => {
-    getAllArticles();
+    getArticlesFirestore();
   }, []);
-
-  const getAllArticles = async () => {
+  
+  useEffect(() => {
+    delayedHandleChange();
+  }, [searchValue]);
+  
+  const delayedHandleChange = debounce(() => getFilteredAtricles(), 2000);
+  
+  const getArticlesFirestore = async () => {
     db.collection(ARTICLES).onSnapshot(
       (querySnapshot) => {
         let articles = querySnapshot.docs.map((doc) => {
@@ -34,6 +42,31 @@ const Home = () => {
     );
   };
 
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value.toLowerCase());
+  };
+
+  const getFilteredAtricles = () => {
+    if (searchValue) {
+      let filteredArticlesList = articlesList.filter(
+        (obj) =>
+          obj.authorName.includes(searchValue) ||
+          obj.categoryName.includes(searchValue)
+      );
+      setArticlesList(filteredArticlesList);
+      if (filteredArticlesList.length === 0) {
+        setNoFoundDataErr(true);
+      }
+    } else {
+      getArticlesFirestore();
+    }
+  };
+
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    getFilteredAtricles();
+  };
+
   return (
     <section className={`container-fluid section-min-height`}>
       <Head>
@@ -42,14 +75,27 @@ const Home = () => {
       </Head>
       <main className={styles.main}>
         <DynamicHeader />
-        <h1 className={`mt-5 font-weight-bold mx-md-4 mx-0 ${styles.title}`}>
-          All Articles
-        </h1>
-        {articlesList && articlesList.length > 0 && (
-          <AllArticles
-            articlesList={articlesList}
-            user={user}
+        <div
+          className={`d-flex justify-content-between align-items-baseline ${styles.heading}`}
+        >
+          <h1 className={`mt-5 font-weight-bold mx-md-4 mx-0 ${styles.title}`}>
+            All Articles
+          </h1>
+          <FloatingSearchBar
+            handleSearchChange={handleSearchChange}
+            handleSubmitSearch={handleSubmitSearch}
+            searchValue={searchValue}
+            className="mx-md-3 mx-0"
+            placeholder="Search with author name or category name"
           />
+        </div>
+        {articlesList && articlesList.length > 0 && (
+          <AllArticles articlesList={articlesList} user={user} />
+        )}
+        {notFoundDataErr && (
+          <p className="text-center text-muted my-5">
+            No matched results found
+          </p>
         )}
       </main>
     </section>

@@ -1,18 +1,23 @@
-import InputField from './../controls/InputField/InputField';
+import InputField from "./../controls/InputField/InputField";
 import FloatingSearchBarStyles from "./FloatingSearchBar.module.scss";
 
-function FloatingSearchBar({handleSearchChange, handleSubmitSearch, searchValue}) {
-
+function FloatingSearchBar({
+  handleSearchChange,
+  handleSubmitSearch,
+  searchValue,
+  placeholder,
+  className
+}) {
   return (
     <form
       role="search"
-      className={`${FloatingSearchBarStyles.search_form} mx-2`}
+      className={`${FloatingSearchBarStyles.search_form} ${className}`}
       onSubmit={handleSubmitSearch}
     >
       <InputField
         type="text"
         className={`${FloatingSearchBarStyles.search_text}`}
-        placeholder="Search with Author name"
+        placeholder={placeholder}
         handleChange={handleSearchChange}
         inputValue={searchValue}
       />

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { logout } from "./../../utils/helpers";
 import NavBarStyles from "./NavBar.module.scss";
-import FloatingSearchBar from "../FloatingSearchBar/FloatingSearchBar";
 import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
 import { db } from "../../firebase";
 import { ARTICLES } from "../../utils/constants";
@@ -12,7 +11,6 @@ const NavBar = () => {
   const router = useRouter();
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
-  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     setIsAuth(window.localStorage.getItem("userInfo"));
@@ -23,32 +21,6 @@ const NavBar = () => {
     logout();
     // search for redirection from not next js component
     router.push("/Login");
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchValue(e.target.value.toLowerCase());
-  };
-
-  const handleSubmitSearch = (e) => {
-    e.preventDefault();
-    if (searchValue) {
-      db.collection(ARTICLES)
-        .where("authorName", ">=", searchValue) //name contains the search value
-        .onSnapshot(
-          (querySnapshot) => {
-            let articles = querySnapshot.docs.map((doc) => {
-              return doc.data();
-            });
-            console.log(articles);
-            // setMyArticlesList(articles);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-
-      console.log("submit", "searchvalue", searchValue);
-    }
   };
 
   return (
@@ -78,11 +50,11 @@ const NavBar = () => {
       >
         <div className={`d-flex align-items-center mt-2 ${NavBarStyles.wrapper}`}>
           <div className="d-flex justify-content-center">
-            <FloatingSearchBar
+            {/* <FloatingSearchBar
               handleSearchChange={handleSearchChange}
               handleSubmitSearch={handleSubmitSearch}
               searchValue={searchValue}
-            />
+            /> */}
           </div>
           <div className="d-flex align-items-center">
             <Link href="/">

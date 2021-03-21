@@ -19,7 +19,7 @@
   background-size: 24px;
   &:focus {
     z-index: 3;
-    width: 270px;
+    width: 30em;
     border: 1px solid #666;
     background-color: white;
     cursor: auto;
@@ -29,6 +29,6 @@
 }
 @media screen and (max-width: 768px) {
   .search_text:focus {
-    width: 240px;
+    width: 100%;
   }
 }

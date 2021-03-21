@@ -3,7 +3,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .title {
-    text-align: center;
+  .heading {
+    flex-direction: column;
   }
 }
