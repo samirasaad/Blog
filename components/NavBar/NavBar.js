@@ -2,34 +2,34 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 import { isAuthReceive } from "./../../store/actions/auth";
-import { logout } from "./../../utils/helpers";
-import NavBarStyles from "./NavBar.module.scss";
+import { isAuth, logout } from "./../../utils/helpers";
 import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
-import { db } from "../../firebase";
-import { ARTICLES } from "../../utils/constants";
+import NavBarStyles from "./NavBar.module.scss";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
   const isAuthnticatedUser = useSelector(
     ({ isAuthnticatedUser }) => isAuthnticatedUser
   );
 
   useEffect(() => {
-    setIsAuth(window.localStorage.getItem("userInfo"));
-    setUser(JSON.parse(window.localStorage.getItem("userInfo")));
+    setUser(Cookies.get("userInfo") ? JSON.parse(Cookies.get("userInfo")) : {});
   }, []);
 
   const handleLogout = () => {
     logout();
     dispatch(isAuthReceive(null));
-    setIsAuth(false);
     setUser({});
+    // clear cookies
+    Cookies.remove("userInfo");
     // search for redirection from not next js component
     router.push("/Login");
+    console.log(isAuth);
+    console.log(isAuthnticatedUser.user);
   };
 
   return (
@@ -65,7 +65,7 @@ const NavBar = () => {
             <Link href="/">
               <a className={` mx-3 ${NavBarStyles.item}`}>All</a>
             </Link>
-            {isAuth || isAuthnticatedUser.user ? (
+            {isAuth() || isAuthnticatedUser.user ? (
               <>
                 <Link href="/addArticle">
                   <a className="mx-3">

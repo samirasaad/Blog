@@ -1,14 +1,15 @@
 import { Provider } from "react-redux";
 import Layout from "./../components/Layout/Layout";
-import store from './../store';
+import store from "./../store";
 import "../styles/scss/base.scss";
+import { CookiesProvider } from "react-cookie";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...pageProps}/>
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Provider>
   );
 };

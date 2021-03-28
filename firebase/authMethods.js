@@ -1,4 +1,5 @@
 import { auth } from "./";
+import Cookies from "js-cookie";
 // import History from "./../routes/History";
 
 function signup(email, password) {
@@ -22,7 +23,8 @@ const firebaseSignout = () => {
   auth()
     .signOut()
     .then((res) => {
-      localStorage.clear();
+      Cookies.remove("userInfo");
+      // check on redirection from non next component
       // History.push("/Login");
     })
     .catch((err) => {

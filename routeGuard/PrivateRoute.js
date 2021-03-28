@@ -1,10 +1,10 @@
 import Router from "next/router";
-import { useEffect } from "react";
-import { isAuth } from "../utils/helpers";
+import { isAuth,parseCookies } from "../utils/helpers";
 
 const PrivateRoute = (WrappedComponent) => {
   const checkUserAuthentication = () => {
-    return { auth: true };
+    // console.log(parseCookies())
+    return { auth: isAuth() };
   };
 
   const login = "/Login";
@@ -13,9 +13,11 @@ const PrivateRoute = (WrappedComponent) => {
 
   hocComponent.getInitialProps = async (context) => {
     const userAuth = await checkUserAuthentication();
-
+    console.log(userAuth);
     // if authorized user ?
-    if (!userAuth?.auth) {
+    if (!userAuth.auth) {
+      console.log('privtate')
+
       // Handle server-side & client-side rendering.
       if (context.res) {
         context.res?.writeHead(302, {

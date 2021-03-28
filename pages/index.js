@@ -6,16 +6,18 @@ import AllArticles from "../components/AllArticles/AllArticles";
 import DynamicHeader from "../components/DynamicHeader/DynamicHeader";
 import FloatingSearchBar from "../components/FloatingSearchBar/FloatingSearchBar";
 import debounce from "lodash.debounce";
+import Cookies from "js-cookie";
 import styles from "../styles/Home.module.css";
 
 const Home = () => {
   const [articlesList, setArticlesList] = useState([]);
+  const [filteredArticlesList, setFilteredArticlesList] = useState([]);
   const [user, setUser] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [notFoundDataErr, setNoFoundDataErr] = useState(false);
 
   useEffect(() => {
-    setUser(JSON.parse(window.localStorage.getItem("userInfo")));
+    setUser(Cookies.get("userInfo") ? JSON.parse(Cookies.get("userInfo")) : {});
   }, []);
 
   useEffect(() => {
@@ -23,10 +25,14 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    delayedHandleChange();
-  }, [searchValue]);
+    if (searchValue) {
+      delayedHandleChange();
+    } else {
+      setFilteredArticlesList(articlesList);
+    }
+  }, [searchValue, articlesList]);
 
-  const delayedHandleChange = debounce(() => getFilteredAtricles(), 2000);
+  const delayedHandleChange = debounce(() => getFilteredAtricles(), 2500);
 
   const getArticlesFirestore = async () => {
     db.collection(ARTICLES).onSnapshot(
@@ -35,6 +41,7 @@ const Home = () => {
           return doc.data();
         });
         setArticlesList(articles);
+        setFilteredArticlesList(articles);
       },
       (error) => {
         console.log(error);
@@ -48,17 +55,15 @@ const Home = () => {
 
   const getFilteredAtricles = () => {
     if (searchValue) {
-      let filteredArticlesList = articlesList.filter(
+      let filteredList = articlesList.filter(
         (obj) =>
           obj.authorName.includes(searchValue) ||
           obj.categoryName.includes(searchValue)
       );
-      setArticlesList(filteredArticlesList);
-      if (filteredArticlesList.length === 0) {
+      setFilteredArticlesList(filteredList);
+      if (filteredList.length === 0) {
         setNoFoundDataErr(true);
       }
-    } else {
-      getArticlesFirestore();
     }
   };
 
@@ -89,8 +94,8 @@ const Home = () => {
             placeholder="Search with author name or category name"
           />
         </div>
-        {articlesList && articlesList.length > 0 && (
-          <AllArticles articlesList={articlesList} user={user} />
+        {filteredArticlesList && filteredArticlesList.length > 0 && (
+          <AllArticles articlesList={filteredArticlesList} user={user} />
         )}
         {notFoundDataErr && (
           <p className="text-center text-muted my-5">
@@ -102,3 +107,15 @@ const Home = () => {
   );
 };
 export default Home;
+
+// Home.getInitialProps = async ({ req }) => {
+//   const cookiesData = parseCookies(req);
+//   if (Object.keys(cookiesData).length === 0 && cookiesData.constructor === Object) {
+//     res.writeHead(301, { Location: "/" });
+//     res.end();
+//   }
+
+//   return {
+//     cookiesData: cookiesData && cookiesData,
+//   };
+// };

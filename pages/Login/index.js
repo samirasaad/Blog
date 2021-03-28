@@ -6,12 +6,17 @@ import { isAuthReceive } from "../../store/actions/auth";
 import { signInFirestore } from "./../../firebase/authMethods";
 import { USERS } from "./../../utils/constants";
 import withPublicRoute from "../../routeGuard/PublicRoute";
+import withTestPublicRoute from "../../routeGuard/TestPublicRoute";
+
 import Lottie from "react-lottie";
 import LoginLottie from "./../../public/assets/lotties/loginLottie.json";
 import Btn from "./../../components/controls/Btn/Btn";
+import { useCookies } from 'react-cookie';
 import LoginStyles from "./Login.module.scss";
 
 const Login = () => {
+const [cookies, setCookie, removeCookie] = useCookies(['userInfo']);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const [isUserExist, setIsUserExist] = useState(false);
@@ -64,7 +69,8 @@ const Login = () => {
         userEmail: user.email,
       })
       .then((res) => {
-        localStorage.setItem("userInfo", JSON.stringify(user));
+        setCookie("userInfo",user,{path:'/'})
+        // localStorage.setItem("userInfo", JSON.stringify(user));
         dispatch(isAuthReceive(user));
         router.push("/");
         // getCurrentUserInfo(user.uid);
@@ -152,4 +158,4 @@ const Login = () => {
   );
 };
 
-export default withPublicRoute(Login);
+export default withTestPublicRoute(Login);

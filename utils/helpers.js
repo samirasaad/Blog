@@ -1,13 +1,18 @@
 import { db } from "./../firebase";
 import { ARTICLES, FAVORITES } from "./../utils/constants";
-import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export const isAuth = () => {
-  return localStorage.getItem("userInfo") ? true : false;
+  return Cookies.get("userInfo");
 };
+
 export const logout = () => {
   localStorage.clear();
 };
+
+// export const parseCookies = (req) => {
+//   return cookie.parse(req ? req.headers.cookie || "" : document.cookie);
+// };
 
 export const addToFavourites = async (user, articleObj, favouritBY) => {
   // const router = useRouter();

@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import HeadTabs from "../../components/HeadTabs/HeadTabs";
 import withPrivateRoute from "../../routeGuard/PrivateRoute";
+import withTestPrivateRoute from "../../routeGuard/TestPrivateRoute";
 import { db } from "./../../firebase";
 import { ARTICLES, FAVORITES } from "./../../utils/constants";
+import Cookies from "js-cookie";
+
+
+
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -10,13 +15,17 @@ const Profile = () => {
   const [myFavoritesList, setMyFavoritesList] = useState([]);
 
   useEffect(() => {
-    if (typeof window !== undefined) {
-      let id =
-        localStorage.getItem("userInfo") &&
-        JSON.parse(localStorage.getItem("userInfo")).uid;
-      setUser(JSON.parse(localStorage.getItem("userInfo")));
-    }
+    setUser(JSON.parse(Cookies.get("userInfo")));
   }, []);
+
+  // useEffect(() => {
+  //   if (typeof window !== undefined) {
+  //     let id =
+  //       localStorage.getItem("userInfo") &&
+  //       JSON.parse(localStorage.getItem("userInfo")).uid;
+  //     setUser(JSON.parse(localStorage.getItem("userInfo")));
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (user && user.uid) {
@@ -92,7 +101,7 @@ const Profile = () => {
   };
 
   return (
-    <section className="container section-min-height mt-5">
+    <section className="container section-min-height mt-4">
       <HeadTabs
         user={user}
         myArticlesList={myArticlesList}
@@ -103,10 +112,12 @@ const Profile = () => {
   );
 };
 
-// export default withAuth(Profile);
-export default withPrivateRoute(Profile);
+export default withTestPrivateRoute(Profile);
+// export default (Profile);
 
-Profile.getInitialProps = async (props) => {
-  console.info("##### profile", props);
-  return {};
-};
+// export const  getInitialProps = async (ctx) => {
+//   console.info("##### profile", ctx);
+//   return {
+    
+//   };
+// };

@@ -13,10 +13,6 @@ import addArticleStyles from "./addArticle.module.scss";
 const AddArticle = () => {
   const router = useRouter();
   const [user, setUser] = useState({});
-  const [content, setContent] = useState("");
-  const [title, setTitle] = useState("");
-  const [colorValue, setColorValue] = useState("#f47373");
-  const [categoryName, setCategoryName] = useState("");
   const [article, setArticle] = useState({
     content: "",
     title: "",
@@ -66,6 +62,7 @@ const AddArticle = () => {
   const handleCategoryChange = (e) => {
     setArticle({ ...article, categoryName: e.target.value.substring(0, 15) });
   };
+
   const handleTitleChange = (e) => {
     setArticle({ ...article, title: e.target.value.substring(0, 60) });
   };
@@ -151,12 +148,13 @@ const AddArticle = () => {
           />
         </div>
         <h3 className="mt-4">Article Content </h3>
+        {console.log(article.content)}
         <TextEditor
           className="mb-4"
           handleEditorChange={handleEditorChange}
-          id="text-editor"
-          // initialValue={content}
+          id="article-editor"
           initialValue={article.content}
+          value={article.content}
         />
         <h3 className="mt-4">Article Category</h3>
         <div>

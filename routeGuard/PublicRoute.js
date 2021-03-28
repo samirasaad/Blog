@@ -1,10 +1,12 @@
 import Router from "next/router";
 import { useEffect } from "react";
-import { isAuth } from "../utils/helpers";
+import { isAuth, parseCookies } from "../utils/helpers";
+import useAuth from "../utils/Auth";
 
 const PublicRoute = (WrappedComponent) => {
   const checkUserAuthentication = () => {
-    return { auth: null };
+    console.log(isAuth())
+    return { auth: isAuth() };
   };
 
   const home = "/";
@@ -13,9 +15,9 @@ const PublicRoute = (WrappedComponent) => {
 
   hocComponent.getInitialProps = async (context) => {
     const userAuth = await checkUserAuthentication();
-
     // if authorized user ?
-    if (userAuth?.auth) {
+    if (userAuth.auth) {
+      console.log('yess')
       // Handle server-side & client-side rendering.
       if (context.res) {
         context.res?.writeHead(302, {

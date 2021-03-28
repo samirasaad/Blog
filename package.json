@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3008",
+    "dev": "next dev -p 3007",
     "build": "next build",
     "start": "next start"
   },
@@ -12,12 +12,14 @@
     "bootstrap": "^4.6.0",
     "firebase": "^8.3.0",
     "firebase-admin": "^9.5.0",
+    "js-cookie": "^2.2.1",
     "lodash.debounce": "^4.0.8",
     "next": "10.0.8",
     "react": "17.0.1",
     "react-color": "^2.19.3",
     "react-color-picker": "^4.0.2",
     "react-confirm-alert": "^2.7.0",
+    "react-cookie": "^4.0.3",
     "react-dom": "17.0.1",
     "react-lottie": "^1.2.3",
     "react-redux": "^7.2.2",

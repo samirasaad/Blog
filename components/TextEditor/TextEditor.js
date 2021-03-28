@@ -8,6 +8,8 @@ const TextEditor = ({
   handleEditorChange,
   value,
 }) => {
+  console.log(initialValue)
+  console.log(value)
   return (
     <Editor
       init={{
@@ -79,8 +81,8 @@ const TextEditor = ({
       initialValue={initialValue}
       onEditorChange={handleEditorChange}
       id={id}
-      value={initialValue}
-      // value={value}
+      // value={initialValue}
+      value={value}
     />
   );
 };
