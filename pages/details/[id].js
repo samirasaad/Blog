@@ -4,15 +4,21 @@ import Article from "../../components/Article/Article";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
 import { db } from "../../firebase";
 import { ARTICLES, BASE_HREF } from "../../utils/constants";
+import Cookies from "js-cookie";
 
 const articleDetails = ({ id }) => {
   const router = useRouter();
+  const [user, setUser] = useState(null);
   const [articleID, setArticleID] = useState(null);
   const [articleInfo, setArticleInfo] = useState({});
-  
+
   useEffect(() => {
     id && setArticleID(id);
   }, [id]);
+
+  useEffect(() => {
+    Cookies.get("userInfo") && setUser(JSON.parse(Cookies.get("userInfo")) || null);
+  }, []);
 
   useEffect(() => {
     articleID && getArticleDetails();
@@ -20,15 +26,18 @@ const articleDetails = ({ id }) => {
 
   const getArticleDetails = () => {
     db.collection(ARTICLES)
-      .doc(articleID)
-      .get()
-      .then((res) => {
-        setArticleInfo(res.data());
-        // setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .where("id", "==", articleID)
+      .onSnapshot(
+        (querySnapshot) => {
+          let articleDetails = querySnapshot.docs.map((doc) => {
+            return doc.data();
+          });
+          setArticleInfo(articleDetails[0]);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   return (
@@ -46,6 +55,7 @@ const articleDetails = ({ id }) => {
           articleInfo={articleInfo}
           articleFullURL={`${BASE_HREF}${router.asPath}`}
           isDetails={true}
+          user={user}
         />
       )}
     </section>

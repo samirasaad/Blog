@@ -24,7 +24,6 @@ const NavBar = () => {
     logout();
     dispatch(isAuthReceive(null));
     setUser({});
-    // clear cookies
     Cookies.remove("userInfo");
     // search for redirection from not next js component
     router.push("/Login");
@@ -92,7 +91,7 @@ const NavBar = () => {
                       />
                     </a>
                   </Link>
-                  <span className={NavBarStyles.name}>
+                  <span className={` text-center ${NavBarStyles.name}`}>
                     {(user && user.displayName) ||
                       (isAuthnticatedUser.user &&
                         isAuthnticatedUser.user.displayName)}

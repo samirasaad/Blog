@@ -9,25 +9,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  p {
-    color: #b0adad;
-  }
   .category {
     border-radius: 2em;
     color: white;
-  }
-  .fav {
-    height: 1.5em;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  .disabledfav {
-    height: 1.5em;
-    filter: opacity(0.1);
-    & ~ p {
-      color: #e7e7e7;
-    }
   }
   .delete {
     right: 0;

@@ -9,7 +9,7 @@ const AuthorInfo = ({ authorInfo: { authorName, authorPhoto } }) => {
           src={authorPhoto ? authorPhoto : "/assets/images/placeholder.jpg"}
           className="profile-img-large"
         />
-        <h3 className="my-3">{authorName}</h3>
+        <h3 className="my-3 text-capitalize bold-font">{` By: ${authorName}`}</h3>
       </div>
     </section>
   );

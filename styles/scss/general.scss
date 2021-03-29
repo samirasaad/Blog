@@ -8,17 +8,11 @@ body {
 }
 // FONTS
 .bold-font {
-  font-family: AkayaKanadaka-Bold;
+  font-family: YanoneKaffeesatz-Bold;
 }
 .medium-font {
-  font-family: AkayaKanadaka-Medium;
+  font-family: YanoneKaffeesatz-Light;
 }
-// .bold-english-font {
-//   font-family: Almarai-Bold;
-// }
-// .medium-english-font {
-//   font-family: AkayaKanadaka-Medium;
-// }
 
 // TEXT-EDITOR
 .tox-tinymce {
@@ -105,12 +99,10 @@ h3 {
 ::placeholder {
   color: $placeholder;
 }
-// .tox .tox-button--icon,
-// .tox .tox-button.tox-button--icon,
-// .tox .tox-button.tox-button--secondary.tox-button--icon {
-//   display: none;
-// }
 
+.dimmed-text {
+  color: #b2b5b9;
+}
 // GENERAL CLASSES
 .section-min-height {
   min-height: 75vh;
@@ -134,4 +126,19 @@ h3 {
 .profile-img-large {
   height: 100px;
   width: 100px;
+}
+
+// FAVORITES
+.fav {
+  height: 1.5em !important;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.disabledfav {
+  height: 1.5em !important;
+  filter: opacity(0.1);
+  & ~ p {
+    color: #e7e7e7;
+  }
 }

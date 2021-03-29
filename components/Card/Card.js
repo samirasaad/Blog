@@ -54,14 +54,16 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
           !user ? (
             <div
               className="d-flex flex-column align-items-center"
-              onClick={() => addToFavourites(user, article, article.favouritBY)}
+              onClick={(e) =>
+                addToFavourites(e, user, article, article.favouritBY)
+              }
             >
               <img
                 src="/assets/images/unfavorite.svg"
                 alt="favorite"
-                className={CardStyle.fav}
+                className={`fav`}
               />
-              <p className="mb-0 small font-weight-bold">
+              <p className="mb-0 small font-weight-bold dimmed-text">
                 {article.favouritBY.length}
               </p>
             </div>
@@ -70,14 +72,16 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
               0 ? (
             <div
               className="d-flex flex-column align-items-center"
-              onClick={() => addToFavourites(user, article, article.favouritBY)}
+              onClick={(e) =>
+                addToFavourites(e, user, article, article.favouritBY)
+              }
             >
               <img
                 src="/assets/images/favourites.svg"
                 alt="unfavorite"
-                className={CardStyle.fav}
+                className={`fav`}
               />
-              <p className="mb-0 small font-weight-bold">
+              <p className="mb-0 small font-weight-bold dimmed-text">
                 {article.favouritBY.length}
               </p>
             </div>
@@ -88,7 +92,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
                 <img
                   src="/assets/images/unfavorite.svg"
                   alt="unfavorite"
-                  className={CardStyle.disabledfav}
+                  className={`disabledfav`}
                 />
                 <p className="mb-0 small font-weight-bold">
                   {article.favouritBY.length}
@@ -97,12 +101,13 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
             )
           )}
         </div>
+        <hr />
+        <Link href="/details/[id]" as={`/details/${article.id}`}>
+          <a>
+            <div className="d-flex justify-content-center mt-2 pt-2">Read</div>
+          </a>
+        </Link>
       </div>
-      <Link href="/details/[id]" as={`/details/${article.id}`}>
-        <div className={`text-center ${CardStyle.details}`}>
-          <a>Read More</a>
-        </div>
-      </Link>
     </div>
   );
 };

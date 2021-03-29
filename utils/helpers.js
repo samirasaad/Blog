@@ -10,13 +10,8 @@ export const logout = () => {
   localStorage.clear();
 };
 
-// export const parseCookies = (req) => {
-//   return cookie.parse(req ? req.headers.cookie || "" : document.cookie);
-// };
-
-export const addToFavourites = async (user, articleObj, favouritBY) => {
-  // const router = useRouter();
-
+export const addToFavourites = async (e, user, articleObj, favouritBY) => {
+  e.preventDefault();
   if (user) {
     // add to favorites
     if (!favouritBY.find((obj) => obj.id === user.uid)) {
