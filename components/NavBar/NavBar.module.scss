@@ -1,6 +1,7 @@
 @import "./../../styles/scss/variables";
+@import "./../../styles/scss/mixins";
 .nav {
-  box-shadow: 3px 4px 9px 1px #eaeaea;
+  @include box-shadow(0px 2px 9px 1px #eaeaea);
   .logo {
     border-radius: 50%;
     border-left: 1px solid #bef6ff;

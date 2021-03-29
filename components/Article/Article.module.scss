@@ -1,8 +1,9 @@
+@import "./../../styles/scss/mixins";
 .wrapper {
   .floated_section {
     margin-top: -2em;
     background-color: white;
-    box-shadow: 0px 2px 9px 1px #eaeaea;
+    @include box-shadow(0px 2px 9px 1px #eaeaea);
     border-radius: 10px;
     text-align: justify;
     img {

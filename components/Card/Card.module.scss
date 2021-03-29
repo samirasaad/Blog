@@ -1,5 +1,6 @@
+@import "./../../styles/scss/mixins";
 .wrapper {
-  box-shadow: 0px 2px 9px 1px #eaeaea;
+  @include box-shadow(0px 2px 9px 1px #eaeaea);
   border-radius: 19px;
   h5 {
     width: 100%;

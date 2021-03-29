@@ -56,7 +56,7 @@ body {
       color: $primaryColor;
       font-weight: bold;
       border-color: #eeeeee !important;
-      box-shadow: 0px -5px 3px -3px #f2f2f2;
+      @include box-shadow(0px -5px 3px -3px #f2f2f2);
     }
   }
 }
@@ -119,7 +119,7 @@ h3 {
 .profile-img-large,
 .profile-img-medium {
   border-radius: 50%;
-  box-shadow: 0px 1px 5px 3px #dcdcdc;
+  @include box-shadow(0px 1px 5px 3px #dcdcdc);
 }
 
 .profile-img-small {
