@@ -8,6 +8,7 @@ import FloatingSearchBar from "../components/FloatingSearchBar/FloatingSearchBar
 import debounce from "lodash.debounce";
 import Cookies from "js-cookie";
 import styles from "../styles/Home.module.css";
+import HeadSection from "../components/HeadSection/HeadSection";
 
 const Home = () => {
   const [articlesList, setArticlesList] = useState([]);
@@ -74,10 +75,22 @@ const Home = () => {
 
   return (
     <section className={`container-fluid section-min-height`}>
-      <Head>
-        <title>All Articles</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadSection
+        title="Blog | All Articles"
+        metadata={[
+          {
+            name: "description",
+            content: "Next.js blog app react , next js and firebase",
+          },
+          {
+            name: "keywords",
+            content:
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+          },
+          { name: "author", content: "Samira saad" },
+        ]}
+        links={[{ rel: "icon", href: "/favicon.ico" }]}
+      />
       <main className={styles.main}>
         <DynamicHeader />
         <div

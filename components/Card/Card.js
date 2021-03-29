@@ -23,7 +23,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
               cancelText="No"
               confirmText="Delete"
               handleConfirm={() => deleteArticle(article.id)}
-              clickableItem={<img src="/assets/images/delete.svg" />}
+              clickableItem={<img src="/assets/images/delete.svg" alt='delete'/>}
             />
           )}
           <h5 className={`${canDelete && "pt-4"}`} id={article.id}></h5>
@@ -34,7 +34,8 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
               article.authorPhoto
                 ? article.authorPhoto
                 : "/assets/images/placeholder.jpg"
-            }
+              }
+              alt='author'
             className="profile-img-medium"
           />
           <h6 className="my-3">{` By: ${article.authorName}`}</h6>

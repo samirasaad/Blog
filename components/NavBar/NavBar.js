@@ -43,6 +43,7 @@ const NavBar = () => {
               height="100"
               width="100"
               className={`mx-3 ${NavBarStyles.logo}`}
+              alt='logo'
             />
 
             <h4
@@ -88,6 +89,7 @@ const NavBar = () => {
                             : "/assets/images/placeholder.jpg"
                         }
                         className="profile-img-small"
+                        alt='profile'
                       />
                     </a>
                   </Link>

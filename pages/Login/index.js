@@ -15,6 +15,7 @@ import LoginLottie from "./../../public/assets/lotties/loginLottie.json";
 import Btn from "./../../components/controls/Btn/Btn";
 import { useCookies } from "react-cookie";
 import LoginStyles from "./Login.module.scss";
+import HeadSection from "../../components/HeadSection/HeadSection";
 
 const Login = () => {
   // const [cookies, setCookie, removeCookie] = useCookies(['userInfo']);
@@ -121,6 +122,19 @@ const Login = () => {
 
   return (
     <section className={`section-min-height container ${LoginStyles.wrapper}`}>
+      <HeadSection
+        title="Blog | Login"
+        metadata={[
+          { name: "description", content: "Next.js blog app react , next js and firebase" },
+          {
+            name: "keywords",
+            content:
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+          },
+          { name: "author", content: "Samira saad" },
+        ]}
+        links={[{ rel: "icon", href: "/favicon.ico" }]}
+      />
       <div
         className={`d-flex justify-content-center align-items-center mt-4 ${LoginStyles.content}`}
       >
@@ -136,7 +150,7 @@ const Login = () => {
             handleClick={(e) => submitLogin(e, "github")}
             content={
               <div className="d-flex align-items-center">
-                <img src="/assets/images/gitHub.svg" className="mx-md-2 mx-0" />
+                <img src="/assets/images/gitHub.svg" className="mx-md-2 mx-0" alt='github'/>
                 <p className="mb-0">Continue With Github</p>
               </div>
             }
@@ -147,7 +161,7 @@ const Login = () => {
             handleClick={(e) => submitLogin(e, "google")}
             content={
               <div className="d-flex align-items-center">
-                <img src="/assets/images/google.svg" className="mx-md-2 mx-0" />
+                <img src="/assets/images/google.svg" className="mx-md-2 mx-0" alt='google'/>
                 <p className="mb-0">Continue With Google</p>
               </div>
             }

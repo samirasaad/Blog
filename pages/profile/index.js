@@ -5,6 +5,7 @@ import withTestPrivateRoute from "../../routeGuard/TestPrivateRoute";
 import { db } from "./../../firebase";
 import { ARTICLES, FAVORITES } from "./../../utils/constants";
 import Cookies from "js-cookie";
+import HeadSection from "../../components/HeadSection/HeadSection";
 
 
 
@@ -102,6 +103,19 @@ const Profile = () => {
 
   return (
     <section className="container section-min-height mt-4">
+       <HeadSection
+        title="Blog | Profile"
+        metadata={[
+          { name: "description", content: "Next.js blog app react , next js and firebase" },
+          {
+            name: "keywords",
+            content:
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+          },
+          { name: "author", content: "Samira saad" },
+        ]}
+        links={[{ rel: "icon", href: "/favicon.ico" }]}
+      />
       <HeadTabs
         user={user}
         myArticlesList={myArticlesList}

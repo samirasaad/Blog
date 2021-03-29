@@ -5,6 +5,7 @@ import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
 import { db } from "../../firebase";
 import { ARTICLES, BASE_HREF } from "../../utils/constants";
 import Cookies from "js-cookie";
+import HeadSection from "../../components/HeadSection/HeadSection";
 
 const articleDetails = ({ id }) => {
   const router = useRouter();
@@ -42,6 +43,19 @@ const articleDetails = ({ id }) => {
 
   return (
     <section className="section-min-height">
+      <HeadSection
+        title="Blog | Article details"
+        metadata={[
+          { name: "description", content: "Next.js blog app react , next js and firebase" },
+          {
+            name: "keywords",
+            content:
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+          },
+          { name: "author", content: "Samira saad" },
+        ]}
+        links={[{ rel: "icon", href: "/favicon.ico" }]}
+      />
       {articleInfo && (
         <AuthorInfo
           authorInfo={{

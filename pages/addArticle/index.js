@@ -8,6 +8,7 @@ import Picker from "../../components/ColorPicker/ColorPicker";
 import Btn from "../../components/controls/Btn/Btn";
 import InputField from "../../components/controls/InputField/InputField";
 import withPrivateRoute from "../../routeGuard/PrivateRoute";
+import HeadSection from "../../components/HeadSection/HeadSection";
 import addArticleStyles from "./addArticle.module.scss";
 
 const AddArticle = () => {
@@ -114,6 +115,19 @@ const AddArticle = () => {
 
   return (
     <section className="container section-min-height">
+      <HeadSection
+        title="Blog | Add article"
+        metadata={[
+          { name: "description", content: "Next.js blog app react , next js and firebase" },
+          {
+            name: "keywords",
+            content:
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+          },
+          { name: "author", content: "Samira saad" },
+        ]}
+        links={[{ rel: "icon", href: "/favicon.ico" }]}
+      />
       <h1 className={`mt-4 font-weight-bold ${addArticleStyles.title}`}>
         Article Details
       </h1>
