@@ -8,19 +8,19 @@ const TextEditor = ({
   handleEditorChange,
   value,
 }) => {
-  console.log(initialValue)
-  console.log(value)
+  console.log(initialValue);
+  console.log(value);
   return (
     <Editor
       init={{
         setup: function (ed) {
           ed.on("init", function () {
             this.getDoc().body.style.fontSize = "16";
-            this.getDoc().body.style.fontFamily = "AkayaKanadaka-Regular";
+            this.getDoc().body.style.fontFamily = "YanoneKaffeesatz-Regular";
           });
         },
         content_style:
-          "img {height:auto; max-width: 100%; } ;body { font-family:AkayaKanadaka-Regular; font-size:16px }",
+          "img {height:auto; max-width: 100%;},body:{font-family:YanoneKaffeesatz-Regular}",
         theme_advanced_resizing: true,
         theme_advanced_resize_horizontal: false,
         menubar: false,

@@ -21,3 +21,15 @@
     }
   }
 }
+
+@each $fontFamily in $testFonts {
+  @each $fontExtention in $fontExtentions {
+    @font-face {
+      font-family: #{$fontFamily};
+      src: url("./../../public/assets/fonts/testFonts/Yanone_Kaffeesatz/static/#{$fontFamily}.#{$fontExtention}");
+    }
+    .#{$fontFamily} {
+      font-family: #{$fontFamily};
+    }
+  }
+}
