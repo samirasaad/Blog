@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 import Article from "../../components/Article/Article";
 import Btn from "../../components/controls/Btn/Btn";
 import previewStyles from "./preview.module.scss";
@@ -9,8 +10,8 @@ const Preview = () => {
   const [articleInfo, setArticleInfo] = useState("");
 
   useEffect(() => {
-    localStorage.getItem("article") &&
-      setArticleInfo(JSON.parse(localStorage.getItem("article")));
+    Cookies.get("article") &&
+      setArticleInfo(JSON.parse(Cookies.get("article")));
   }, []);
 
   return (

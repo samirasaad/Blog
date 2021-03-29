@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import { db } from "./../../firebase";
+import Cookies from "js-cookie";
 import { ARTICLES } from "./../../utils/constants";
 import { useRouter } from "next/router";
-import Preview from "../../components/Preview/Preview";
 import Picker from "../../components/ColorPicker/ColorPicker";
 import Btn from "../../components/controls/Btn/Btn";
 import InputField from "../../components/controls/InputField/InputField";
@@ -23,22 +23,33 @@ const AddArticle = () => {
   useEffect(() => {
     // check we on browser not server
     if (typeof window !== undefined) {
-      if (localStorage.getItem("userInfo")) {
-        setUser(JSON.parse(localStorage.getItem("userInfo")));
+      if (Cookies.get("userInfo")) {
+        setUser(JSON.parse(Cookies.get("userInfo")));
       }
     }
-  }, []);
 
-  useEffect(() => {
-    if (localStorage.getItem("article")) {
+    if (Cookies.get("article")) {
       setArticle({
-        content: JSON.parse(localStorage.getItem("article")).content,
-        title: JSON.parse(localStorage.getItem("article")).title,
-        colorValue: JSON.parse(localStorage.getItem("article")).colorValue,
-        categoryName: JSON.parse(localStorage.getItem("article")).categoryName,
+        content: JSON.parse(Cookies.get("article")).content,
+        title: JSON.parse(Cookies.get("article")).title,
+        colorValue: JSON.parse(Cookies.get("article")).colorValue,
+        categoryName: JSON.parse(Cookies.get("article")).categoryName,
       });
     }
-  }, [router.pathname]);
+
+  }, []);
+
+  // useEffect(() => {
+  //   if (Cookies.get("article")) {
+  //     console.log(Cookies.get("article").content)
+  //     setArticle({
+  //       content: JSON.parse(Cookies.get("article")).content,
+  //       title: JSON.parse(Cookies.get("article")).title,
+  //       colorValue: JSON.parse(Cookies.get("article")).colorValue,
+  //       categoryName: JSON.parse(Cookies.get("article")).categoryName,
+  //     });
+  //   }
+  // }, [router.pathname]);
 
   const handleEditorChange = (content, editor) => {
     setArticle({ ...article, content });
@@ -51,7 +62,7 @@ const AddArticle = () => {
       colorValue: article.colorValue,
       categoryName: article.categoryName,
     };
-    localStorage.setItem("article", JSON.stringify(articleObj));
+    Cookies.set("article", JSON.stringify(articleObj));
     router.push("/preview");
   };
 
@@ -94,7 +105,7 @@ const AddArticle = () => {
           colorValue: "#f47373",
           categoryName: "",
         });
-        localStorage.removeItem("article");
+        Cookies.remove("article");
       })
       .catch((err) => {
         console.log(err);
@@ -148,7 +159,6 @@ const AddArticle = () => {
           />
         </div>
         <h3 className="mt-4">Article Content </h3>
-        {console.log(article.content)}
         <TextEditor
           className="mb-4"
           handleEditorChange={handleEditorChange}
@@ -183,7 +193,7 @@ const AddArticle = () => {
   );
 };
 
-export default withPrivateRoute(AddArticle);
+export default (AddArticle);
 
 // AddArticle.getInitialProps = async (props) => {
 //   console.info("##### AddArticle", props);

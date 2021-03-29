@@ -9,13 +9,15 @@ import withPublicRoute from "../../routeGuard/PublicRoute";
 import withTestPublicRoute from "../../routeGuard/TestPublicRoute";
 
 import Lottie from "react-lottie";
+import Cookies from "js-cookie";
+
 import LoginLottie from "./../../public/assets/lotties/loginLottie.json";
 import Btn from "./../../components/controls/Btn/Btn";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 import LoginStyles from "./Login.module.scss";
 
 const Login = () => {
-const [cookies, setCookie, removeCookie] = useCookies(['userInfo']);
+  // const [cookies, setCookie, removeCookie] = useCookies(['userInfo']);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -69,11 +71,9 @@ const [cookies, setCookie, removeCookie] = useCookies(['userInfo']);
         userEmail: user.email,
       })
       .then((res) => {
-        setCookie("userInfo",user,{path:'/'})
-        // localStorage.setItem("userInfo", JSON.stringify(user));
+        Cookies.set("userInfo", user);
         dispatch(isAuthReceive(user));
         router.push("/");
-        // getCurrentUserInfo(user.uid);
         // setLoading(false);
       })
       .catch((err) => {

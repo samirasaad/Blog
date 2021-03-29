@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import Cookies from "js-cookie";
 
 const TextEditor = ({
   placeholder,
@@ -8,8 +9,6 @@ const TextEditor = ({
   handleEditorChange,
   value,
 }) => {
-  console.log(initialValue);
-  console.log(value);
   return (
     <Editor
       init={{
@@ -81,8 +80,8 @@ const TextEditor = ({
       initialValue={initialValue}
       onEditorChange={handleEditorChange}
       id={id}
-      // value={initialValue}
       value={value}
+      // value={value ? value : JSON.parse(Cookies.get("article")).content}
     />
   );
 };
