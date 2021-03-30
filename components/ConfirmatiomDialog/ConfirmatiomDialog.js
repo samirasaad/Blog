@@ -15,7 +15,6 @@ const ConfirmatiomDialog = ({
   const openDialog = () => {
     confirmAlert({
       title: dialogTitle,
-      //   message: "Are you sure to do this.",
       buttons: [
         {
           label: confirmText,

@@ -21,7 +21,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
               className={`position-absolute  ${CardStyle.delete}`}
               dialogTitle="Are You Sure You Want To Delete This Article ?"
               cancelText="No"
-              confirmText="Delete"
+              confirmText="Yes"
               handleConfirm={() => deleteArticle(article.id)}
               clickableItem={<img src="/assets/images/delete.svg" alt='delete'/>}
             />

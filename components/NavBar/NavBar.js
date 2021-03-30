@@ -103,7 +103,7 @@ const NavBar = () => {
                   className={` ${NavBarStyles.logout}`}
                   dialogTitle="Are You Sure You Want To Logout ?"
                   cancelText="No"
-                  confirmText="Log out"
+                  confirmText="Yes"
                   handleConfirm={handleLogout}
                   clickableItem={
                     <img

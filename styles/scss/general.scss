@@ -60,6 +60,7 @@ body {
   width: 74% !important;
   h1 {
     font-size: 1.2em;
+    text-align: center;
   }
   margin: auto;
   .react-confirm-alert-button-group {
@@ -68,6 +69,12 @@ body {
     & > button {
       background-color: $primaryColor !important;
       font-weight: bold;
+      &:not(:first-child) {
+        background-color: transparent !important;
+        border: 1px solid $primaryColor;
+        color: $primaryColor;
+        font-weight: bold;
+      }
     }
   }
 }
