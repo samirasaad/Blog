@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import Article from "../../components/Article/Article";
 import Btn from "../../components/controls/Btn/Btn";
 import previewStyles from "./preview.module.scss";
+import TooltipComp from "../TooltipComp/TooltipComp";
 
-const Preview = ({ handleEdit }) => {
-  const router = useRouter();
+const Preview = ({ handleEdit, user }) => {
   const [articleInfo, setArticleInfo] = useState("");
 
   useEffect(() => {
@@ -17,13 +16,22 @@ const Preview = ({ handleEdit }) => {
   return (
     <section className="container section-min-height">
       <div className="d-flex justify-content-end my-5 mx-3">
+        <TooltipComp id="edit" place="top" effect="solid" type="info" />
+
         <Btn
           className={`px-0 ${previewStyles.edit}`}
           handleClick={handleEdit}
-          content={<img src="/assets/images/edit.svg" alt="edit" />}
+          content={
+            <img
+              data-for="edit"
+              data-tip="Edit"
+              src="/assets/images/edit.svg"
+              alt="edit"
+            />
+          }
         />
       </div>
-      {articleInfo && <Article articleInfo={articleInfo} />}
+      {articleInfo && <Article articleInfo={articleInfo} user={user} />}
     </section>
   );
 };

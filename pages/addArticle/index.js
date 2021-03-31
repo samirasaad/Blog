@@ -12,6 +12,8 @@ import HeadSection from "../../components/HeadSection/HeadSection";
 import addArticleStyles from "./addArticle.module.scss";
 import LoaderComp from "../../components/Loader/Loader";
 import Preview from "./../../components/Preview/Preview";
+import ReactTooltip from "./../../components/TooltipComp/TooltipComp";
+import TooltipComp from "./../../components/TooltipComp/TooltipComp";
 
 const AddArticle = () => {
   const [loading, setLoading] = useState(false);
@@ -140,6 +142,17 @@ const AddArticle = () => {
       ) : !loading && !isPreview ? (
         <form onSubmit={handleSubmit}>
           <div className="d-flex justify-content-end mb-3">
+            {article.content &&
+              article.categoryName &&
+              article.colorValue &&
+              article.title && (
+                <TooltipComp
+                  id="preview"
+                  place="top"
+                  effect="solid"
+                  type="info"
+                />
+              )}
             <Btn
               className={`${
                 !article.content ||
@@ -152,8 +165,26 @@ const AddArticle = () => {
               type="button"
               handleClick={handlePreview}
               disabled={!article.content}
-              content={<img src="/assets/images/eye.svg" alt="preview" />}
+              content={
+                <img
+                  data-for="preview"
+                  data-tip="Preview"
+                  src="/assets/images/eye.svg"
+                  alt="preview"
+                />
+              }
             />
+            {article.content &&
+              article.categoryName &&
+              article.colorValue &&
+              article.title && (
+                <TooltipComp
+                  id="publish"
+                  place="top"
+                  effect="solid"
+                  type="info"
+                />
+              )}
             <Btn
               className={`${
                 !article.content ||
@@ -165,7 +196,14 @@ const AddArticle = () => {
               } ${addArticleStyles.save}`}
               type="submit"
               disabled={!article.content}
-              content={<img src="/assets/images/save.svg" alt="save" />}
+              content={
+                <img
+                  data-for="publish"
+                  data-tip="Publish"
+                  src="/assets/images/save.svg"
+                  alt="save"
+                />
+              }
             />
           </div>
           <div className="">
@@ -211,7 +249,7 @@ const AddArticle = () => {
           </div>
         </form>
       ) : (
-        !loading && isPreview && <Preview handleEdit={handleEdit} />
+        !loading && isPreview && <Preview handleEdit={handleEdit} user={user}/>
       )}
     </section>
   );
