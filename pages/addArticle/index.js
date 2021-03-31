@@ -11,10 +11,12 @@ import withPrivateRoute from "../../routeGuard/PrivateRoute";
 import HeadSection from "../../components/HeadSection/HeadSection";
 import addArticleStyles from "./addArticle.module.scss";
 import LoaderComp from "../../components/Loader/Loader";
+import Preview from "./../../components/Preview/Preview";
 
 const AddArticle = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [isPreview, setIsPreview] = useState(false);
   const [user, setUser] = useState({});
   const [article, setArticle] = useState({
     content: "",
@@ -41,18 +43,6 @@ const AddArticle = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (Cookies.get("article")) {
-  //     console.log(Cookies.get("article").content)
-  //     setArticle({
-  //       content: JSON.parse(Cookies.get("article")).content,
-  //       title: JSON.parse(Cookies.get("article")).title,
-  //       colorValue: JSON.parse(Cookies.get("article")).colorValue,
-  //       categoryName: JSON.parse(Cookies.get("article")).categoryName,
-  //     });
-  //   }
-  // }, [router.pathname]);
-
   const handleEditorChange = (content, editor) => {
     setArticle({ ...article, content });
   };
@@ -65,7 +55,8 @@ const AddArticle = () => {
       categoryName: article.categoryName,
     };
     Cookies.set("article", JSON.stringify(articleObj));
-    router.push("/preview");
+    setIsPreview(true);
+    // router.push("/preview");
   };
 
   const handleColorChange = (e) => {
@@ -117,6 +108,10 @@ const AddArticle = () => {
       });
   };
 
+  const handleEdit = () => {
+    setIsPreview(false);
+  };
+
   return (
     <section className="container section-min-height">
       <HeadSection
@@ -142,7 +137,7 @@ const AddArticle = () => {
         <div className="d-flex justify-content-center my-5">
           <LoaderComp />
         </div>
-      ) : (
+      ) : !loading && !isPreview ? (
         <form onSubmit={handleSubmit}>
           <div className="d-flex justify-content-end mb-3">
             <Btn
@@ -215,6 +210,8 @@ const AddArticle = () => {
             </div>
           </div>
         </form>
+      ) : (
+        !loading && isPreview && <Preview handleEdit={handleEdit} />
       )}
     </section>
   );
