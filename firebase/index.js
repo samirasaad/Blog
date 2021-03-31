@@ -14,7 +14,7 @@ import "firebase/storage";
       // appId: process.env.NEXT_PUBLIC_APP_ID,
       // measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
       apiKey: "AIzaSyCDSdgud8EUlW3dBVUu19hsbEjSL5R5CE4",
-      authDomain: "blog-steel-nu.vercel.app",
+      authDomain: "blog-be1c4.firebaseapp.com",
       projectId: "blog-be1c4",
       storageBucket: "blog-be1c4.appspot.com",
       messagingSenderId: "778241952043",
