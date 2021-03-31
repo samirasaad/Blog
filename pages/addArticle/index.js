@@ -10,8 +10,10 @@ import InputField from "../../components/controls/InputField/InputField";
 import withPrivateRoute from "../../routeGuard/PrivateRoute";
 import HeadSection from "../../components/HeadSection/HeadSection";
 import addArticleStyles from "./addArticle.module.scss";
+import LoaderComp from "../../components/Loader/Loader";
 
 const AddArticle = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({});
   const [article, setArticle] = useState({
@@ -37,7 +39,6 @@ const AddArticle = () => {
         categoryName: JSON.parse(Cookies.get("article")).categoryName,
       });
     }
-
   }, []);
 
   // useEffect(() => {
@@ -81,6 +82,7 @@ const AddArticle = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let timestamp = Math.ceil(new Date().getTime() / 1000).toString();
     let articleObj = {
       content: article.content,
@@ -107,8 +109,10 @@ const AddArticle = () => {
           categoryName: "",
         });
         Cookies.remove("article");
+        setLoading(false);
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
   };
@@ -118,7 +122,10 @@ const AddArticle = () => {
       <HeadSection
         title="Blog | Add article"
         metadata={[
-          { name: "description", content: "Next.js blog app react , next js and firebase" },
+          {
+            name: "description",
+            content: "Next.js blog app react , next js and firebase",
+          },
           {
             name: "keywords",
             content:
@@ -131,83 +138,89 @@ const AddArticle = () => {
       <h1 className={`mt-4 font-weight-bold ${addArticleStyles.title}`}>
         Article Details
       </h1>
-      <form onSubmit={handleSubmit}>
-        <div className="d-flex justify-content-end mb-3">
-          <Btn
-            className={`${
-              !article.content ||
-              !article.categoryName ||
-              !article.colorValue ||
-              !article.title
-                ? addArticleStyles.disabled_btn
-                : addArticleStyles.enabled_btn
-            } ${addArticleStyles.preview}`}
-            type="button"
-            handleClick={handlePreview}
-            disabled={!article.content}
-            content={<img src="/assets/images/eye.svg" alt="preview" />}
-          />
-          <Btn
-            className={`${
-              !article.content ||
-              !article.categoryName ||
-              !article.colorValue ||
-              !article.title
-                ? addArticleStyles.disabled_btn
-                : addArticleStyles.enabled_btn
-            } ${addArticleStyles.save}`}
-            type="submit"
-            disabled={!article.content}
-            content={<img src="/assets/images/save.svg" alt="save" />}
-          />
+      {loading ? (
+        <div className="d-flex justify-content-center my-5">
+          <LoaderComp />
         </div>
-        <div className="">
-          <h3 className="mt-4">Article title</h3>
-          <InputField
-            handleChange={handleTitleChange}
-            placeholder="title"
-            className={`p-2 w-100 `}
-            inputValue={article.title}
-            autoFocus={true}
-            type="text"
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div className="d-flex justify-content-end mb-3">
+            <Btn
+              className={`${
+                !article.content ||
+                !article.categoryName ||
+                !article.colorValue ||
+                !article.title
+                  ? addArticleStyles.disabled_btn
+                  : addArticleStyles.enabled_btn
+              } ${addArticleStyles.preview}`}
+              type="button"
+              handleClick={handlePreview}
+              disabled={!article.content}
+              content={<img src="/assets/images/eye.svg" alt="preview" />}
+            />
+            <Btn
+              className={`${
+                !article.content ||
+                !article.categoryName ||
+                !article.colorValue ||
+                !article.title
+                  ? addArticleStyles.disabled_btn
+                  : addArticleStyles.enabled_btn
+              } ${addArticleStyles.save}`}
+              type="submit"
+              disabled={!article.content}
+              content={<img src="/assets/images/save.svg" alt="save" />}
+            />
+          </div>
+          <div className="">
+            <h3 className="mt-4">Article title</h3>
+            <InputField
+              handleChange={handleTitleChange}
+              placeholder="title"
+              className={`p-2 w-100 `}
+              inputValue={article.title}
+              autoFocus={true}
+              type="text"
+            />
+          </div>
+          <h3 className="mt-4">Article Content </h3>
+          <TextEditor
+            className="mb-4"
+            handleEditorChange={handleEditorChange}
+            id="article-editor"
+            initialValue={article.content}
+            value={article.content}
           />
-        </div>
-        <h3 className="mt-4">Article Content </h3>
-        <TextEditor
-          className="mb-4"
-          handleEditorChange={handleEditorChange}
-          id="article-editor"
-          initialValue={article.content}
-          value={article.content}
-        />
-        <h3 className="mt-4">Article Category</h3>
-        <div>
-          <div className="mt-3">
-            <label>Category Name:</label>
-            <div className="">
-              <InputField
-                handleChange={handleCategoryChange}
-                placeholder="Category name"
-                className={`p-2`}
-                inputValue={article.categoryName}
-                type="text"
+          <h3 className="mt-4">Article Category</h3>
+          <div>
+            <div className="mt-3">
+              <label>Category Name:</label>
+              <div className="">
+                <InputField
+                  handleChange={handleCategoryChange}
+                  placeholder="Category name"
+                  className={`p-2`}
+                  inputValue={article.categoryName}
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="mt-4">
+              <label>Category Color [Label]: </label>
+              <Picker
+                colorValue={article.colorValue}
+                handleColorChange={handleColorChange}
               />
             </div>
           </div>
-          <div className="mt-4">
-            <label>Category Color [Label]: </label>
-            <Picker
-              colorValue={article.colorValue}
-              handleColorChange={handleColorChange}
-            />
-          </div>
-        </div>
-      </form>
+        </form>
+      )}
     </section>
   );
 };
 
-export default (AddArticle);
+export default AddArticle;
 
 // AddArticle.getInitialProps = async (props) => {
 //   console.info("##### AddArticle", props);

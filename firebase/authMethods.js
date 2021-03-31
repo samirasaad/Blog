@@ -11,7 +11,6 @@ function signin(email, password) {
 }
 
 function signInFirestore(provider) {
-  console.log(provider);
   const providerMethod =
     provider === "google"
       ? new auth.GoogleAuthProvider()

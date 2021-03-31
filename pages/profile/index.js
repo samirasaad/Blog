@@ -7,10 +7,8 @@ import { ARTICLES, FAVORITES } from "./../../utils/constants";
 import Cookies from "js-cookie";
 import HeadSection from "../../components/HeadSection/HeadSection";
 
-
-
-
 const Profile = () => {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [myArticlesList, setMyArticlesList] = useState([]);
   const [myFavoritesList, setMyFavoritesList] = useState([]);
@@ -30,6 +28,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (user && user.uid) {
+      setLoading(true);
       getMyArticles();
       getMyFavourites();
     }
@@ -44,8 +43,10 @@ const Profile = () => {
             return doc.data();
           });
           setMyArticlesList(articles);
+          setLoading(false);
         },
         (error) => {
+          setLoading(false);
           console.log(error);
         }
       );
@@ -60,8 +61,10 @@ const Profile = () => {
             return doc.data();
           });
           setMyFavoritesList(favorites);
+          setLoading(false);
         },
         (error) => {
+          setLoading(false);
           console.log(error);
         }
       );
@@ -73,40 +76,43 @@ const Profile = () => {
       .collection(ARTICLES)
       .doc(articleID)
       .delete()
-      .then(() => {
-        // setLoading(false);
+      .then(async () => {
+        // remove from favorites list
+        await db
+          .collection(FAVORITES)
+          .where("id", "==", articleID)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              doc.ref
+                .delete()
+                .then(() => {
+                  console.log("Document successfully deleted!");
+                })
+                .catch(function (error) {
+                  console.error("Error removing document: ", error);
+                });
+            });
+          })
+          .catch(function (error) {
+            console.log("Error getting documents: ", error);
+          });
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
-      });
-    // remove from favorites list
-    await db
-      .collection(FAVORITES)
-      .where("id", "==", articleID)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref
-            .delete()
-            .then(() => {
-              console.log("Document successfully deleted!");
-            })
-            .catch(function (error) {
-              console.error("Error removing document: ", error);
-            });
-        });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
       });
   };
 
   return (
     <section className="container section-min-height mt-4">
-       <HeadSection
+      <HeadSection
         title="Blog | Profile"
         metadata={[
-          { name: "description", content: "Next.js blog app react , next js and firebase" },
+          {
+            name: "description",
+            content: "Next.js blog app react , next js and firebase",
+          },
           {
             name: "keywords",
             content:
@@ -121,6 +127,7 @@ const Profile = () => {
         myArticlesList={myArticlesList}
         myFavoritesList={myFavoritesList}
         deleteArticle={deleteArticle}
+        loading={loading}
       />
     </section>
   );
@@ -132,6 +139,6 @@ export default withTestPrivateRoute(Profile);
 // export const  getInitialProps = async (ctx) => {
 //   console.info("##### profile", ctx);
 //   return {
-    
+
 //   };
 // };

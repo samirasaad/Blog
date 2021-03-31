@@ -6,19 +6,22 @@ import { db } from "../../firebase";
 import { ARTICLES, BASE_HREF } from "../../utils/constants";
 import Cookies from "js-cookie";
 import HeadSection from "../../components/HeadSection/HeadSection";
+import LoaderComp from "../../components/Loader/Loader";
 
 const articleDetails = ({ id }) => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [articleID, setArticleID] = useState(null);
-  const [articleInfo, setArticleInfo] = useState({});
+  const [articleInfo, setArticleInfo] = useState(null);
 
   useEffect(() => {
     id && setArticleID(id);
   }, [id]);
 
   useEffect(() => {
-    Cookies.get("userInfo") && setUser(JSON.parse(Cookies.get("userInfo")) || null);
+    Cookies.get("userInfo") &&
+      setUser(JSON.parse(Cookies.get("userInfo")) || null);
   }, []);
 
   useEffect(() => {
@@ -26,6 +29,7 @@ const articleDetails = ({ id }) => {
   }, [articleID]);
 
   const getArticleDetails = () => {
+    setLoading(true);
     db.collection(ARTICLES)
       .where("id", "==", articleID)
       .onSnapshot(
@@ -34,8 +38,10 @@ const articleDetails = ({ id }) => {
             return doc.data();
           });
           setArticleInfo(articleDetails[0]);
+          setLoading(false);
         },
         (error) => {
+          setLoading(false);
           console.log(error);
         }
       );
@@ -46,7 +52,10 @@ const articleDetails = ({ id }) => {
       <HeadSection
         title="Blog | Article details"
         metadata={[
-          { name: "description", content: "Next.js blog app react , next js and firebase" },
+          {
+            name: "description",
+            content: "Next.js blog app react , next js and firebase",
+          },
           {
             name: "keywords",
             content:
@@ -56,21 +65,25 @@ const articleDetails = ({ id }) => {
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
-      {articleInfo && (
-        <AuthorInfo
-          authorInfo={{
-            authorName: articleInfo && articleInfo.authorName,
-            authorPhoto: articleInfo && articleInfo.authorPhoto,
-          }}
-        />
-      )}
-      {articleInfo && (
-        <Article
-          articleInfo={articleInfo}
-          articleFullURL={`${BASE_HREF}${router.asPath}`}
-          isDetails={true}
-          user={user}
-        />
+      {articleInfo && !loading ? (
+        <>
+          <AuthorInfo
+            authorInfo={{
+              authorName: articleInfo && articleInfo.authorName,
+              authorPhoto: articleInfo && articleInfo.authorPhoto,
+            }}
+          />
+          <Article
+            articleInfo={articleInfo}
+            articleFullURL={`${BASE_HREF}${router.asPath}`}
+            isDetails={true}
+            user={user}
+          />
+        </>
+      ) : (
+        <div className="d-flex justify-content-center my-5">
+          <LoaderComp />
+        </div>
       )}
     </section>
   );

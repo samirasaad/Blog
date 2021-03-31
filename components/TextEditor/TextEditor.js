@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import Cookies from "js-cookie";
 
 const TextEditor = ({
   placeholder,
@@ -12,8 +11,8 @@ const TextEditor = ({
   return (
     <Editor
       init={{
-        setup: function (ed) {
-          ed.on("init", function () {
+        setup: function (editor) {
+          editor.on("init", function () {
             this.getDoc().body.style.fontSize = "16";
             this.getDoc().body.style.fontFamily = "YanoneKaffeesatz-Regular";
           });
@@ -81,7 +80,6 @@ const TextEditor = ({
       onEditorChange={handleEditorChange}
       id={id}
       value={value}
-      // value={value ? value : JSON.parse(Cookies.get("article")).content}
     />
   );
 };

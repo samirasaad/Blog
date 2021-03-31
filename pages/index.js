@@ -9,8 +9,10 @@ import debounce from "lodash.debounce";
 import Cookies from "js-cookie";
 import styles from "../styles/Home.module.css";
 import HeadSection from "../components/HeadSection/HeadSection";
+import LoaderComp from "../components/Loader/Loader";
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const [articlesList, setArticlesList] = useState([]);
   const [filteredArticlesList, setFilteredArticlesList] = useState([]);
   const [user, setUser] = useState({});
@@ -36,15 +38,18 @@ const Home = () => {
   const delayedHandleChange = debounce(() => getFilteredAtricles(), 2500);
 
   const getArticlesFirestore = async () => {
+    setLoading(true);
     db.collection(ARTICLES).onSnapshot(
       (querySnapshot) => {
         let articles = querySnapshot.docs.map((doc) => {
           return doc.data();
         });
         setArticlesList(articles);
+        setLoading(false);
         setFilteredArticlesList(articles);
       },
       (error) => {
+        setLoading(false);
         console.log(error);
       }
     );
@@ -107,8 +112,15 @@ const Home = () => {
             placeholder="Search with author name or category name"
           />
         </div>
-        {filteredArticlesList && filteredArticlesList.length > 0 && (
-          <AllArticles articlesList={filteredArticlesList} user={user} />
+        {loading ? (
+          <div className="d-flex justify-content-center my-5">
+            <LoaderComp />
+          </div>
+        ) : (
+          filteredArticlesList &&
+          filteredArticlesList.length > 0 && (
+            <AllArticles articlesList={filteredArticlesList} user={user} />
+          )
         )}
         {notFoundDataErr && (
           <p className="text-center text-muted my-5">

@@ -1,24 +1,42 @@
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+import LoaderComp from "../Loader/Loader";
 import MyArticles from "../MyArticles/MyArticles";
 import MyFavorites from "../MyFavorites/MyFavorites";
+import "react-tabs/style/react-tabs.css";
 
-const HeadTabs = ({ user, myArticlesList, myFavoritesList, deleteArticle }) => (
+const HeadTabs = ({
+  loading,
+  user,
+  myArticlesList,
+  myFavoritesList,
+  deleteArticle,
+}) => (
   <Tabs>
     <TabList>
       <Tab>My Articles </Tab>
       <Tab>My Favorites</Tab>
     </TabList>
-
     <TabPanel>
-      <MyArticles
-        user={user}
-        deleteArticle={deleteArticle}
-        myArticlesList={myArticlesList}
-      />
+      {loading ? (
+        <div className="d-flex justify-content-center my-5">
+          <LoaderComp />
+        </div>
+      ) : (
+        <MyArticles
+          user={user}
+          deleteArticle={deleteArticle}
+          myArticlesList={myArticlesList}
+        />
+      )}
     </TabPanel>
     <TabPanel>
-      <MyFavorites user={user} myFavoritesList={myFavoritesList} />
+      {loading ? (
+        <div className="d-flex justify-content-center my-5">
+          <LoaderComp />
+        </div>
+      ) : (
+        <MyFavorites user={user} myFavoritesList={myFavoritesList} />
+      )}
     </TabPanel>
   </Tabs>
 );
