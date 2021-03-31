@@ -57,8 +57,8 @@ const AddArticle = () => {
       categoryName: article.categoryName,
     };
     Cookies.set("article", JSON.stringify(articleObj));
+    console.log( Cookies.get('article'))
     setIsPreview(true);
-    // router.push("/preview");
   };
 
   const handleColorChange = (e) => {

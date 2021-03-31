@@ -8,10 +8,18 @@ const TextEditor = ({
   handleEditorChange,
   value,
 }) => {
+  const [editor, setEditor] = useState(null);
+  useEffect(() => {
+    if (editor) {
+      editor.setContent(value);
+    }
+  }, [editor]);
+
   return (
     <Editor
       init={{
         setup: function (editor) {
+          setEditor(editor);
           editor.on("init", function () {
             this.getDoc().body.style.fontSize = "16";
             this.getDoc().body.style.fontFamily = "YanoneKaffeesatz-Regular";
