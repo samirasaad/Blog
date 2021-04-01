@@ -6,25 +6,26 @@ import { db } from "./../../firebase";
 import { ARTICLES, FAVORITES } from "./../../utils/constants";
 import Cookies from "js-cookie";
 import HeadSection from "../../components/HeadSection/HeadSection";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [myArticlesList, setMyArticlesList] = useState([]);
   const [myFavoritesList, setMyFavoritesList] = useState([]);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
     setUser(JSON.parse(Cookies.get("userInfo")));
   }, []);
 
-  // useEffect(() => {
-  //   if (typeof window !== undefined) {
-  //     let id =
-  //       localStorage.getItem("userInfo") &&
-  //       JSON.parse(localStorage.getItem("userInfo")).uid;
-  //     setUser(JSON.parse(localStorage.getItem("userInfo")));
-  //   }
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 3000);
+  }, [isSnackbarOpen]);
 
   useEffect(() => {
     if (user && user.uid) {
@@ -93,14 +94,20 @@ const Profile = () => {
                   console.error("Error removing document: ", error);
                 });
             });
+            setIsSnackbarOpen(true);
+            setMsg("Article deleted successfully");
+            setType("sucess");
           })
-          .catch(function (error) {
-            console.log("Error getting documents: ", error);
+          .catch(function (err) {
+            console.log("Error getting documents: ", err);
           });
       })
       .catch((err) => {
+        setIsSnackbarOpen(true);
         setLoading(false);
         console.log(err);
+        setMsg(err.code);
+        setType("error");
       });
   };
 
@@ -122,6 +129,7 @@ const Profile = () => {
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
+      <Snackbar isOpen={isSnackbarOpen} msg={msg} type={type} />
       <HeadTabs
         user={user}
         myArticlesList={myArticlesList}

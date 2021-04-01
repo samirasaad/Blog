@@ -14,12 +14,16 @@ import LoaderComp from "../../components/Loader/Loader";
 import Preview from "./../../components/Preview/Preview";
 import ReactTooltip from "./../../components/TooltipComp/TooltipComp";
 import TooltipComp from "./../../components/TooltipComp/TooltipComp";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 const AddArticle = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [isPreview, setIsPreview] = useState(false);
   const [user, setUser] = useState({});
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [type, setType] = useState("");
   const [article, setArticle] = useState({
     content: "",
     title: "",
@@ -45,6 +49,12 @@ const AddArticle = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 3000);
+  }, [isSnackbarOpen]);
+
   const handleEditorChange = (content, editor) => {
     setArticle({ ...article, content });
   };
@@ -57,7 +67,7 @@ const AddArticle = () => {
       categoryName: article.categoryName,
     };
     Cookies.set("article", JSON.stringify(articleObj));
-    console.log( Cookies.get('article'))
+    console.log(Cookies.get("article"));
     setIsPreview(true);
   };
 
@@ -103,10 +113,16 @@ const AddArticle = () => {
         });
         Cookies.remove("article");
         setLoading(false);
+        setIsSnackbarOpen(true);
+        setMsg("Article Published successfully");
+        setType("sucess");
       })
       .catch((err) => {
-        setLoading(false);
         console.log(err);
+        setIsSnackbarOpen(true);
+        setLoading(false);
+        setMsg(err.code);
+        setType("error");
       });
   };
 
@@ -132,6 +148,7 @@ const AddArticle = () => {
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
+      <Snackbar isOpen={isSnackbarOpen} msg={msg} type={type} />
       <h1 className={`mt-4 font-weight-bold ${addArticleStyles.title}`}>
         Article Details
       </h1>
@@ -249,7 +266,7 @@ const AddArticle = () => {
           </div>
         </form>
       ) : (
-        !loading && isPreview && <Preview handleEdit={handleEdit} user={user}/>
+        !loading && isPreview && <Preview handleEdit={handleEdit} user={user} />
       )}
     </section>
   );

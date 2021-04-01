@@ -17,6 +17,7 @@ import { useCookies } from "react-cookie";
 import LoginStyles from "./Login.module.scss";
 import HeadSection from "../../components/HeadSection/HeadSection";
 import LoaderComp from "../../components/Loader/Loader";
+import Snackbar from "./../../components/Snackbar/Snackbar";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Login = () => {
   const [user, setUser] = useState(null);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   const defaultLottieOptions = {
     loop: true,
@@ -41,6 +44,12 @@ const Login = () => {
       storeUser();
     }
   }, [user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 3000);
+  }, [isSnackbarOpen]);
 
   const checkUserExistenece = async (user) => {
     // check if existed before
@@ -98,10 +107,12 @@ const Login = () => {
           .then((res) => {
             setUser(res.user);
             checkUserExistenece(res.user);
+            setIsSnackbarOpen(false);
           })
           .catch((err) => {
             setGoogleLoading(false);
-            // setFirebaseErrMsg(err.message);
+            setIsSnackbarOpen(true);
+            setErrMsg(err.code);
             console.log(err);
           });
         break;
@@ -111,10 +122,12 @@ const Login = () => {
           .then((res) => {
             setUser(res.user);
             checkUserExistenece(res.user);
+            setIsSnackbarOpen(false);
           })
           .catch((err) => {
             setGithubLoading(false);
-            // setFirebaseErrMsg(err.message);
+            setIsSnackbarOpen(true);
+            setErrMsg(err.code);
             console.log(err);
           });
         break;
@@ -142,6 +155,7 @@ const Login = () => {
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
+      <Snackbar isOpen={isSnackbarOpen} msg={errMsg} type="error" />
       <div
         className={`d-flex justify-content-center align-items-center mt-4 ${LoginStyles.content}`}
       >
