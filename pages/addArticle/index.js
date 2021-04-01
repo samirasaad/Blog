@@ -52,7 +52,7 @@ const AddArticle = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsSnackbarOpen(false);
-    }, 3000);
+    }, 4000);
   }, [isSnackbarOpen]);
 
   const handleEditorChange = (content, editor) => {

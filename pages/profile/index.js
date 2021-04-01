@@ -24,7 +24,7 @@ const Profile = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsSnackbarOpen(false);
-    }, 3000);
+    }, 4000);
   }, [isSnackbarOpen]);
 
   useEffect(() => {

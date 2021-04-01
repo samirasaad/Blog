@@ -48,7 +48,7 @@ const Login = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsSnackbarOpen(false);
-    }, 3000);
+    }, 4000);
   }, [isSnackbarOpen]);
 
   const checkUserExistenece = async (user) => {
