@@ -50,7 +50,7 @@ const articleDetails = ({ id }) => {
   return (
     <section className="section-min-height">
       <HeadSection
-        title="Blog | Article details"
+        title={`Blog | ${articleInfo ? articleInfo.title : 'Article details'}`}
         metadata={[
           {
             name: "description",
