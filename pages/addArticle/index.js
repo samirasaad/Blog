@@ -32,28 +32,34 @@ const AddArticle = () => {
   });
 
   useEffect(() => {
+    let articleStoredData = null;
     // check we on browser not server
     if (typeof window !== undefined) {
       if (Cookies.get("userInfo")) {
         setUser(JSON.parse(Cookies.get("userInfo")));
       }
+      articleStoredData = JSON.parse(localStorage.getItem("article"));
     }
 
-    if (Cookies.get("article")) {
+    if (articleStoredData) {
       // console.log(Cookies.get("article"));
       // console.log( decodeURI(Cookies.get("article")));
 
-      console.log(Cookies.get("article"));
-      console.log(decodeURIComponent(Cookies.get("article")));
-      let stoedArticleInfo = JSON.parse(
-        decodeURIComponent(Cookies.get("article"))
-      );
-      console.log(stoedArticleInfo);
+      // console.log(Cookies.get("article"));
+      // console.log(decodeURIComponent(Cookies.get("article")));
+      // let stoedArticleInfo = JSON.parse(
+      //   decodeURIComponent(Cookies.get("article").replace(/(%2E)/gi, "%20"))
+      // );
+      // console.log(stoedArticleInfo);
+      // function byteCount(s) {
+      //   console.log(encodeURI(s).split(/%..|./).length - 1);
+      // }
+      // byteCount(stoedArticleInfo);
       setArticle({
-        content: stoedArticleInfo.content,
-        title: stoedArticleInfo.title,
-        colorValue: stoedArticleInfo.colorValue,
-        categoryName: stoedArticleInfo.categoryName,
+        content: articleStoredData.content,
+        title: articleStoredData.title,
+        colorValue: articleStoredData.colorValue,
+        categoryName: articleStoredData.categoryName,
       });
     }
   }, []);
@@ -76,9 +82,16 @@ const AddArticle = () => {
       categoryName: article.categoryName,
     };
     // decode/encode cookie
-    // console.log("article=" + encodeURIComponent(JSON.stringify(articleObj)));
+
+    localStorage.setItem("article", JSON.stringify(articleObj));
+    console.log("article=" + encodeURIComponent(JSON.stringify(articleObj)));
+    //   function byteCount(s) {
+    //     console.log( encodeURI(s).split(/%..|./).length - 1);
+    // }
+    // byteCount(encodeURIComponent(JSON.stringify(articleObj)))
+
+    //   Cookies.set("article", encodeURIComponent(JSON.stringify(articleObj)));
     // console.log(JSON.parse(decodeURIComponent(Cookies.get("article"))));
-    Cookies.set("article", encodeURIComponent(JSON.stringify(articleObj)));
     // console.log(JSON.parse(Cookies.get("article")));
     // console.log(articleObj);
     // console.log(JSON.stringify(articleObj) === Cookies.get("article"));
