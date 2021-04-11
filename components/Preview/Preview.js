@@ -5,13 +5,13 @@ import Btn from "../../components/controls/Btn/Btn";
 import previewStyles from "./preview.module.scss";
 import TooltipComp from "../TooltipComp/TooltipComp";
 
-const Preview = ({ handleEdit, user }) => {
-  const [articleInfo, setArticleInfo] = useState("");
+const Preview = ({ handleEdit, user, articleInfo }) => {
+  // const [articleInfo, setArticleInfo] = useState("");
 
-  useEffect(() => {
-    Cookies.get("article") &&
-      setArticleInfo(JSON.parse(Cookies.get("article")));
-  }, []);
+  // useEffect(() => {
+  //   Cookies.get("article") &&
+  //     setArticleInfo(JSON.parse(Cookies.get("article")));
+  // }, []);
 
   return (
     <section className="container section-min-height">

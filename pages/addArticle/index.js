@@ -67,7 +67,10 @@ const AddArticle = () => {
       categoryName: article.categoryName,
     };
     Cookies.set("article", JSON.stringify(articleObj));
-    console.log(Cookies.get("article"));
+    // console.log(JSON.parse(Cookies.get("article")));
+    // console.log(articleObj);
+    // console.log(JSON.stringify(articleObj) === Cookies.get("article"));
+    // JSON.stringify(articleObj) === Cookies.get("article") && setIsPreview(true)
     setIsPreview(true);
   };
 
@@ -266,7 +269,19 @@ const AddArticle = () => {
           </div>
         </form>
       ) : (
-        !loading && isPreview && <Preview handleEdit={handleEdit} user={user} />
+        !loading &&
+        isPreview && (
+          <Preview
+            handleEdit={handleEdit}
+            user={user}
+            articleInfo={{
+              title: article.title,
+              content: article.content,
+              colorValue: article.colorValue,
+              categoryName: article.categoryName,
+            }}
+          />
+        )
       )}
     </section>
   );
