@@ -40,11 +40,20 @@ const AddArticle = () => {
     }
 
     if (Cookies.get("article")) {
+      // console.log(Cookies.get("article"));
+      // console.log( decodeURI(Cookies.get("article")));
+
+      console.log(Cookies.get("article"));
+      console.log(decodeURIComponent(Cookies.get("article")));
+      let stoedArticleInfo = JSON.parse(
+        decodeURIComponent(Cookies.get("article"))
+      );
+      console.log(stoedArticleInfo);
       setArticle({
-        content: JSON.parse(Cookies.get("article")).content,
-        title: JSON.parse(Cookies.get("article")).title,
-        colorValue: JSON.parse(Cookies.get("article")).colorValue,
-        categoryName: JSON.parse(Cookies.get("article")).categoryName,
+        content: stoedArticleInfo.content,
+        title: stoedArticleInfo.title,
+        colorValue: stoedArticleInfo.colorValue,
+        categoryName: stoedArticleInfo.categoryName,
       });
     }
   }, []);
@@ -66,7 +75,10 @@ const AddArticle = () => {
       colorValue: article.colorValue,
       categoryName: article.categoryName,
     };
-    Cookies.set("article", JSON.stringify(articleObj));
+    // decode/encode cookie
+    // console.log("article=" + encodeURIComponent(JSON.stringify(articleObj)));
+    // console.log(JSON.parse(decodeURIComponent(Cookies.get("article"))));
+    Cookies.set("article", encodeURIComponent(JSON.stringify(articleObj)));
     // console.log(JSON.parse(Cookies.get("article")));
     // console.log(articleObj);
     // console.log(JSON.stringify(articleObj) === Cookies.get("article"));
