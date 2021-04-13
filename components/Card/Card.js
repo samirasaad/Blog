@@ -23,7 +23,9 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
               cancelText="No"
               confirmText="Yes"
               handleConfirm={() => deleteArticle(article.id)}
-              clickableItem={<img src="/assets/images/delete.svg" alt='delete'/>}
+              clickableItem={
+                <img src="/assets/images/delete.svg" alt="delete" />
+              }
             />
           )}
           <h5 className={`${canDelete && "pt-4"}`} id={article.id}></h5>
@@ -34,8 +36,8 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
               article.authorPhoto
                 ? article.authorPhoto
                 : "/assets/images/placeholder.jpg"
-              }
-              alt='author'
+            }
+            alt="author"
             className="profile-img-medium"
           />
           <h6 className="my-3">{` By: ${article.authorName}`}</h6>
@@ -52,7 +54,8 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
             article.favouritBY.filter((obj) => obj.id === user.uid).length ===
               0 &&
             article.authorID !== user.uid) ||
-          !user ? (
+          !user ||
+          Object.keys(user).length === 0 ? (
             <div
               className="d-flex flex-column align-items-center"
               onClick={(e) =>

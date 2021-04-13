@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../Card/Card";
 
-const AllArticles = ({ articlesList, user, addToFavourites }) => {
+const AllArticles = ({ articlesList, user }) => {
   const renderArticles = () => {
     return (
       <div className="row mx-0">

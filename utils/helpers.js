@@ -1,6 +1,7 @@
 import { db } from "./../firebase";
 import { ARTICLES, FAVORITES } from "./../utils/constants";
 import Cookies from "js-cookie";
+import Router from "next/router";
 
 export const isAuth = () => {
   return Cookies.get("userInfo");
@@ -12,7 +13,7 @@ export const logout = () => {
 
 export const addToFavourites = async (e, user, articleObj, favouritBY) => {
   e.preventDefault();
-  if (user) {
+  if (user && Object.keys(user).length > 0) {
     // add to favorites
     if (!favouritBY.find((obj) => obj.id === user.uid)) {
       await db
@@ -21,9 +22,7 @@ export const addToFavourites = async (e, user, articleObj, favouritBY) => {
         .update({
           favouritBY: [...favouritBY, { id: user.uid }],
         })
-        .then(() => {
-          // setLoading(false);
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
@@ -35,9 +34,7 @@ export const addToFavourites = async (e, user, articleObj, favouritBY) => {
           ...articleObj,
           favouritBY: [...favouritBY, { id: user.uid }],
         })
-        .then(() => {
-          // setLoading(false);
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
@@ -51,9 +48,7 @@ export const addToFavourites = async (e, user, articleObj, favouritBY) => {
         .update({
           favouritBY: favouritBY.filter((item) => item.id !== user.uid),
         })
-        .then(() => {
-          // setLoading(false);
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
@@ -62,15 +57,12 @@ export const addToFavourites = async (e, user, articleObj, favouritBY) => {
         .collection(FAVORITES)
         .doc(articleObj.id + "-" + user.uid)
         .delete()
-        .then(() => {
-          // setLoading(false);
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
     }
   } else {
-    // search for redirection from not next js component
-    // router.push("/Login");
+    Router.push("/Login");
   }
 };
