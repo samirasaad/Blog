@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { firebaseSignout } from "../../firebase/authMethods";
 import { isAuthReceive } from "./../../store/actions/auth";
 import { isAuth, logout } from "./../../utils/helpers";
 import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
@@ -10,7 +11,6 @@ import NavBarStyles from "./NavBar.module.scss";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const [user, setUser] = useState({});
   const isAuthnticatedUser = useSelector(
     ({ isAuthnticatedUser }) => isAuthnticatedUser
@@ -21,14 +21,9 @@ const NavBar = () => {
   }, []);
 
   const handleLogout = () => {
-    logout();
     setUser({});
     dispatch(isAuthReceive(null));
-    Cookies.remove("userInfo");
-    // search for redirection from not next js component
-    router.push("/Login");
-    console.log(isAuth);
-    console.log(isAuthnticatedUser.user);
+    firebaseSignout();
   };
 
   return (
@@ -43,7 +38,7 @@ const NavBar = () => {
               height="100"
               width="100"
               className={`mx-3 ${NavBarStyles.logo}`}
-              alt='logo'
+              alt="logo"
             />
 
             <h4
@@ -89,7 +84,7 @@ const NavBar = () => {
                             : "/assets/images/placeholder.jpg"
                         }
                         className="profile-img-small"
-                        alt='profile'
+                        alt="profile"
                       />
                     </a>
                   </Link>

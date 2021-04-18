@@ -76,9 +76,9 @@ const Login = () => {
       .doc(user.uid)
       .set({
         id: user.uid,
-        userName: user && user.displayName && user.displayName.toLowerCase(),
-        photoUrl: user && user.photoURL,
-        userEmail: user && user.email,
+        userName: user.displayName && user.displayName.toLowerCase(),
+        photoUrl: user.photoURL,
+        userEmail: user.email,
       })
       .then((res) => {
         Cookies.set("userInfo", user);
@@ -103,7 +103,7 @@ const Login = () => {
         await signInFirestore("google")
           .then((res) => {
             setUser(res.user);
-            checkUserExistenece(res.user);
+            checkUserExistenece(res.user.providerData[0]);
             setIsSnackbarOpen(false);
           })
           .catch((err) => {
@@ -118,7 +118,7 @@ const Login = () => {
         await signInFirestore("github")
           .then((res) => {
             setUser(res.user);
-            checkUserExistenece(res.user);
+            checkUserExistenece(res.user.providerData[0]);
             setIsSnackbarOpen(false);
           })
           .catch((err) => {

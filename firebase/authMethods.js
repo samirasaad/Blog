@@ -1,10 +1,6 @@
 import { auth } from "./";
 import Cookies from "js-cookie";
-// import History from "./../routes/History";
-
-function signup(email, password) {
-  return auth().createUserWithEmailAndPassword(email, password);
-}
+import Router from "next/router";
 
 function signin(email, password) {
   return auth().signInWithEmailAndPassword(email, password);
@@ -23,12 +19,11 @@ const firebaseSignout = () => {
     .signOut()
     .then((res) => {
       Cookies.remove("userInfo");
-      // check on redirection from non next component
-      // History.push("/Login");
+      Router.push("/Login");
     })
     .catch((err) => {
       console.error(err.message);
     });
 };
 
-export { signup, signin, signInFirestore, firebaseSignout };
+export { signin, signInFirestore, firebaseSignout };
