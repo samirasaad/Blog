@@ -18,7 +18,9 @@ const Profile = () => {
   const [type, setType] = useState("");
 
   useEffect(() => {
-    setUser(JSON.parse(Cookies.get("userInfo")));
+    // if (typeof window !== undefined) {
+    setUser(Cookies.get("userInfo") && JSON.parse(Cookies.get("userInfo")));
+    // }
   }, []);
 
   useEffect(() => {
@@ -141,7 +143,9 @@ const Profile = () => {
   );
 };
 
-export default withTestPrivateRoute(Profile);
+export default Profile;
+// export default withTestPrivateRoute(Profile);
+// export default withPrivateRoute(Profile);
 // export default (Profile);
 
 // export const  getInitialProps = async (ctx) => {

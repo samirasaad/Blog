@@ -26,6 +26,7 @@ const PublicRoute = (WrappedComponent) => {
         context.res?.end();
       } else {
         Router.replace(home);
+        Router.push(home);
       }
     } else if (WrappedComponent.getInitialProps) {
       const wrappedProps = await WrappedComponent.getInitialProps({

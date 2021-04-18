@@ -1,15 +1,14 @@
-import Head from "next/head";
 import { useEffect, useState } from "react";
+import debounce from "lodash.debounce";
+import Cookies from "js-cookie";
 import { db } from "./../firebase";
 import { ARTICLES } from "./../utils/constants";
 import AllArticles from "../components/AllArticles/AllArticles";
 import DynamicHeader from "../components/DynamicHeader/DynamicHeader";
 import FloatingSearchBar from "../components/FloatingSearchBar/FloatingSearchBar";
-import debounce from "lodash.debounce";
-import Cookies from "js-cookie";
-import styles from "../styles/Home.module.css";
 import HeadSection from "../components/HeadSection/HeadSection";
 import LoaderComp from "../components/Loader/Loader";
+import styles from "../styles/Home.module.css";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -21,9 +20,6 @@ const Home = () => {
 
   useEffect(() => {
     setUser(Cookies.get("userInfo") ? JSON.parse(Cookies.get("userInfo")) : {});
-  }, []);
-
-  useEffect(() => {
     getArticlesFirestore();
   }, []);
 
@@ -133,14 +129,16 @@ const Home = () => {
 };
 export default Home;
 
-// Home.getInitialProps = async ({ req }) => {
-//   const cookiesData = parseCookies(req);
-//   if (Object.keys(cookiesData).length === 0 && cookiesData.constructor === Object) {
-//     res.writeHead(301, { Location: "/" });
-//     res.end();
-//   }
-
+// export const getServerSideProps = async () => {
+//   /* getStaticProps called only once [in first load]
+//   in build time so,
+//    we cant use onsnapshot to subscripe on changes */
+//   const articlesList = await db.collection(ARTICLES).get();
+//   const articlesListData = articlesList.docs.map((entry) => ({
+//     ...entry.data(),
+//   }));
 //   return {
-//     cookiesData: cookiesData && cookiesData,
+//     props: { firstLoadArticlsList: articlesListData },
 //   };
+/* Home component will reieve firstLoadArticlsList as props */
 // };

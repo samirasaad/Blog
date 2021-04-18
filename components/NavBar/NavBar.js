@@ -22,8 +22,8 @@ const NavBar = () => {
 
   const handleLogout = () => {
     logout();
-    dispatch(isAuthReceive(null));
     setUser({});
+    dispatch(isAuthReceive(null));
     Cookies.remove("userInfo");
     // search for redirection from not next js component
     router.push("/Login");

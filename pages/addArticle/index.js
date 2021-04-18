@@ -124,7 +124,7 @@ const AddArticle = () => {
       color: article.colorValue,
       categoryName: article.categoryName,
       title: article.title,
-      authorName: user.displayName.toLowerCase(),
+      authorName: user && user.displayName && user.displayName.toLowerCase(),
       authorPhoto: user.photoURL || "",
     };
     // add to firestore
@@ -139,7 +139,7 @@ const AddArticle = () => {
           colorValue: "#f47373",
           categoryName: "",
         });
-        Cookies.remove("article");
+        localStorage.removeItem("article");
         setLoading(false);
         setIsSnackbarOpen(true);
         setMsg("Article Published successfully");

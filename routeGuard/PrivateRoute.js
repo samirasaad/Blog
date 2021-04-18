@@ -1,5 +1,5 @@
 import Router from "next/router";
-import { isAuth,parseCookies } from "../utils/helpers";
+import { isAuth, parseCookies } from "../utils/helpers";
 
 const PrivateRoute = (WrappedComponent) => {
   const checkUserAuthentication = () => {
@@ -16,7 +16,7 @@ const PrivateRoute = (WrappedComponent) => {
     console.log(userAuth);
     // if authorized user ?
     if (!userAuth.auth) {
-      console.log('privtate')
+      console.log("privtate");
 
       // Handle server-side & client-side rendering.
       if (context.res) {
@@ -25,6 +25,7 @@ const PrivateRoute = (WrappedComponent) => {
         });
         context.res?.end();
       } else {
+        Router.push(login);
         Router.replace(login);
       }
     } else if (WrappedComponent.getInitialProps) {

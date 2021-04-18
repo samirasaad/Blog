@@ -7,17 +7,14 @@ import { signInFirestore } from "./../../firebase/authMethods";
 import { USERS } from "./../../utils/constants";
 import withPublicRoute from "../../routeGuard/PublicRoute";
 import withTestPublicRoute from "../../routeGuard/TestPublicRoute";
-
 import Lottie from "react-lottie";
 import Cookies from "js-cookie";
-
 import LoginLottie from "./../../public/assets/lotties/loginLottie.json";
 import Btn from "./../../components/controls/Btn/Btn";
-import { useCookies } from "react-cookie";
-import LoginStyles from "./Login.module.scss";
 import HeadSection from "../../components/HeadSection/HeadSection";
 import LoaderComp from "../../components/Loader/Loader";
 import Snackbar from "./../../components/Snackbar/Snackbar";
+import LoginStyles from "./Login.module.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -79,9 +76,9 @@ const Login = () => {
       .doc(user.uid)
       .set({
         id: user.uid,
-        userName: user.displayName.toLowerCase(),
-        photoUrl: user.photoURL,
-        userEmail: user.email,
+        userName: user && user.displayName && user.displayName.toLowerCase(),
+        photoUrl: user && user.photoURL,
+        userEmail: user && user.email,
       })
       .then((res) => {
         Cookies.set("userInfo", user);
@@ -209,8 +206,10 @@ const Login = () => {
           )}
         </div>
       </div>
+      <div></div>
     </section>
   );
 };
 
-export default withTestPublicRoute(Login);
+export default Login;
+// export default withTestPublicRoute(Login);
