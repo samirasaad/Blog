@@ -40,14 +40,16 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
             alt="author"
             className="profile-img-medium"
           />
-          <span>By: </span> <h6 className="my-3">{article.authorName}</h6>
+          <div className="d-flex  my-3 align-items-baseline">
+            <span className='mx-1'>By: </span> <h6>{article.authorName}</h6>
+          </div>
         </div>
         <div className="d-flex justify-content-between align-items-baseline">
           <div
             className={`px-3 py-2 my-2  ${CardStyle.category}`}
             style={{ backgroundColor: article.color }}
           >
-            <span>{article.categoryName}</span>
+            <span >{article.categoryName}</span>
           </div>
           {(user &&
             user.uid &&
