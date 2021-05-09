@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { db } from "../../firebase";
-import { isAuthReceive } from "../../store/actions/auth";
 import { signInFirestore } from "./../../firebase/authMethods";
-import { USERS } from "./../../utils/constants";
-import withPublicRoute from "../../routeGuard/PublicRoute";
-import withTestPublicRoute from "../../routeGuard/TestPublicRoute";
+import { db } from "../../firebase";
 import Lottie from "react-lottie";
 import Cookies from "js-cookie";
+import { USERS } from "./../../utils/constants";
 import LoginLottie from "./../../public/assets/lotties/loginLottie.json";
+import { isAuthReceive } from "../../store/actions/auth";
 import Btn from "./../../components/controls/Btn/Btn";
 import HeadSection from "../../components/HeadSection/HeadSection";
 import LoaderComp from "../../components/Loader/Loader";
@@ -67,7 +65,6 @@ const Login = () => {
         console.log(err);
         setGoogleLoading(false);
         setGithubLoading(false);
-        // setFirebaseErrMsg(err.message);
       });
   };
 
@@ -91,7 +88,6 @@ const Login = () => {
         console.log(err);
         setGoogleLoading(false);
         setGithubLoading(false);
-        // setFirebaseErrMsg(err.message);
       });
   };
 
@@ -128,7 +124,6 @@ const Login = () => {
             console.log(err);
           });
         break;
-
       default:
         return;
     }
@@ -141,14 +136,14 @@ const Login = () => {
         metadata={[
           {
             name: "description",
-            content: "Next.js blog app react , next js and firebase",
+            content: "Next.js blog app react, next js and firebase",
           },
           {
             name: "keywords",
             content:
-              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
           },
-          { name: "author", content: "Samira saad" },
+          { name: "author", content: "Samira Saad" },
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />

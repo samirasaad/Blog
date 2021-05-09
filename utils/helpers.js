@@ -1,14 +1,10 @@
+import Router from "next/router";
+import Cookies from "js-cookie";
 import { db } from "./../firebase";
 import { ARTICLES, FAVORITES } from "./../utils/constants";
-import Cookies from "js-cookie";
-import Router from "next/router";
 
 export const isAuth = () => {
   return Cookies.get("userInfo");
-};
-
-export const logout = () => {
-  localStorage.clear();
 };
 
 export const addToFavourites = async (e, user, articleObj, favouritBY) => {
@@ -41,7 +37,6 @@ export const addToFavourites = async (e, user, articleObj, favouritBY) => {
     } else {
       // remove favorites
       // remove fav. by from article obj
-      console.log("remove");
       await db
         .collection(ARTICLES)
         .doc(articleObj.id)

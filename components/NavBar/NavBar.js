@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { firebaseSignout } from "../../firebase/authMethods";
+import { isAuth } from "./../../utils/helpers";
 import { isAuthReceive } from "./../../store/actions/auth";
-import { isAuth, logout } from "./../../utils/helpers";
 import ConfirmatiomDialog from "../ConfirmatiomDialog/ConfirmatiomDialog";
 import NavBarStyles from "./NavBar.module.scss";
 

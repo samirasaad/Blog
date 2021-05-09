@@ -85,8 +85,8 @@ const Article = ({ user, articleInfo, articleFullURL, isDetails }) => {
           <div
             className={`d-flex justify-content-between ${ArticleStyles.heading}`}
           >
-            <h3 className={`px-3`}>{articleInfo.title && articleInfo.title}</h3>
-            <div className="mx-3">
+            <h1 className={`px-3 font-weight-bold`}>{articleInfo.title && articleInfo.title}</h1>
+            <div className="mx-3 mb-2">
               <span
                 className={`py-2 px-4 font-weight-bold ${ArticleStyles.category}`}
                 style={{

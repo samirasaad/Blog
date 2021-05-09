@@ -1,3 +1,16 @@
+import {
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+
 const socialIconList = [
   {
     id: 1,
@@ -45,4 +58,26 @@ const headerInfo = [
   },
 ];
 
-export { socialIconList, headerInfo };
+const shareIcons = [
+  {
+    id: 1,
+    btn: FacebookShareButton,
+    icon: FacebookIcon,
+  },
+  {
+    id: 2,
+    btn: LinkedinShareButton,
+    icon: LinkedinIcon,
+  },
+  {
+    id: 3,
+    btn: TwitterShareButton,
+    icon: TwitterIcon,
+  },
+  {
+    id: 4,
+    btn: WhatsappShareButton,
+    icon: WhatsappIcon,
+  },
+];
+export { socialIconList, headerInfo, shareIcons };

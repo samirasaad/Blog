@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { db } from "../../firebase";
+import Cookies from "js-cookie";
+import { ARTICLES, BASE_HREF } from "../../utils/constants";
 import Article from "../../components/Article/Article";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
-import { db } from "../../firebase";
-import { ARTICLES, BASE_HREF } from "../../utils/constants";
-import Cookies from "js-cookie";
 import HeadSection from "../../components/HeadSection/HeadSection";
 import LoaderComp from "../../components/Loader/Loader";
 
@@ -16,13 +16,13 @@ const articleDetails = ({ id }) => {
   const [articleInfo, setArticleInfo] = useState(null);
 
   useEffect(() => {
-    id && setArticleID(id);
-  }, [id]);
-
-  useEffect(() => {
     Cookies.get("userInfo") &&
       setUser(JSON.parse(Cookies.get("userInfo")) || null);
   }, []);
+
+  useEffect(() => {
+    id && setArticleID(id);
+  }, [id]);
 
   useEffect(() => {
     articleID && getArticleDetails();
@@ -50,18 +50,18 @@ const articleDetails = ({ id }) => {
   return (
     <section className="section-min-height">
       <HeadSection
-        title={`Blog | ${articleInfo ? articleInfo.title : 'Article details'}`}
+        title={`Blog | ${articleInfo ? articleInfo.title : "Article details"}`}
         metadata={[
           {
             name: "description",
-            content: "Next.js blog app react , next js and firebase",
+            content: "Next.js blog app react, next js and firebase",
           },
           {
             name: "keywords",
             content:
-              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
           },
-          { name: "author", content: "Samira saad" },
+          { name: "author", content: "Samira Saad" },
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />

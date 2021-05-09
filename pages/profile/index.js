@@ -18,9 +18,7 @@ const Profile = () => {
   const [type, setType] = useState("");
 
   useEffect(() => {
-    // if (typeof window !== undefined) {
     setUser(Cookies.get("userInfo") && JSON.parse(Cookies.get("userInfo")));
-    // }
   }, []);
 
   useEffect(() => {
@@ -120,14 +118,14 @@ const Profile = () => {
         metadata={[
           {
             name: "description",
-            content: "Next.js blog app react , next js and firebase",
+            content: "Next.js blog app react, next js and firebase",
           },
           {
             name: "keywords",
             content:
-              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
           },
-          { name: "author", content: "Samira saad" },
+          { name: "author", content: "Samira Saad" },
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
@@ -144,13 +142,3 @@ const Profile = () => {
 };
 
 export default Profile;
-// export default withTestPrivateRoute(Profile);
-// export default withPrivateRoute(Profile);
-// export default (Profile);
-
-// export const  getInitialProps = async (ctx) => {
-//   console.info("##### profile", ctx);
-//   return {
-
-//   };
-// };

@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
-import TextEditor from "../../components/TextEditor/TextEditor";
 import { db } from "./../../firebase";
 import Cookies from "js-cookie";
 import { ARTICLES } from "./../../utils/constants";
-import { useRouter } from "next/router";
-import Picker from "../../components/ColorPicker/ColorPicker";
-import Btn from "../../components/controls/Btn/Btn";
+import TextEditor from "../../components/TextEditor/TextEditor";
 import InputField from "../../components/controls/InputField/InputField";
-import withPrivateRoute from "../../routeGuard/PrivateRoute";
+import Picker from "../../components/ColorPicker/ColorPicker";
 import HeadSection from "../../components/HeadSection/HeadSection";
-import addArticleStyles from "./addArticle.module.scss";
+import Btn from "../../components/controls/Btn/Btn";
+import Snackbar from "../../components/Snackbar/Snackbar";
 import LoaderComp from "../../components/Loader/Loader";
 import Preview from "./../../components/Preview/Preview";
-import ReactTooltip from "./../../components/TooltipComp/TooltipComp";
 import TooltipComp from "./../../components/TooltipComp/TooltipComp";
-import Snackbar from "../../components/Snackbar/Snackbar";
+import addArticleStyles from "./addArticle.module.scss";
 
 const AddArticle = () => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const [isPreview, setIsPreview] = useState(false);
   const [user, setUser] = useState({});
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
@@ -33,7 +29,6 @@ const AddArticle = () => {
 
   useEffect(() => {
     let articleStoredData = null;
-    // check we on browser not server
     if (typeof window !== undefined) {
       if (Cookies.get("userInfo")) {
         setUser(JSON.parse(Cookies.get("userInfo")));
@@ -42,19 +37,6 @@ const AddArticle = () => {
     }
 
     if (articleStoredData) {
-      // console.log(Cookies.get("article"));
-      // console.log( decodeURI(Cookies.get("article")));
-
-      // console.log(Cookies.get("article"));
-      // console.log(decodeURIComponent(Cookies.get("article")));
-      // let stoedArticleInfo = JSON.parse(
-      //   decodeURIComponent(Cookies.get("article").replace(/(%2E)/gi, "%20"))
-      // );
-      // console.log(stoedArticleInfo);
-      // function byteCount(s) {
-      //   console.log(encodeURI(s).split(/%..|./).length - 1);
-      // }
-      // byteCount(stoedArticleInfo);
       setArticle({
         content: articleStoredData.content,
         title: articleStoredData.title,
@@ -81,21 +63,7 @@ const AddArticle = () => {
       colorValue: article.colorValue,
       categoryName: article.categoryName,
     };
-    // decode/encode cookie
-
     localStorage.setItem("article", JSON.stringify(articleObj));
-    console.log("article=" + encodeURIComponent(JSON.stringify(articleObj)));
-    //   function byteCount(s) {
-    //     console.log( encodeURI(s).split(/%..|./).length - 1);
-    // }
-    // byteCount(encodeURIComponent(JSON.stringify(articleObj)))
-
-    //   Cookies.set("article", encodeURIComponent(JSON.stringify(articleObj)));
-    // console.log(JSON.parse(decodeURIComponent(Cookies.get("article"))));
-    // console.log(JSON.parse(Cookies.get("article")));
-    // console.log(articleObj);
-    // console.log(JSON.stringify(articleObj) === Cookies.get("article"));
-    // JSON.stringify(articleObj) === Cookies.get("article") && setIsPreview(true)
     setIsPreview(true);
   };
 
@@ -165,14 +133,14 @@ const AddArticle = () => {
         metadata={[
           {
             name: "description",
-            content: "Next.js blog app react , next js and firebase",
+            content: "Next.js blog app react, next js and firebase",
           },
           {
             name: "keywords",
             content:
-              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
           },
-          { name: "author", content: "Samira saad" },
+          { name: "author", content: "Samira Saad" },
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
@@ -313,8 +281,3 @@ const AddArticle = () => {
 };
 
 export default AddArticle;
-
-// AddArticle.getInitialProps = async (props) => {
-//   console.info("##### AddArticle", props);
-//   return {};
-// };

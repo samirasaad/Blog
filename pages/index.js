@@ -81,14 +81,14 @@ const Home = () => {
         metadata={[
           {
             name: "description",
-            content: "Next.js blog app react , next js and firebase",
+            content: "Next.js blog app react, next js and firebase",
           },
           {
             name: "keywords",
             content:
-              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestire",
+              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
           },
-          { name: "author", content: "Samira saad" },
+          { name: "author", content: "Samira Saad" },
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
