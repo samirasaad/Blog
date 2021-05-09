@@ -65,10 +65,41 @@ const Home = () => {
     setFilteredArticlesList(filteredList);
     if (filteredList.length === 0) {
       setNoFoundDataErr(true);
-    }else{
+    } else {
       setNoFoundDataErr(false);
-
     }
+
+    // highlighting search result
+    // let backgroundColor = "yellow";
+    // if (window.find && window.getSelection) {
+    //   Array.from(document.getElementsByClassName("h6")).forEach((elem) => {
+    //     elem.designMode = "on";
+    //   });
+
+    //   Array.from(
+    //     document.getElementsByClassName("Card_category__1bULD")
+    //   ).forEach((elem) => {
+    //     elem.designMode = "on";
+    //   });
+
+    //   var sel = window.getSelection();
+    //   sel.collapse(document.body, 0);
+
+    //   while (window.find(searchValue)) {
+    //     Array.from(document.getElementsByClassName("h6")).forEach((elem) => {
+    //       elem.execCommand("HiliteColor", true, backgroundColor);
+    //       // sel.collapseToEnd();
+    //       Array.from(
+    //         document.getElementsByClassName("Card_category__1bULD")
+    //       ).forEach((elem) => {
+    //         elem.execCommand("HiliteColor", false, backgroundColor);
+    //         sel.collapseToEnd();
+    //       });
+    //     });
+
+    //     document.designMode = "off";
+    //   }
+    // }
   };
 
   const handleSubmitSearch = (e) => {

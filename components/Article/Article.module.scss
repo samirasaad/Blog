@@ -10,14 +10,11 @@
       height: auto;
       max-width: 100%;
     }
-    // img.fav,
-    // img.disabledfav {
-    //   height: 1.4em ;
-    // }
     .content {
       .category {
         border-radius: 10px;
         color: white;
+        text-transform: capitalize;
       }
     }
   }
