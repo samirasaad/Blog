@@ -28,6 +28,7 @@ const Home = () => {
       delayedHandleChange();
     } else {
       setFilteredArticlesList(articlesList);
+      setNoFoundDataErr(false);
     }
   }, [searchValue, articlesList]);
 
@@ -56,16 +57,14 @@ const Home = () => {
   };
 
   const getFilteredAtricles = () => {
-    if (searchValue) {
-      let filteredList = articlesList.filter(
-        (obj) =>
-          obj.authorName.includes(searchValue) ||
-          obj.categoryName.includes(searchValue)
-      );
-      setFilteredArticlesList(filteredList);
-      if (filteredList.length === 0) {
-        setNoFoundDataErr(true);
-      }
+    let filteredList = articlesList.filter(
+      (obj) =>
+        obj.authorName.includes(searchValue) ||
+        obj.categoryName.includes(searchValue)
+    );
+    setFilteredArticlesList(filteredList);
+    if (filteredList.length === 0) {
+      setNoFoundDataErr(true);
     }
   };
 
@@ -128,17 +127,3 @@ const Home = () => {
   );
 };
 export default Home;
-
-// export const getServerSideProps = async () => {
-//   /* getStaticProps called only once [in first load]
-//   in build time so,
-//    we cant use onsnapshot to subscripe on changes */
-//   const articlesList = await db.collection(ARTICLES).get();
-//   const articlesListData = articlesList.docs.map((entry) => ({
-//     ...entry.data(),
-//   }));
-//   return {
-//     props: { firstLoadArticlsList: articlesListData },
-//   };
-/* Home component will reieve firstLoadArticlsList as props */
-// };
