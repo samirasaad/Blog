@@ -6,8 +6,8 @@ const FloatingShareMenu = ({ url }) => {
  
   return (
     <div className={`${FloatingShareMenuStyles.floating_share_menu}`}>
-      {shareIcons.map((item, index) => (
-        <p className={`${FloatingShareMenuStyles.share_icon}`}>
+      {shareIcons.map((item) => (
+        <p key={item.id} className={`${FloatingShareMenuStyles.share_icon}`}>
           <item.btn
             children={<item.icon size={32} round={`true`} />}
             url={url}

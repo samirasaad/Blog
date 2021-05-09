@@ -65,6 +65,9 @@ const Home = () => {
     setFilteredArticlesList(filteredList);
     if (filteredList.length === 0) {
       setNoFoundDataErr(true);
+    }else{
+      setNoFoundDataErr(false);
+
     }
   };
 
