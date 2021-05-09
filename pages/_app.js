@@ -10,6 +10,7 @@ import Layout from "./../components/Layout/Layout";
 import store from "./../store";
 import "nprogress/nprogress.css";
 import "../styles/scss/base.scss";
+import { useEffect } from "react";
 
 //Binding events to display loader on router change
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -18,42 +19,29 @@ Router.events.on("routeChangeError", () => NProgress.done());
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
-  // const dispatch = useDispatch();
-  const handleRedirect = () => {
-    if (
-      (!isAuth() && router.pathname === "/Login") ||
-      (!isAuth() && router.pathname !== "/Login")
-    ) {
-      router.push("/Login");
-    } else {
-      router.push("/Login");
+
+  useEffect(() => {
+    if (router.pathname) {
+      if (!isAuth() && router.pathname === "/Login") {
+        router.push("/Login");
+      } else if (
+        (!isAuth() && router.pathname !== "/Login") || //no 404 page, just go to home
+        (isAuth() && router.pathname === "/Login")
+      ) {
+        router.push("/");
+      } else {
+        return;
+      }
     }
-    console.log(router.pathname);
-    // dispatch(isAuthReceive(null));
-    // Cookies.remove("userInfo");
-    return <Login />;
-  };
+  }, [router.pathname]);
 
   return (
     <Provider store={store}>
       <Layout>
-        {isAuth() && router.pathname !== "/Login" ? (
-          <Component {...pageProps} />
-        ) : (!isAuth() && router.pathname === "/Login") ||
-          (!isAuth() && router.pathname !== "/Login") ? (
-          // handleRedirect()
-          <Login />
-        ) : (
-          // handleRedirect()
-          <Home />
-        )}
+        <Component {...pageProps} />
       </Layout>
     </Provider>
   );
 };
 
 export default MyApp;
-
-// MyApp.getInitialProps = ({ store, Component, ctx }) => {
-//   ctx.store.dispatch(isAuthReceive(null));
-// };
