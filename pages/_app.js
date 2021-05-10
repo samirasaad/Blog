@@ -25,7 +25,8 @@ const MyApp = ({ Component, pageProps }) => {
       if (!isAuth() && router.pathname === "/Login") {
         router.push("/Login");
       } else if (
-        (!isAuth() && router.pathname !== "/Login") || //no 404 page, just go to home
+        (!isAuth() && router.pathname === "/addArticle") || //no 404 page, just go to home
+        (!isAuth() && router.pathname === "/profile") || 
         (isAuth() && router.pathname === "/Login")
       ) {
         router.push("/");
