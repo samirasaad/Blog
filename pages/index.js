@@ -19,17 +19,25 @@ const Home = () => {
   const [notFoundDataErr, setNoFoundDataErr] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
     setUser(Cookies.get("userInfo") ? JSON.parse(Cookies.get("userInfo")) : {});
-    getArticlesFirestore();
+    if (mounted) {
+      getArticlesFirestore();
+    }
+    return () => mounted = false;
   }, []);
 
   useEffect(() => {
-    if (searchValue) {
-      delayedHandleChange();
-    } else {
-      setFilteredArticlesList(articlesList);
-      setNoFoundDataErr(false);
+    let mounted = true;
+    if (mounted) {
+      if (searchValue) {
+        delayedHandleChange();
+      } else {
+        setFilteredArticlesList(articlesList);
+        setNoFoundDataErr(false);
+      }
     }
+    return () => mounted = false;
   }, [searchValue, articlesList]);
 
   const delayedHandleChange = debounce(() => getFilteredAtricles(), 2500);

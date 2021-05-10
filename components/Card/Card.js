@@ -12,109 +12,110 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
     }
   }, [article, user]);
 
-  return (
-    <div className={`col-xl-3 col-lg-4 col-md-6 my-3 p-3 `} key={article.id}>
-      <div className={`p-3 ${CardStyle.wrapper}`}>
-        <div className="position-relative">
-          {canDelete && (
-            <ConfirmatiomDialog
-              className={`position-absolute  ${CardStyle.delete}`}
-              dialogTitle="Are You Sure You Want To Delete This Article ?"
-              cancelText="No"
-              confirmText="Yes"
-              handleConfirm={() => deleteArticle(article.id)}
-              clickableItem={
-                <img src="/assets/images/delete.svg" alt="delete" />
-              }
-            />
-          )}
-          <h5 className={`${canDelete && "pt-4"}`} id={article.id}></h5>
-        </div>
-        <div className="d-flex justify-content-center flex-column align-items-center pt-4">
-          <img
-            src={
-              article.authorPhoto
-                ? article.authorPhoto
-                : "/assets/images/placeholder.jpg"
-            }
-            alt="author"
-            className="profile-img-medium"
+  const renderCardTemplate = () => (
+    <div className={`p-3 ${CardStyle.wrapper}`}>
+      <div className="position-relative">
+        {canDelete && (
+          <ConfirmatiomDialog
+            className={`position-absolute  ${CardStyle.delete}`}
+            dialogTitle="Are You Sure You Want To Delete This Article ?"
+            cancelText="No"
+            confirmText="Yes"
+            handleConfirm={() => deleteArticle(article.id)}
+            clickableItem={<img src="/assets/images/delete.svg" alt="delete" />}
           />
-          <div className="d-flex  my-3 align-items-baseline">
-            <span className={`mx-1`}>By: </span>{" "}
-            <h6 className={` ${CardStyle.author}`}>{article.authorName}</h6>
-          </div>
+        )}
+        <h5 className={`${canDelete && "pt-4"}`} id={article.id}></h5>
+      </div>
+      <div className="d-flex justify-content-center flex-column align-items-center pt-4">
+        <img
+          src={
+            article.authorPhoto
+              ? article.authorPhoto
+              : "/assets/images/placeholder.jpg"
+          }
+          alt="author"
+          className="profile-img-medium"
+        />
+        <div className="d-flex  my-3 align-items-baseline">
+          <span className={`mx-1`}>By: </span>{" "}
+          <h6 className={` ${CardStyle.author}`}>{article.authorName}</h6>
         </div>
-        <div className="d-flex justify-content-between align-items-baseline">
+      </div>
+      <div className="d-flex justify-content-between align-items-baseline">
+        <div
+          className={`px-3 py-2 my-2  ${CardStyle.category}`}
+          style={{ backgroundColor: article.color }}
+        >
+          <span>{article.categoryName}</span>
+        </div>
+        {(user &&
+          user.uid &&
+          article.favouritBY.filter((obj) => obj.id === user.uid).length ===
+            0 &&
+          article.authorID !== user.uid) ||
+        !user ||
+        Object.keys(user).length === 0 ? (
           <div
-            className={`px-3 py-2 my-2  ${CardStyle.category}`}
-            style={{ backgroundColor: article.color }}
+            className="d-flex flex-column align-items-center"
+            onClick={(e) =>
+              addToFavourites(e, user, article, article.favouritBY)
+            }
           >
-            <span>{article.categoryName}</span>
+            <img
+              src="/assets/images/unfavorite.svg"
+              alt="favorite"
+              className={`fav`}
+            />
+            <p className="mb-0 small font-weight-bold dimmed-text">
+              {article.favouritBY.length}
+            </p>
           </div>
-          {(user &&
-            user.uid &&
-            article.favouritBY.filter((obj) => obj.id === user.uid).length ===
-              0 &&
-            article.authorID !== user.uid) ||
-          !user ||
-          Object.keys(user).length === 0 ? (
-            <div
-              className="d-flex flex-column align-items-center"
-              onClick={(e) =>
-                addToFavourites(e, user, article, article.favouritBY)
-              }
-            >
+        ) : user &&
+          article.favouritBY.filter((obj) => obj.id === user.uid).length > 0 ? (
+          <div
+            className="d-flex flex-column align-items-center"
+            onClick={(e) =>
+              addToFavourites(e, user, article, article.favouritBY)
+            }
+          >
+            <img
+              src="/assets/images/favourites.svg"
+              alt="unfavorite"
+              className={`fav`}
+            />
+            <p className="mb-0 small font-weight-bold dimmed-text">
+              {article.favouritBY.length}
+            </p>
+          </div>
+        ) : (
+          user &&
+          article.authorID === user.uid && (
+            <div className="d-flex flex-column align-items-center">
               <img
                 src="/assets/images/unfavorite.svg"
-                alt="favorite"
-                className={`fav`}
-              />
-              <p className="mb-0 small font-weight-bold dimmed-text">
-                {article.favouritBY.length}
-              </p>
-            </div>
-          ) : user &&
-            article.favouritBY.filter((obj) => obj.id === user.uid).length >
-              0 ? (
-            <div
-              className="d-flex flex-column align-items-center"
-              onClick={(e) =>
-                addToFavourites(e, user, article, article.favouritBY)
-              }
-            >
-              <img
-                src="/assets/images/favourites.svg"
                 alt="unfavorite"
-                className={`fav`}
+                className={`disabledfav`}
               />
-              <p className="mb-0 small font-weight-bold dimmed-text">
+              <p className="mb-0 small font-weight-bold">
                 {article.favouritBY.length}
               </p>
             </div>
-          ) : (
-            user &&
-            article.authorID === user.uid && (
-              <div className="d-flex flex-column align-items-center">
-                <img
-                  src="/assets/images/unfavorite.svg"
-                  alt="unfavorite"
-                  className={`disabledfav`}
-                />
-                <p className="mb-0 small font-weight-bold">
-                  {article.favouritBY.length}
-                </p>
-              </div>
-            )
-          )}
-        </div>
-        <hr />
-        <Link href="/details/[id]" as={`/details/${article.id}`}>
-          <a>
-            <div className="d-flex justify-content-center mt-2 pt-2">Read</div>
-          </a>
-        </Link>
+          )
+        )}
       </div>
+      <hr />
+      <Link href="/details/[id]" as={`/details/${article.id}`}>
+        <a>
+          <div className="d-flex justify-content-center mt-2 pt-2">Read</div>
+        </a>
+      </Link>
+    </div>
+  );
+
+  return (
+    <div className={`col-xl-3 col-lg-4 col-md-6 my-3 p-3 `} key={article.id}>
+      {renderCardTemplate()}
     </div>
   );
 };

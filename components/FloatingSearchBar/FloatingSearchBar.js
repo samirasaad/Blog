@@ -6,7 +6,7 @@ function FloatingSearchBar({
   handleSubmitSearch,
   searchValue,
   placeholder,
-  className
+  className,
 }) {
   return (
     <form

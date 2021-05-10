@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import HeadTabs from "../../components/HeadTabs/HeadTabs";
-import withPrivateRoute from "../../routeGuard/PrivateRoute";
-import withTestPrivateRoute from "../../routeGuard/TestPrivateRoute";
 import { db } from "./../../firebase";
 import { ARTICLES, FAVORITES } from "./../../utils/constants";
 import Cookies from "js-cookie";
@@ -22,17 +20,24 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsSnackbarOpen(false);
-    }, 4000);
+    let mounted = true;
+    if (mounted) {
+      setTimeout(() => {
+        setIsSnackbarOpen(false);
+      }, 4000);
+    }
+    return () => mounted = false;
   }, [isSnackbarOpen]);
 
   useEffect(() => {
-    if (user && user.uid) {
+    let mounted = true;
+    if (user && user.uid && mounted) {
       setLoading(true);
       getMyArticles();
       getMyFavourites();
     }
+
+    return () => mounted = false;
   }, [user]);
 
   const getMyArticles = () => {

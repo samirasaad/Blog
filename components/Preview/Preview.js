@@ -1,23 +1,13 @@
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import Article from "../../components/Article/Article";
 import Btn from "../../components/controls/Btn/Btn";
-import previewStyles from "./preview.module.scss";
 import TooltipComp from "../TooltipComp/TooltipComp";
+import previewStyles from "./preview.module.scss";
 
 const Preview = ({ handleEdit, user, articleInfo }) => {
-  // const [articleInfo, setArticleInfo] = useState("");
-
-  // useEffect(() => {
-  //   Cookies.get("article") &&
-  //     setArticleInfo(JSON.parse(Cookies.get("article")));
-  // }, []);
-
-  return (
-    <section className="container section-min-height">
+  const renderPreview = () => (
+    <>
       <div className="d-flex justify-content-end my-5 mx-3">
         <TooltipComp id="edit" place="top" effect="solid" type="info" />
-
         <Btn
           className={`px-0 ${previewStyles.edit}`}
           handleClick={handleEdit}
@@ -31,7 +21,12 @@ const Preview = ({ handleEdit, user, articleInfo }) => {
           }
         />
       </div>
-      {articleInfo && <Article articleInfo={articleInfo} user={user} />}
+      <Article articleInfo={articleInfo} user={user} />
+    </>
+  );
+  return (
+    <section className="container section-min-height">
+      {articleInfo && renderPreview()}
     </section>
   );
 };

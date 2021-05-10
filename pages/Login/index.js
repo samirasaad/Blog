@@ -34,16 +34,24 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isUserExist) {
-    } else if (!isUserExist && user) {
-      storeUser();
+    let mounted = true;
+    if (mounted) {
+      if (isUserExist) {
+      } else if (!isUserExist && user) {
+        storeUser();
+      }
     }
+    return () => mounted = false;
   }, [user]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsSnackbarOpen(false);
-    }, 4000);
+    let mounted = true;
+    if (mounted) {
+      setTimeout(() => {
+        setIsSnackbarOpen(false);
+      }, 4000);
+    }
+    return () => mounted = false;
   }, [isSnackbarOpen]);
 
   const checkUserExistenece = async (user) => {

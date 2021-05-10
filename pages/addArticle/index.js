@@ -35,7 +35,6 @@ const AddArticle = () => {
       }
       articleStoredData = JSON.parse(localStorage.getItem("article"));
     }
-
     if (articleStoredData) {
       setArticle({
         content: articleStoredData.content,
@@ -47,9 +46,13 @@ const AddArticle = () => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsSnackbarOpen(false);
-    }, 4000);
+    let mounted = true;
+    if (mounted) {
+      setTimeout(() => {
+        setIsSnackbarOpen(false);
+      }, 4000);
+    }
+    return () => mounted = false;
   }, [isSnackbarOpen]);
 
   const handleEditorChange = (content, editor) => {
@@ -126,6 +129,106 @@ const AddArticle = () => {
     setIsPreview(false);
   };
 
+  const renderArticleForm = () => (
+    <form onSubmit={handleSubmit}>
+      <div className="d-flex justify-content-end mb-3">
+        {article.content &&
+          article.categoryName &&
+          article.colorValue &&
+          article.title && (
+            <TooltipComp id="preview" place="top" effect="solid" type="info" />
+          )}
+        <Btn
+          className={`${
+            !article.content ||
+            !article.categoryName ||
+            !article.colorValue ||
+            !article.title
+              ? addArticleStyles.disabled_btn
+              : addArticleStyles.enabled_btn
+          } ${addArticleStyles.preview}`}
+          type="button"
+          handleClick={handlePreview}
+          disabled={!article.content}
+          content={
+            <img
+              data-for="preview"
+              data-tip="Preview"
+              src="/assets/images/eye.svg"
+              alt="preview"
+            />
+          }
+        />
+        {article.content &&
+          article.categoryName &&
+          article.colorValue &&
+          article.title && (
+            <TooltipComp id="publish" place="top" effect="solid" type="info" />
+          )}
+        <Btn
+          className={`${
+            !article.content ||
+            !article.categoryName ||
+            !article.colorValue ||
+            !article.title
+              ? addArticleStyles.disabled_btn
+              : addArticleStyles.enabled_btn
+          } ${addArticleStyles.save}`}
+          type="submit"
+          disabled={!article.content}
+          content={
+            <img
+              data-for="publish"
+              data-tip="Publish"
+              src="/assets/images/save.svg"
+              alt="save"
+            />
+          }
+        />
+      </div>
+      <div className="">
+        <h3 className="mt-4">Article title</h3>
+        <InputField
+          handleChange={handleTitleChange}
+          placeholder="title"
+          className={`p-2 w-100 `}
+          inputValue={article.title}
+          autoFocus={true}
+          type="text"
+        />
+      </div>
+      <h3 className="mt-4">Article Content </h3>
+      <TextEditor
+        className="mb-4"
+        handleEditorChange={handleEditorChange}
+        id="article-editor"
+        initialValue={article.content}
+        value={article.content}
+      />
+      <h3 className="mt-4">Article Category</h3>
+      <div>
+        <div className="mt-3">
+          <label>Category Name:</label>
+          <div className="">
+            <InputField
+              handleChange={handleCategoryChange}
+              placeholder="Category name"
+              className={`p-2`}
+              inputValue={article.categoryName}
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="mt-4">
+          <label>Category Color [Label]: </label>
+          <Picker
+            colorValue={article.colorValue}
+            handleColorChange={handleColorChange}
+          />
+        </div>
+      </div>
+    </form>
+  );
   return (
     <section className="container section-min-height">
       <HeadSection
@@ -153,114 +256,7 @@ const AddArticle = () => {
           <LoaderComp />
         </div>
       ) : !loading && !isPreview ? (
-        <form onSubmit={handleSubmit}>
-          <div className="d-flex justify-content-end mb-3">
-            {article.content &&
-              article.categoryName &&
-              article.colorValue &&
-              article.title && (
-                <TooltipComp
-                  id="preview"
-                  place="top"
-                  effect="solid"
-                  type="info"
-                />
-              )}
-            <Btn
-              className={`${
-                !article.content ||
-                !article.categoryName ||
-                !article.colorValue ||
-                !article.title
-                  ? addArticleStyles.disabled_btn
-                  : addArticleStyles.enabled_btn
-              } ${addArticleStyles.preview}`}
-              type="button"
-              handleClick={handlePreview}
-              disabled={!article.content}
-              content={
-                <img
-                  data-for="preview"
-                  data-tip="Preview"
-                  src="/assets/images/eye.svg"
-                  alt="preview"
-                />
-              }
-            />
-            {article.content &&
-              article.categoryName &&
-              article.colorValue &&
-              article.title && (
-                <TooltipComp
-                  id="publish"
-                  place="top"
-                  effect="solid"
-                  type="info"
-                />
-              )}
-            <Btn
-              className={`${
-                !article.content ||
-                !article.categoryName ||
-                !article.colorValue ||
-                !article.title
-                  ? addArticleStyles.disabled_btn
-                  : addArticleStyles.enabled_btn
-              } ${addArticleStyles.save}`}
-              type="submit"
-              disabled={!article.content}
-              content={
-                <img
-                  data-for="publish"
-                  data-tip="Publish"
-                  src="/assets/images/save.svg"
-                  alt="save"
-                />
-              }
-            />
-          </div>
-          <div className="">
-            <h3 className="mt-4">Article title</h3>
-            <InputField
-              handleChange={handleTitleChange}
-              placeholder="title"
-              className={`p-2 w-100 `}
-              inputValue={article.title}
-              autoFocus={true}
-              type="text"
-            />
-          </div>
-          <h3 className="mt-4">Article Content </h3>
-          <TextEditor
-            className="mb-4"
-            handleEditorChange={handleEditorChange}
-            id="article-editor"
-            initialValue={article.content}
-            value={article.content}
-          />
-          <h3 className="mt-4">Article Category</h3>
-          <div>
-            <div className="mt-3">
-              <label>Category Name:</label>
-              <div className="">
-                <InputField
-                  handleChange={handleCategoryChange}
-                  placeholder="Category name"
-                  className={`p-2`}
-                  inputValue={article.categoryName}
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="mt-4">
-              <label>Category Color [Label]: </label>
-              <Picker
-                colorValue={article.colorValue}
-                handleColorChange={handleColorChange}
-              />
-            </div>
-          </div>
-        </form>
+        renderArticleForm()
       ) : (
         !loading &&
         isPreview && (

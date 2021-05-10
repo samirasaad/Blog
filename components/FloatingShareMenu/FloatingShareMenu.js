@@ -1,9 +1,7 @@
-
 import { shareIcons } from "../../utils/dataSource";
 import FloatingShareMenuStyles from "./FloatingShareMenu.module.scss";
 
 const FloatingShareMenu = ({ url }) => {
- 
   return (
     <div className={`${FloatingShareMenuStyles.floating_share_menu}`}>
       {shareIcons.map((item) => (

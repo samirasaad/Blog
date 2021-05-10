@@ -2,8 +2,7 @@ import React from "react";
 import ReactSnackBar from "react-js-snackbar";
 
 const Snackbar = ({ isOpen, msg, type }) => {
-
-    return (
+  return (
     <div>
       <ReactSnackBar
         Icon={type == "error" ? <span>❗</span> : <span>✅ </span>}

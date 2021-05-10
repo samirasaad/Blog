@@ -42,6 +42,7 @@ const TextEditor = ({
               alignleft aligncenter alignright alignjustify | \
               bullist numlist outdent indent | removeformat  ",
         // auto_focus:{id}
+          /***************************** upload img **************************************/
         file_picker_types: "image",
         /* enable automatic uploads of images represented by blob or data URIs*/
         automatic_uploads: true,
@@ -49,7 +50,6 @@ const TextEditor = ({
           var input = document.createElement("input");
           input.setAttribute("type", "file");
           input.setAttribute("accept", "image/*");
-
           /*
             Note: In modern browsers input[type="file"] is functional without
             even adding it to the DOM, but that might not be the case in some older
@@ -57,10 +57,8 @@ const TextEditor = ({
             just in case, and visually hide it. And do not forget do remove it
             once you do not need it anymore.
           */
-
           input.onchange = function () {
             var file = this.files[0];
-
             var reader = new FileReader();
             reader.onload = function () {
               /*
@@ -74,14 +72,13 @@ const TextEditor = ({
               var blobInfo = blobCache.create(id, file, base64);
               console.log(blobInfo);
               blobCache.add(blobInfo);
-
               /* call the callback and populate the Title field with the file name */
               cb(blobInfo.blobUri(), { title: file.name });
             };
             reader.readAsDataURL(file);
           };
-
           input.click();
+          /****************************************************************************/
         },
       }}
       initialValue={initialValue}

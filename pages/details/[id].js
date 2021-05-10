@@ -25,7 +25,11 @@ const articleDetails = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
-    articleID && getArticleDetails();
+    let mounted = true;
+    if (mounted && articleID) {
+      articleID && getArticleDetails();
+    }
+    return ()=> mounted=false
   }, [articleID]);
 
   const getArticleDetails = () => {
