@@ -41,7 +41,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
             className="profile-img-medium"
           />
           <div className="d-flex  my-3 align-items-baseline">
-            <span className='mx-1'>By: </span> <h6>{article.authorName}</h6>
+            <span className={`mx-1 ${CardStyle.author}`}>By: </span> <h6>{article.authorName}</h6>
           </div>
         </div>
         <div className="d-flex justify-content-between align-items-baseline">
