@@ -59,10 +59,10 @@ const articleDetails = () => {
       <Head>
         <title>title</title>
 
-        <meta property="og:title" content="" />
+        <meta property="og:title" content="title" />
         <meta property="og:url" content="" />
         <meta property="og:type" content="article" />
-        <meta property="og:description" content="" />
+        <meta property="og:description" content="title" />
         <meta property="og:image" content="" />
 
         {/* twitter meta tags  */}
