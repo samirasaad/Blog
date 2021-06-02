@@ -4,7 +4,11 @@ import "react-color-picker/index.css";
 
 const Picker = ({ colorValue, handleColorChange }) => {
   return (
-    <ChromePicker onChangeComplete={handleColorChange} color={colorValue} />
+    <ChromePicker
+      onChangeComplete={handleColorChange}
+      color={colorValue}
+      disableAlpha={true}
+    />
   );
 };
 
