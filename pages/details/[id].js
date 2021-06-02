@@ -1,4 +1,3 @@
-import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db } from "../../firebase";
@@ -54,15 +53,24 @@ const articleDetails = ({ id }) => {
 
   return (
     <section className="section-min-height">
-      <Head>
-        {/* <title>article</title> */}
-        <meta property="og:author" content="Samira Saad" />
-        <meta property="og:title" content={articleInfo && articleInfo.title} />
-        <meta property="og:description" content='description' />
-        {/* <meta property="og:image" content={articleInfo.image} /> */}
-        {/* <meta name="twitter:card" content="summary_large_image" /> */}
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      {articleInfo && (
+        <HeadSection
+          title={`Blog | ${articleInfo.title}`}
+          metadata={[
+            {
+              name: "description",
+              content: "Next.js blog app react, next js and firebase",
+            },
+            {
+              name: "keywords",
+              content:
+                "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
+            },
+            { name: "author", content: "Samira Saad" },
+          ]}
+          links={[{ rel: "icon", href: "/favicon.ico" }]}
+        />
+      )}
       {articleInfo && !loading ? (
         <>
           <AuthorInfo
