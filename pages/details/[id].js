@@ -54,7 +54,7 @@ const articleDetails = ({ id }) => {
 
   return (
     <section className="section-min-height">
-      {articleInfo && (
+      {articleInfo && 
         // <HeadSection
         //   title={`Blog | ${articleInfo.title}`}
         //   metadata={[
@@ -79,11 +79,11 @@ const articleDetails = ({ id }) => {
            <title>{articleInfo.title}</title>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content={articleInfo.title} />
-        <meta property="og:description" content={articleInfo.description} />
+        <meta property="og:description" content='Next.js blog app react, next js and firebase' />
         <meta property="og:image" content={articleInfo.image} />
         <meta name="twitter:card" content="summary_large_image" />
         </Head>
-      )}
+   }
       {articleInfo && !loading ? (
         <>
           <AuthorInfo
