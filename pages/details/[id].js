@@ -55,12 +55,13 @@ const articleDetails = ({ id }) => {
   return (
     <section className="section-min-height">
       <Head>
-        <title>{articleInfo && articleInfo.title}</title>
-        <meta name="author" content="Samira Saad" />
-        <meta
-          name="description"
-          content={`blog article about ${articleInfo && articleInfo.title}`}
-        />
+        <title>article</title>
+        <meta property="og:author" content="Samira Saad" />
+        <meta property="og:title" content={articleInfo && articleInfo.title} />
+        <meta property="og:description" content='description' />
+        {/* <meta property="og:image" content={articleInfo.image} /> */}
+        {/* <meta name="twitter:card" content="summary_large_image" /> */}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       {articleInfo && !loading ? (
         <>
