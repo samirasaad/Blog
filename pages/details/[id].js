@@ -57,6 +57,10 @@ const articleDetails = ({ id }) => {
         title={`Blog | ${articleInfo && articleInfo.title}`}
         metadata={[
           {
+            name: "title",
+            content: `${articleInfo && articleInfo.title}`,
+          },
+          {
             name: "description",
             content: "Next.js blog app react, next js and firebase",
           },
