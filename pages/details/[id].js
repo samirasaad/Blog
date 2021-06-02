@@ -55,7 +55,7 @@ const articleDetails = ({ id }) => {
   return (
     <section className="section-min-height">
       <Head>
-        <title>article</title>
+        {/* <title>article</title> */}
         <meta property="og:author" content="Samira Saad" />
         <meta property="og:title" content={articleInfo && articleInfo.title} />
         <meta property="og:description" content='description' />
