@@ -58,10 +58,12 @@ const articleDetails = ({ id }) => {
         <Head>
           <title>{articleInfo.title}</title>
           <link rel="icon" href="/favicon.ico" />
-          <meta name='title' property="og:title" content={articleInfo.title} />
           <meta
-          name='description'
-            property="og:description"
+          //  name='title'
+            name="og:title" content={articleInfo.title} />
+          <meta
+          // name='description'
+            name="og:description"
             content="Next.js blog app react, next js and firebase"
           />
           {/* <meta property="og:image" content={articleInfo.image} />
