@@ -24,23 +24,21 @@ const Home = () => {
     if (mounted) {
       getArticlesFirestore();
     }
-    return () => mounted = false;
+    return () => (mounted = false);
   }, []);
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       if (searchValue) {
-        delayedHandleChange();
+        // delayedHandleChange();
       } else {
         setFilteredArticlesList(articlesList);
         setNoFoundDataErr(false);
       }
     }
-    return () => mounted = false;
-  }, [searchValue, articlesList]);
-
-  const delayedHandleChange = debounce(() => getFilteredAtricles(), 2500);
+    return () => (mounted = false);
+  }, [searchValue]);
 
   const getArticlesFirestore = async () => {
     setLoading(true);
@@ -67,8 +65,8 @@ const Home = () => {
   const getFilteredAtricles = () => {
     let filteredList = articlesList.filter(
       (obj) =>
-        obj.authorName.includes(searchValue) ||
-        obj.categoryName.includes(searchValue)
+        obj.authorName.toLowerCase().includes(searchValue) ||
+        obj.categoryName.toLowerCase().includes(searchValue)
     );
     setFilteredArticlesList(filteredList);
     if (filteredList.length === 0) {
