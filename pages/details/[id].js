@@ -56,14 +56,14 @@ const articleDetails = ({ id }) => {
     <section className="section-min-height">
       {articleInfo&&
         <Head>
-          <title>{articleInfo.title}</title>
+          <title>title</title>
           <link rel="icon" href="/favicon.ico" />
           <meta
           //  name='title'
-            name="og:title" content={articleInfo.title} />
+            name="title" content='title' />
           <meta
           // name='description'
-            name="description"
+            property="description"
             content="Next.js blog app react, next js and firebase"
           />
           {/* <meta property="og:image" content={articleInfo.image} />
