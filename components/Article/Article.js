@@ -107,7 +107,7 @@ const Article = ({ user, articleInfo, articleFullURL, isDetails }) => {
   );
   return (
     <section className={`container ${ArticleStyles.wrapper}`}>
-      {isDetails && <FloatingShareMenu url={articleFullURL} />}
+      {isDetails && articleFullURL && <FloatingShareMenu url={articleFullURL} />}
       {renderArticleTemplate()}
     </section>
   );

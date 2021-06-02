@@ -54,36 +54,20 @@ const articleDetails = ({ id }) => {
 
   return (
     <section className="section-min-height">
-      {articleInfo && 
-        // <HeadSection
-        //   title={`Blog | ${articleInfo.title}`}
-        //   metadata={[
-        //     {
-        //       name: "title",
-        //       content: `${articleInfo.title}`,
-        //     },
-        //     {
-        //       name: "description",
-        //       content: "Next.js blog app react, next js and firebase",
-        //     },
-        //     {
-        //       name: "keywords",
-        //       content:
-        //         "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
-        //     },
-        //     { name: "author", content: "Samira Saad" },
-        //   ]}
-        //   links={[{ rel: "icon", href: "/favicon.ico" }]}
-        // />
+      {articleInfo&&
         <Head>
-           <title>{articleInfo.title}</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content={articleInfo.title} />
-        <meta property="og:description" content='Next.js blog app react, next js and firebase' />
-        <meta property="og:image" content={articleInfo.image} />
-        <meta name="twitter:card" content="summary_large_image" />
+          <title>{articleInfo.title}</title>
+          <link rel="icon" href="/favicon.ico" />
+          <meta name='title' property="og:title" content={articleInfo.title} />
+          <meta
+          name='description'
+            property="og:description"
+            content="Next.js blog app react, next js and firebase"
+          />
+          {/* <meta property="og:image" content={articleInfo.image} />
+          <meta name="twitter:card" content="summary_large_image" /> */}
         </Head>
-   }
+      }
       {articleInfo && !loading ? (
         <>
           <AuthorInfo
