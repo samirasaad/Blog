@@ -121,6 +121,11 @@ h3 {
   @include box-shadow(0px 1px 5px 3px #dcdcdc);
 }
 
+.category-label {
+  border-radius: 2em;
+  color: white;
+  text-transform: capitalize;
+}
 .profile-img-small {
   height: 50px;
   width: 50px;

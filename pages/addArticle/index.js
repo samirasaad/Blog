@@ -71,6 +71,7 @@ const AddArticle = () => {
   };
 
   const handleColorChange = (e) => {
+    console.log(e)
     setArticle({ ...article, colorValue: e.hex });
   };
 
@@ -220,7 +221,10 @@ const AddArticle = () => {
           </div>
         </div>
         <div className="mt-4">
-          <label>Category Color [Label]: </label>
+          <label>Category Color [Label]: 
+             <span className='text-white category-label mx-3 p-2 '
+             style={{backgroundColor : `${article.colorValue}`}}>
+               {article.colorValue}</span></label>
           <Picker
             colorValue={article.colorValue}
             handleColorChange={handleColorChange}

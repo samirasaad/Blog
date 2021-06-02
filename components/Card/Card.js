@@ -44,7 +44,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
       </div>
       <div className="d-flex justify-content-between align-items-baseline">
         <div
-          className={`px-3 py-2 my-2  ${CardStyle.category}`}
+          className={`px-3 py-2 my-2 category-label`}
           style={{ backgroundColor: article.color }}
         >
           <span>{article.categoryName}</span>
