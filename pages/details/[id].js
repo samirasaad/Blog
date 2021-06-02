@@ -54,9 +54,14 @@ const articleDetails = ({ id }) => {
 
   return (
     <section className="section-min-height">
-        <Head>
-          <title>{articleInfo && articleInfo.title}</title>
-        </Head>
+      <Head>
+        <title>{articleInfo && articleInfo.title}</title>
+        <meta name="author" content="Samira Saad" />
+        <meta
+          name="description"
+          content={`blog article about ${articleInfo && articleInfo.title}`}
+        />
+      </Head>
       {articleInfo && !loading ? (
         <>
           <AuthorInfo
