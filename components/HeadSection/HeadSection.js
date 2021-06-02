@@ -6,7 +6,12 @@ const HeadSection = ({ title, metadata, links }) => {
       {metadata &&
         metadata.length > 0 &&
         metadata.map(({ name, content }) => (
-          <meta name={name} property={`og:${name}`} content={content} key={`${name}-key`} />
+          <meta
+            // name={name}
+            property={`og:${name}`}
+            content={content}
+            key={`${name}-key`}
+          />
         ))}
       {links &&
         links.length > 0 &&

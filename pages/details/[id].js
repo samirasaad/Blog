@@ -9,12 +9,13 @@ import HeadSection from "../../components/HeadSection/HeadSection";
 import LoaderComp from "../../components/Loader/Loader";
 import Head from "next/head";
 
-const articleDetails = ({ id }) => {
+const articleDetails = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [articleID, setArticleID] = useState(null);
   const [articleInfo, setArticleInfo] = useState(null);
+  const id = router.query.id;
 
   useEffect(() => {
     Cookies.get("userInfo") &&
@@ -54,22 +55,23 @@ const articleDetails = ({ id }) => {
 
   return (
     <section className="section-min-height">
-      {articleInfo&&
-        <Head>
-          <title>title</title>
-          <link rel="icon" href="/favicon.ico" />
-          <meta
-          //  name='title'
-            name="title" content='title' />
-          <meta
-          // name='description'
-            property="description"
-            content="Next.js blog app react, next js and firebase"
-          />
-          {/* <meta property="og:image" content={articleInfo.image} />
-          <meta name="twitter:card" content="summary_large_image" /> */}
-        </Head>
-      }
+      {/* {articleInfo && ( */}
+      <Head>
+        <title>title</title>
+
+        <meta property="og:title" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:type" content="article" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+
+        {/* twitter meta tags  */}
+        {/* <meta property="twitter:title" content="" />
+        <meta property="twitter:description" content="" />
+        <meta property="twitter:image" content="" />
+        <meta property="twitter:card" content="" /> */}
+      </Head>
+      {/* )} */}
       {articleInfo && !loading ? (
         <>
           <AuthorInfo
@@ -96,9 +98,9 @@ const articleDetails = ({ id }) => {
 
 export default articleDetails;
 
-articleDetails.getInitialProps = async (ctx) => {
-  const id = ctx.query.id;
-  return {
-    id,
-  };
-};
+// articleDetails.getInitialProps = async (ctx) => {
+//   const id = ctx.query.id;
+//   return {
+//     id,
+//   };
+// };
