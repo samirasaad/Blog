@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db } from "../../firebase";
@@ -29,7 +30,7 @@ const articleDetails = ({ id }) => {
     if (mounted && articleID) {
       articleID && getArticleDetails();
     }
-    return ()=> mounted=false
+    return () => (mounted = false);
   }, [articleID]);
 
   const getArticleDetails = () => {
@@ -53,22 +54,9 @@ const articleDetails = ({ id }) => {
 
   return (
     <section className="section-min-height">
-      <HeadSection
-        title={`Blog | ${articleInfo ? articleInfo.title : "Article details"}`}
-        metadata={[
-          {
-            name: "description",
-            content: "Next.js blog app react, next js and firebase",
-          },
-          {
-            name: "keywords",
-            content:
-              "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
-          },
-          { name: "author", content: "Samira Saad" },
-        ]}
-        links={[{ rel: "icon", href: "/favicon.ico" }]}
-      />
+        <Head>
+          <title>{articleInfo && articleInfo.title}</title>
+        </Head>
       {articleInfo && !loading ? (
         <>
           <AuthorInfo

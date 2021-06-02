@@ -7,6 +7,7 @@ const FloatingShareMenu = ({ url }) => {
       {shareIcons.map((item) => (
         <p key={item.id} className={`${FloatingShareMenuStyles.share_icon}`}>
           <item.btn
+            quote='https://blog-samirasaad.vercel.ap'
             children={<item.icon size={32} round={`true`} />}
             url={url}
           />
