@@ -1,6 +1,8 @@
 @import "./../../styles/scss/variables";
 .wrapper {
-  background-image: linear-gradient(to right, #0c6d8b, #6fccdd, #a6eaf6 235%);
+  div {
+    border-top: 1px solid #f1f1f1;
+  }
   border-radius: 6px;
-  color: white;
+  color: $primaryColor;
 }

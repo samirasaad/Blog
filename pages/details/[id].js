@@ -76,21 +76,21 @@ const articleDetails = ({ id }) => {
       />
       {articleInfo && !loading ? (
         <>
-          {/* AUTHOR INFO  */}
-          {/* <AuthorInfo
-            authorInfo={{
-              authorName: articleInfo && articleInfo.authorName,
-              authorPhoto: articleInfo && articleInfo.authorPhoto,
-            }}
-          /> */}
           {/* ARTICLE COVER */}
-          <ArticleCover img={articleInfo.coverImg} articleInfo={articleInfo}/>
+          <ArticleCover img={articleInfo.coverImg} articleInfo={articleInfo} />
           {/* ARTICLE TEMPLATE */}
           <Article
             articleInfo={articleInfo}
             articleFullURL={`${BASE_HREF}${router.asPath}`}
             isDetails={true}
             user={user}
+          />
+          {/* AUTHOR INFO  */}
+          <AuthorInfo
+            authorInfo={{
+              authorName: articleInfo && articleInfo.authorName,
+              authorPhoto: articleInfo && articleInfo.authorPhoto,
+            }}
           />
         </>
       ) : (

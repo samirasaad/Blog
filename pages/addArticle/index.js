@@ -157,23 +157,9 @@ const AddArticle = () => {
       .getDownloadURL()
       .then((imgUrl) => {
         console.log(imgUrl);
-        // localStorage.setItem("isDark", false);
-        // localStorage.setItem("isAuthnticated", true);
-        // localStorage.setItem("userPic", imgUrl);
-        // localStorage.setItem("userID", currentUser.id);
-        // localStorage.setItem(
-        //   "userFullName",
-        //   currentUser.displayName
-        //     ? currentUser.displayName
-        //     : formValues.userName.trim().charAt(0).toUpperCase() +
-        //         formValues.userName.slice(1)
-        // );
         setDownloadedUrl(imgUrl);
       })
-      .catch((err) => {
-        // setIsOpen(true);
-        // setFirebaseErrMsg(err.message);
-      });
+      .catch((err) => {});
   };
 
   const storePhotoUrlInFirestoreStorage = async () => {
@@ -184,8 +170,7 @@ const AddArticle = () => {
       .ref(`/${IMAGES}/${user.uid}-${timestamp}`)
       .put(selectedFile.file)
       .then(() => {
-        getfirestoreArticleCover(timestamp)
-       
+        getfirestoreArticleCover(timestamp);
       })
       .catch((err) => {
         setLoading(false);
@@ -213,11 +198,11 @@ const AddArticle = () => {
     });
   };
 
-  useEffect(()=>{
-    if(downloadedUrl){
-      handleSubmit()
+  useEffect(() => {
+    if (downloadedUrl) {
+      handleSubmit();
     }
-  },[downloadedUrl])
+  }, [downloadedUrl]);
   /********************************* END HANDLING IMG ************************/
 
   const handleSubmit = async (e) => {
@@ -234,7 +219,7 @@ const AddArticle = () => {
       title: article.title,
       authorName: user && user.displayName && user.displayName.toLowerCase(),
       authorPhoto: user.photoURL || "",
-      coverImg:downloadedUrl
+      coverImg: downloadedUrl,
     };
     // add article object to firestore
     await db
@@ -251,7 +236,7 @@ const AddArticle = () => {
         });
         setImgBase64(null);
         localStorage.removeItem("article");
-         setLoading(false);
+        setLoading(false);
         setIsSnackbarOpen(true);
         setMsg("Article Published successfully");
         setType("sucess");
@@ -345,8 +330,9 @@ const AddArticle = () => {
       </div>
       {/* ARTICLE COVER */}
       <div className="flex my-4 flex-column">
+        <h3 className="mt-4">Article Cover</h3>
         {(!fileErr.typeErr && !fileErr.sizeErr && !imgBase64) || !imgBase64 ? (
-          <label className="upload-btn my-4 w-50 m-auto flex-column d-flex  mt-3 justify-content-center">
+          <label className="upload-btn my-4 m-auto flex-column d-flex  mt-3 justify-content-center">
             <InputField
               type="file"
               name="image"
@@ -371,7 +357,7 @@ const AddArticle = () => {
               {/* <p className="text-center m-2 bold-font seleceted-img-name">
                 {selectedFile.fileName}
               </p> */}
-              <div className="upload-btn w-50 m-auto d-flex justify-content-center position-relative">
+              <div className="upload-btn m-auto d-flex justify-content-center position-relative">
                 <span className={``} onClick={handleRemove}>
                   <img
                     className={`position-absolute ${addArticleStyles.remove}`}
