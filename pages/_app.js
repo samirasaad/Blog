@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Provider, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Router from "next/router";
@@ -10,7 +11,6 @@ import Layout from "./../components/Layout/Layout";
 import store from "./../store";
 import "nprogress/nprogress.css";
 import "../styles/scss/base.scss";
-import { useEffect } from "react";
 
 //Binding events to display loader on router change
 Router.events.on("routeChangeStart", () => NProgress.start());
