@@ -7,6 +7,7 @@ import Article from "../../components/Article/Article";
 import AuthorInfo from "../../components/AuthorInfo/AuthorInfo";
 import HeadSection from "../../components/HeadSection/HeadSection";
 import LoaderComp from "../../components/Loader/Loader";
+import ArticleCover from "../../components/ArticleCover/ArticleCover";
 
 const articleDetails = ({ id }) => {
   const [loading, setLoading] = useState(false);
@@ -75,13 +76,15 @@ const articleDetails = ({ id }) => {
       />
       {articleInfo && !loading ? (
         <>
-        {/* AUTHOR INFO  */}
-          <AuthorInfo
+          {/* AUTHOR INFO  */}
+          {/* <AuthorInfo
             authorInfo={{
               authorName: articleInfo && articleInfo.authorName,
               authorPhoto: articleInfo && articleInfo.authorPhoto,
             }}
-          />
+          /> */}
+          {/* ARTICLE COVER */}
+          <ArticleCover img={articleInfo.coverImg} articleInfo={articleInfo}/>
           {/* ARTICLE TEMPLATE */}
           <Article
             articleInfo={articleInfo}

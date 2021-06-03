@@ -21,6 +21,12 @@ const Preview = ({ handleEdit, user, articleInfo }) => {
           }
         />
       </div>
+      {/* <div>
+        <img
+          src={articleInfo.coverImg}
+          className={`${previewStyles.preview_img}`}
+        />
+      </div> */}
       <Article articleInfo={articleInfo} user={user} />
     </>
   );

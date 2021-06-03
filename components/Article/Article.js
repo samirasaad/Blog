@@ -80,14 +80,17 @@ const Article = ({ user, articleInfo, articleFullURL, isDetails }) => {
       )}
 
       <div className={`p-3 mb-5 ${ArticleStyles.content}`}>
-        <div
-          className={`d-flex justify-content-between ${ArticleStyles.heading}`}
-        >
-          <h1 className={`px-3 font-weight-bold`}>
-            {articleInfo.title && articleInfo.title}
-          </h1>
-          <div className="mx-3 mb-2">
-            <span
+        <div className={` ${ArticleStyles.heading}`}>
+          {/* <div className={`text-center ${ArticleStyles.preview_img}`}>
+            <img
+              src={articleInfo.coverImg}
+            />
+          </div> */}
+          <div className="justify-content-between my-3 d-flex flex-wrap">
+            <h1 className={` font-weight-bold`}>
+              {articleInfo.title && articleInfo.title}
+            </h1>
+            <p
               className={`py-2 px-4 font-weight-bold ${ArticleStyles.category}`}
               style={{
                 backgroundColor: articleInfo.colorValue
@@ -96,7 +99,7 @@ const Article = ({ user, articleInfo, articleFullURL, isDetails }) => {
               }}
             >
               {articleInfo.categoryName && articleInfo.categoryName}
-            </span>
+            </p>
           </div>
         </div>
         {articleInfo && articleInfo.content && (
@@ -107,7 +110,9 @@ const Article = ({ user, articleInfo, articleFullURL, isDetails }) => {
   );
   return (
     <section className={`container ${ArticleStyles.wrapper}`}>
-      {isDetails && articleFullURL && <FloatingShareMenu url={articleFullURL} />}
+      {isDetails && articleFullURL && (
+        <FloatingShareMenu url={articleFullURL} />
+      )}
       {renderArticleTemplate()}
     </section>
   );

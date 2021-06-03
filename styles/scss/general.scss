@@ -161,3 +161,29 @@ div.sc-bdVaJa.eWkWwl {
   min-width: auto !important;
   background-color: #000000ad;
 }
+
+// to be moved to add article component
+input[type="file"] {
+  color: transparent;
+  visibility: hidden;
+}
+.upload-btn {
+  color: #000000;
+  border: 1px dashed #c5c5c5;
+  border-radius: 1em;
+  height: 18em;
+  overflow: hidden;
+  .label-content {
+    color: #818181;
+    svg {
+      font-size: 2em;
+    }
+  }
+  svg {
+    color: #818181;
+  }
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

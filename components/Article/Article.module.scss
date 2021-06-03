@@ -19,7 +19,15 @@
     }
   }
 }
-
+.preview_img {
+  height: 20em;
+  @include box-shadow(0px 2px 9px 1px #eaeaea);
+  border-radius: 1.1em;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
 @media screen and (max-width: 420px) {
   .wrapper {
     .heading {

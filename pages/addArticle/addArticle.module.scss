@@ -14,3 +14,16 @@
 .title {
   color: $primaryColor;
 }
+.upload {
+  height: 1.7em;
+  cursor: pointer;
+}
+.displayed_img {
+  height: auto;
+  max-width: 100%;
+}
+.remove {
+  right: 3px;
+  height: 1.4em !important;
+  cursor: pointer;
+}

@@ -7,6 +7,7 @@ const InputField = ({
   placeholder,
   handleChange,
   type,
+  name
 }) => {
   return (
     <input
