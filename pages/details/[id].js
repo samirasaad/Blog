@@ -77,7 +77,7 @@ const articleDetails = ({ id }) => {
       {articleInfo && !loading ? (
         <>
           {/* ARTICLE COVER */}
-          <ArticleCover img={articleInfo.coverImg} articleInfo={articleInfo} />
+          <ArticleCover img={articleInfo.coverImg} />
           {/* ARTICLE TEMPLATE */}
           <Article
             articleInfo={articleInfo}

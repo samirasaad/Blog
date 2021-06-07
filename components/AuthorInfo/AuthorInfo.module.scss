@@ -1,8 +1,11 @@
 @import "./../../styles/scss/variables";
 .wrapper {
-  div {
-    border-top: 1px solid #f1f1f1;
-  }
   border-radius: 6px;
   color: $primaryColor;
+  div:not(:nth-child(2)) {
+    border-top: 1px solid #f1f1f1;
+  }
+  p {
+    color: black;
+  }
 }

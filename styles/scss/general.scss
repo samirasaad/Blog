@@ -170,9 +170,9 @@ input[type="file"] {
 .upload-btn {
   color: #000000;
   border: 1px dashed #c5c5c5;
-  border-radius: 1em;
-  height: 18em;
-  overflow: hidden;
+  border-radius: 50%;
+  height: 10em;
+  width: 10em;
   .label-content {
     color: #818181;
     svg {

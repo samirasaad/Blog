@@ -28,15 +28,19 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
         <h5 className={`${canDelete && "pt-4"}`} id={article.id}></h5>
       </div>
       <div className="d-flex justify-content-center flex-column align-items-center pt-4">
-        <img
-          src={
-            article.authorPhoto
-              ? article.authorPhoto
-              : "/assets/images/placeholder.jpg"
-          }
-          alt="author"
-          className="profile-img-medium"
-        />
+        <div
+          className="d-flex justify-content-center"
+          style={{
+            backgroundImage: `url(${article.coverImg})`,
+            backgroundPosition: "center center",
+            height: "7em",
+            width: "7em",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            border: "1px solid #eeeeee",
+            borderRadius: "50%",
+          }}
+        ></div>
         <div className="d-flex  my-3 align-items-baseline">
           <span className={`mx-1`}>By: </span>{" "}
           <h6 className={` ${CardStyle.author}`}>{article.authorName}</h6>

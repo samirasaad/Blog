@@ -1,5 +1,6 @@
 import Article from "../../components/Article/Article";
 import Btn from "../../components/controls/Btn/Btn";
+import ArticleCover from "../ArticleCover/ArticleCover";
 import TooltipComp from "../TooltipComp/TooltipComp";
 import previewStyles from "./preview.module.scss";
 
@@ -21,12 +22,9 @@ const Preview = ({ handleEdit, user, articleInfo }) => {
           }
         />
       </div>
-      {/* <div>
-        <img
-          src={articleInfo.coverImg}
-          className={`${previewStyles.preview_img}`}
-        />
-      </div> */}
+      {/* ARTICLE COVER */}
+      <ArticleCover img={articleInfo.coverImg} />
+      {/* ARTICLE TEMPLATE */}
       <Article articleInfo={articleInfo} user={user} />
     </>
   );

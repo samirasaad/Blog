@@ -66,7 +66,8 @@ const Home = () => {
     let filteredList = articlesList.filter(
       (obj) =>
         obj.authorName.toLowerCase().includes(searchValue) ||
-        obj.categoryName.toLowerCase().includes(searchValue)
+        obj.categoryName.toLowerCase().includes(searchValue) ||
+        obj.title.toLowerCase().includes(searchValue)
     );
     setFilteredArticlesList(filteredList);
     if (filteredList.length === 0) {
@@ -143,8 +144,8 @@ const Home = () => {
             handleSearchChange={handleSearchChange}
             handleSubmitSearch={handleSubmitSearch}
             searchValue={searchValue}
-            className="mx-md-3 mx-0"
-            placeholder="Search with author name or category name"
+            className="mx-md-3 mx-0 search"
+            placeholder="Search with author /category or article title"
           />
         </div>
         {loading ? (

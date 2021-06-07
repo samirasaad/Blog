@@ -357,17 +357,18 @@ const AddArticle = () => {
               {/* <p className="text-center m-2 bold-font seleceted-img-name">
                 {selectedFile.fileName}
               </p> */}
-              <div className="upload-btn m-auto d-flex justify-content-center position-relative">
-                <span className={``} onClick={handleRemove}>
+              <div 
+              className="upload-btn m-auto d-flex justify-content-center position-relative"
+              style={{backgroundRepeat:'no-repeat', backgroundPosition:'center' , backgroundSize:'contain',backgroundImage:`url(${imgBase64})`}}>
                   <img
+                  onClick={handleRemove}
                     className={`position-absolute ${addArticleStyles.remove}`}
                     src="assets/images/cancel.svg"
                   />
-                </span>
-                <img
+                {/* <img
                   className={`${addArticleStyles.displayed_img}`}
                   src={imgBase64}
-                />
+                /> */}
               </div>
             </>
           )
