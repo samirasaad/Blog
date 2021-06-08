@@ -48,13 +48,13 @@ const AddArticle = () => {
     "image/PNG",
     "image/JPEG",
     "image/jpeg",
-    "image/SVG+XML",
-    "image/svg+xml",
+    // sharing not suuports this extensions [img will not displayed in sharing popup ]
+    // "image/SVG+XML", 
+    // "image/svg+xml",
   ];
   const fileSize = 1; //1MB
 
   useEffect(() => {
-    console.log('test deploy vercel')
     let articleStoredData = null;
     if (typeof window !== undefined) {
       if (Cookies.get("userInfo")) {
