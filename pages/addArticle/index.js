@@ -49,7 +49,7 @@ const AddArticle = () => {
     "image/JPEG",
     "image/jpeg",
     // sharing not suuports this extensions [img will not displayed in sharing popup ]
-    // "image/SVG+XML", 
+    // "image/SVG+XML",
     // "image/svg+xml",
   ];
   const fileSize = 1; //1MB
@@ -358,14 +358,20 @@ const AddArticle = () => {
               {/* <p className="text-center m-2 bold-font seleceted-img-name">
                 {selectedFile.fileName}
               </p> */}
-              <div 
-              className="upload-btn m-auto d-flex justify-content-center position-relative"
-              style={{backgroundRepeat:'no-repeat', backgroundPosition:'center' , backgroundSize:'contain',backgroundImage:`url(${imgBase64})`}}>
-                  <img
+              <div
+                className="upload-btn m-auto d-flex justify-content-center position-relative"
+                style={{
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  backgroundSize: "contain",
+                  backgroundImage: `url(${imgBase64})`,
+                }}
+              >
+                <img
                   onClick={handleRemove}
-                    className={`position-absolute ${addArticleStyles.remove}`}
-                    src="assets/images/cancel.svg"
-                  />
+                  className={`position-absolute ${addArticleStyles.remove}`}
+                  src="assets/images/cancel.svg"
+                />
                 {/* <img
                   className={`${addArticleStyles.displayed_img}`}
                   src={imgBase64}
