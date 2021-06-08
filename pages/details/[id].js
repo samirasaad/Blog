@@ -84,6 +84,14 @@ const articleDetails = ({ articleInfo }) => {
             name: "image:url",
             content: `${articleInfo.coverImg}`,
           },
+          {
+            name: "image:width",
+            content: `400`,
+          },
+          {
+            name: "image:height",
+            content: `400`,
+          },
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
       />
