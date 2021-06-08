@@ -54,6 +54,7 @@ const AddArticle = () => {
   const fileSize = 1; //1MB
 
   useEffect(() => {
+    console.log('test deploy vercel')
     let articleStoredData = null;
     if (typeof window !== undefined) {
       if (Cookies.get("userInfo")) {
