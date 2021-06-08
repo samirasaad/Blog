@@ -9,6 +9,7 @@ import Home from ".";
 import Login from "./Login";
 import Layout from "./../components/Layout/Layout";
 import store from "./../store";
+import "reflect-metadata" ;
 import "nprogress/nprogress.css";
 import "../styles/scss/base.scss";
 
