@@ -81,7 +81,7 @@ const articleDetails = ({ articleInfo }) => {
           },
           { name: "author", content: "Samira Saad" },
           {
-            name: "image",
+            name: "image:url",
             content: `${articleInfo.coverImg}`,
           },
         ]}
