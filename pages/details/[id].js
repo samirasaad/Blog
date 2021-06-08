@@ -55,20 +55,20 @@ const articleDetails = ({ articleInfo }) => {
   console.log(articleInfo);
   return (
     <section className="section-min-height">
-      <Head>
+      {/* <Head>
         <title>{`Blog | ${articleInfo && articleInfo.title}`}</title>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content={articleInfo.title} />
         {/* <meta property="og:description" content={productDetails.description} /> */}
-        <meta property="og:image" content={articleInfo.coverImg} />
-        {/* <meta name="twitter:card" content="summary_large_image" /> */}
-      </Head>
-      {/* <HeadSection
-        title={`Blog | ${articleInfo && articleInfo.title}`}
+      {/* <meta property="og:image" content={articleInfo.coverImg} /> */}
+      {/* <meta name="twitter:card" content="summary_large_image" /> */}
+      {/* </Head> */}
+      <HeadSection
+        title={`Blog | ${articleInfo.title}`}
         metadata={[
           {
             name: "title",
-            content: `${articleInfo && articleInfo.title}`,
+            content: `${articleInfo.title}`,
           },
           {
             name: "description",
@@ -80,9 +80,13 @@ const articleDetails = ({ articleInfo }) => {
               "HTML, CSS, CSS3, JavaScript, react, redux, react-redux, firebase, firestore",
           },
           { name: "author", content: "Samira Saad" },
+          {
+            name: "og:image",
+            content: `${articleInfo.coverImg}`,
+          },
         ]}
         links={[{ rel: "icon", href: "/favicon.ico" }]}
-      /> */}
+      />
       {articleInfo && !loading ? (
         <>
           {/* ARTICLE COVER */}
