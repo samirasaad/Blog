@@ -55,14 +55,6 @@ const articleDetails = ({ articleInfo }) => {
   console.log(articleInfo);
   return (
     <section className="section-min-height">
-      {/* <Head>
-        <title>{`Blog | ${articleInfo && articleInfo.title}`}</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content={articleInfo.title} />
-        {/* <meta property="og:description" content={productDetails.description} /> */}
-      {/* <meta property="og:image" content={articleInfo.coverImg} /> */}
-      {/* <meta name="twitter:card" content="summary_large_image" /> */}
-      {/* </Head> */}
       <HeadSection
         title={`Blog | ${articleInfo.title}`}
         metadata={[
@@ -127,29 +119,6 @@ export default articleDetails;
 
 articleDetails.getInitialProps = async function (ctx) {
   const id = ctx.query.id;
-  // let d = {};
-  // console.log(id);
-  // let x = await db
-  //   .collection(ARTICLES)
-  //   .where("id", "==", id)
-  //   .onSnapshot(
-  //     (querySnapshot) => {
-  //       d = querySnapshot.docs.map((doc) => {
-  //         return doc.data();
-  //       });
-  //       d = articleDetails[0];
-  //       // console.log(articleDetails)
-  //       // console.log(articleDetails)
-  //       // setArticleInfo(articleDetails[0]);
-  //       // setLoading(false);
-  //     },
-  //     (error) => {
-  //       // setLoading(false);
-  //       console.log(error);
-  //     }
-  //   );
-  // console.log(d);
-
   let articleInfo = [];
   const querySnapshot = await db.collection("Articles").get();
   querySnapshot.forEach((doc) => {
@@ -160,37 +129,3 @@ articleDetails.getInitialProps = async function (ctx) {
     articleInfo: articleInfo.find((article) => article.id === id),
   };
 };
-
-// articleDetails.getInitialProps = async (ctx) => {
-//   const id = ctx.query.id;
-//   console.log(id);
-//   let articleDetails = {};
-//   const getArticleDetails = async () => {
-//     // setLoading(true);
-//    return await db
-//       .collection(ARTICLES)
-//       .where("id", "==", id)
-//       .onSnapshot(
-//         (querySnapshot) => {
-//            articleDetails = querySnapshot.docs.map((doc) => {
-//             return doc.data();
-//           });
-//           // d = articleDetails[0];
-//           // console.log(articleDetails)
-//           // console.log(articleDetails[0])
-//           // setArticleInfo(articleDetails[0]);
-//           // setLoading(false);
-//         },
-//         (error) => {
-//           // setLoading(false);
-//           console.log(error);
-//         }
-//       );
-//   };
-//  let x = getArticleDetails()
-//   console.log(x)
-//   console.log(articleDetails)
-//   return {
-//     articleInfo: articleDetails,
-//   };
-// };
