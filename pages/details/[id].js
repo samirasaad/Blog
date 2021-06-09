@@ -15,44 +15,12 @@ const articleDetails = ({ articleInfo }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [articleID, setArticleID] = useState(null);
-  // const [articleInfo, setArticleInfo] = useState(null);
 
   useEffect(() => {
     Cookies.get("userInfo") &&
       setUser(JSON.parse(Cookies.get("userInfo")) || null);
   }, []);
 
-  // useEffect(() => {
-  //   id && setArticleID(id);
-  // }, [id]);
-
-  // useEffect(() => {
-  //   let mounted = true;
-  //   if (mounted && articleID) {
-  //     articleID && getArticleDetails();
-  //   }
-  //   return () => (mounted = false);
-  // }, [articleID]);
-
-  const getArticleDetails = () => {
-    setLoading(true);
-    db.collection(ARTICLES)
-      .where("id", "==", articleID)
-      .onSnapshot(
-        (querySnapshot) => {
-          let articleDetails = querySnapshot.docs.map((doc) => {
-            return doc.data();
-          });
-          setArticleInfo(articleDetails[0]);
-          setLoading(false);
-        },
-        (error) => {
-          setLoading(false);
-          console.log(error);
-        }
-      );
-  };
-  console.log(articleInfo);
   return (
     <section className="section-min-height">
       <HeadSection
@@ -99,12 +67,7 @@ const articleDetails = ({ articleInfo }) => {
             user={user}
           />
           {/* AUTHOR INFO  */}
-          <AuthorInfo
-            authorInfo={{
-              authorName: articleInfo && articleInfo.authorName,
-              authorPhoto: articleInfo && articleInfo.authorPhoto,
-            }}
-          />
+          <AuthorInfo articleInfo={articleInfo} />
         </>
       ) : (
         <div className="d-flex justify-content-center my-5">
