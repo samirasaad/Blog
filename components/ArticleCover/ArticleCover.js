@@ -9,7 +9,7 @@ const ArticleCover = ({ img }) => {
         style={{
           backgroundImage: `url(${img})`,
           backgroundPosition: "center",
-          backgroundSize: "contain",
+          backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       ></div>

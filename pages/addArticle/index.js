@@ -363,7 +363,7 @@ const AddArticle = () => {
                 style={{
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
-                  backgroundSize: "contain",
+                  backgroundSize: "cover",
                   backgroundImage: `url(${imgBase64})`,
                 }}
               >

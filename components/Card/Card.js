@@ -35,7 +35,7 @@ const Card = ({ article, user, canDelete, deleteArticle }) => {
             backgroundPosition: "center center",
             height: "7em",
             width: "7em",
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             border: "1px solid #eeeeee",
             borderRadius: "50%",
